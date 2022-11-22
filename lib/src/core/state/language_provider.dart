@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:interactive_i18n/src/core/state/settings_language_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageProvider with ChangeNotifier {
@@ -50,10 +49,6 @@ class LanguageProvider with ChangeNotifier {
     }
 
     await updateLocations();
-  }
-
-  String getLanguageDescription() {
-    return SettingsLanguageConstants.LANGUAGES[_language]!;
   }
 
   Future<void> updateLocations() async {

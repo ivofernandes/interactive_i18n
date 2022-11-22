@@ -1,7 +1,8 @@
 name: interactive_i18n
 description: Package for translation and let user choose the language
 version: 0.0.1
-homepage:
+homepage: https://incaview.com
+repository: https://github.com/ivofernandes/interactive_i18n
 
 environment:
   sdk: '>=2.18.2 <3.0.0'

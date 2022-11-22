@@ -25,10 +25,13 @@ class InteractiveLocalization extends StatelessWidget {
   /// Available languages map
   final List<String> availableLanguages;
 
+  /// Path where the locales json is
   final String localesPath;
 
+  ///
   final bool useDeviceLocale;
 
+  /// Function called when the user updates the language
   final Function? languageUpdated;
 
   @override

@@ -5,9 +5,12 @@ import 'package:interactive_i18n/src/ui/language_icon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectLanguageScreen extends StatelessWidget {
-  final Function? selectedNewLanguage;
+  final ValueChanged<String>? onLanguageSelected;
 
-  const SelectLanguageScreen({required this.selectedNewLanguage, super.key});
+  const SelectLanguageScreen({
+    required this.onLanguageSelected,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +47,8 @@ class SelectLanguageScreen extends StatelessWidget {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     LanguageProvider languageProvider = LanguageProvider.instance!;
     await languageProvider.updateLanguage(language, sharedPreferences);
-    if (selectedNewLanguage != null) {
-      selectedNewLanguage!.call();
+    if (onLanguageSelected != null) {
+      onLanguageSelected!(language);
     }
   }
 }

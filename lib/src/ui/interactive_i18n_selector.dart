@@ -3,13 +3,15 @@ import 'package:interactive_i18n/src/core/state/language_provider.dart';
 import 'package:interactive_i18n/src/ui/language_icon.dart';
 import 'package:interactive_i18n/src/ui/select_language_screen.dart';
 
+/// Widget to let the user select a different language
 class InteractiveI18nSelector extends StatelessWidget {
-  final Function? selectedNewLanguage;
-
   const InteractiveI18nSelector({
-    this.selectedNewLanguage,
+    this.onLanguageSelected,
     super.key,
   });
+
+  /// Callback when the user selects a new language
+  final ValueChanged<String>? onLanguageSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class InteractiveI18nSelector extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) => SelectLanguageScreen(
-            selectedNewLanguage: selectedNewLanguage,
+            onLanguageSelected: onLanguageSelected,
           ),
         ),
       ),
