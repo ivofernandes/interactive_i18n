@@ -45,7 +45,7 @@ class LanguageProvider with ChangeNotifier {
         _language = defaultLanguage;
       }
     } else {
-      _language = preferredLanguage!;
+      _language = preferredLanguage;
     }
 
     await updateLocations();

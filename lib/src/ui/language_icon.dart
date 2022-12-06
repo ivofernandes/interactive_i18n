@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 class LanguageIcon extends StatelessWidget {
   final String language;
+  final String? semanticLabel;
   final double size;
+
   const LanguageIcon({
     required this.language,
+    this.semanticLabel,
     this.size = 40,
     super.key,
   });
@@ -31,12 +34,16 @@ class LanguageIcon extends StatelessWidget {
             shape: BoxShape.rectangle,
             image: DecorationImage(
                 fit: BoxFit.fitHeight,
-                image: Image.asset('icons/flags/png/$newLanguage.png',
-                        package: 'country_icons')
-                    .image),
+                image: Image.asset(
+                  'icons/flags/png/$newLanguage.png',
+                  package: 'country_icons',
+                  semanticLabel: semanticLabel,
+                ).image),
           ),
         ),
-        Text(language.toUpperCase()),
+        Text(
+          language.toUpperCase(),
+        ),
       ],
     );
   }

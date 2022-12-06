@@ -43,15 +43,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return InteractiveLocalization(
-      availableLanguages: ['en', 'pt'],
+      availableLanguages: const ['en', 'pt'],
       languageUpdated: () => setState(() {}),
+      localesPath: 'assets/locales/',
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
           actions: [
             InteractiveI18nSelector(
               onLanguageSelected: (language) {
-                print('User picked language $language');
+                debugPrint('User picked language $language');
               },
             )
           ],

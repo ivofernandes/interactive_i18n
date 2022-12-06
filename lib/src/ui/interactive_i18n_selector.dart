@@ -23,6 +23,11 @@ class InteractiveI18nSelector extends StatelessWidget {
     // If languages are loaded
     String currentLanguage = LanguageProvider.instance!.getLanguage();
 
+    // If there are no language skip it
+    if (currentLanguage == '') {
+      return const SizedBox.shrink();
+    }
+
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -34,6 +39,7 @@ class InteractiveI18nSelector extends StatelessWidget {
       ),
       child: LanguageIcon(
         language: currentLanguage,
+        semanticLabel: 'language selection',
       ),
     );
   }
