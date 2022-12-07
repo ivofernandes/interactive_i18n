@@ -38,6 +38,7 @@ class InteractiveI18nSelector extends StatelessWidget {
         ),
       ),
       child: LanguageIcon(
+        key: const Key('language selection'),
         language: currentLanguage,
         semanticLabel: 'language selection',
       ),

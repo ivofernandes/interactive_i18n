@@ -36,6 +36,7 @@ class SelectLanguageScreen extends StatelessWidget {
               return GestureDetector(
                 onTap: () => selectLanguage(language, context),
                 child: LanguageIcon(
+                  key: Key(language),
                   language: language,
                   semanticLabel: language,
                 ),

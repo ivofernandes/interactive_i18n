@@ -2,15 +2,15 @@
 Flutter package to take care of internationalization
 
 ## Features
-. InteractiveLocalization widget to give context and the localesPath to get the translation jsons
-. 'Getter translation by adding a dot t in the end of the string'.t
-. InteractiveI18nSelector widget that you just need to add to let the user switch between languages
+- InteractiveLocalization widget to give context and the localesPath to get the translation jsons
+- 'Getter translation by adding a dot t in the end of the string'.t
+- InteractiveI18nSelector widget that you just need to add to let the user switch between languages
 
 ## Getting started
 Add the dependency to your `pubspec.yaml`:
 
 ```
-interactive_i18n: ^0.0.2
+interactive_i18n: ^0.0.3
 ```
 
 ## Usage
