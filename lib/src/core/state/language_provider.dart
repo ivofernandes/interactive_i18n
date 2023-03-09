@@ -32,22 +32,36 @@ class LanguageProvider with ChangeNotifier {
   }
 
   initLanguage(BuildContext context) async {
-    String deviceLanguage = getDeviceLanguage(context);
-
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    String? preferredLanguage = sharedPreferences.getString(languageKey);
-
-    if (preferredLanguage == null) {
-      if (useDeviceLocale) {
-        _language = deviceLanguage;
-      } else {
-        _language = defaultLanguage;
-      }
-    } else {
-      _language = preferredLanguage;
+    // To be best effort, we try to get the device language
+    // But if we can't, we just use the default language
+    String deviceLanguage = defaultLanguage;
+    try {
+      deviceLanguage = getDeviceLanguage(context);
+    } catch (error) {
+      debugPrint(error.toString());
     }
 
+    // Here we try to get the preferred language from the shared preferences
+    // If we can't, we just use the device language or the default language
+    try {
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+      String? preferredLanguage = sharedPreferences.getString(languageKey);
+
+      if (preferredLanguage == null) {
+        if (useDeviceLocale) {
+          _language = deviceLanguage;
+        } else {
+          _language = defaultLanguage;
+        }
+      } else {
+        _language = preferredLanguage;
+      }
+    } catch (error) {
+      _language = deviceLanguage;
+    }
+
+    // Update the frontend
     await updateLocations();
   }
 

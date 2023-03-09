@@ -133,11 +133,11 @@ Future<List<String>> getTranslationKeys(bool searchForKeysInOtherFiles) async {
             json.decode(content) as Map<String, dynamic>;
         final List<String> jsonKeys = jsonObject.keys.toList();
 
-        jsonKeys.forEach((key) {
+        for (var key in jsonKeys) {
           if (!keys.contains(key)) {
             keys.add(key);
           }
-        });
+        }
       }
     }
   }
