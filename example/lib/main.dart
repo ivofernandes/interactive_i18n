@@ -50,10 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
           actions: [
-            InteractiveI18nSelector(
-              onLanguageSelected: (language) {
-                debugPrint('User picked language $language');
-              },
+            Container(
+              margin: const EdgeInsets.only(right: 5),
+              child: InteractiveI18nSelector(
+                onLanguageSelected: (language) {
+                  debugPrint('User picked language $language');
+                },
+              ),
             )
           ],
         ),

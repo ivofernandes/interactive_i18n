@@ -7,9 +7,6 @@ Y
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 V
 &lib/src/ui/select_language_screen.dart,d/b/db885b9d3d9fbb2290e4b8c737684327cf7d8cf6
-:
-
-.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
 [
 +example/ios/Runner/Runner-Bridging-Header.h,c/2/c26c3979b89a625bbb531fb1fe9b18da2b40061e
 N

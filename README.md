@@ -75,6 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
+## Tests
+Check this test to validate missing translations
+https://github.com/ivofernandes/interactive_i18n/blob/main/example/test/check_translations_test.dart
+
 ## Like us on pub.dev
 Package url:
 https://pub.dev/packages/interactive_i18n/example

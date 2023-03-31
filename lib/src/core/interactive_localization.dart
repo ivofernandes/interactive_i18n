@@ -28,7 +28,7 @@ class InteractiveLocalization extends StatelessWidget {
   /// Path where the locales json is
   final String localesPath;
 
-  ///
+  /// Should the app use the device locale
   final bool useDeviceLocale;
 
   /// Function called when the user updates the language

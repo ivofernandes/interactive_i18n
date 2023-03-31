@@ -29,7 +29,6 @@ String localesDir = 'assets/locales';
 String referenceLocale = 'pt';
 
 void main() async {
-
   test('Test the translation key regex', () async {
     // Test if finds false positives
     bool shouldNotMatch = translateRegex.hasMatch("'en', 'pt");
@@ -39,7 +38,6 @@ void main() async {
     bool shouldMatch = translateRegex.hasMatch("'key'.t");
     assert(shouldMatch);
   });
-
 
   /// Find missing translation keys for the referenceLocale
   /// This test will fail if there are missing keys
@@ -113,7 +111,6 @@ Future<List<String>> getMissingKeys(String path, List<String> keys) async {
 
   return missingKeys;
 }
-
 
 /// Get all translation keys from dart source code
 /// If [searchForKeysInOtherFiles] is true, it will also search for keys in other translation files

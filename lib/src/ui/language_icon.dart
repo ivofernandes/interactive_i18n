@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
+/// Widget that displays a flag for a given language
 class LanguageIcon extends StatelessWidget {
+  /// The language to display
   final String language;
+
+  /// The semantic label for the flag
   final String? semanticLabel;
+
+  /// The size of the flag
   final double size;
 
   const LanguageIcon({
     required this.language,
     this.semanticLabel,
-    this.size = 40,
+    this.size = 38,
     super.key,
   });
 

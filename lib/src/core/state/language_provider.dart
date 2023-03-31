@@ -44,7 +44,8 @@ class LanguageProvider with ChangeNotifier {
     // Here we try to get the preferred language from the shared preferences
     // If we can't, we just use the device language or the default language
     try {
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
 
       String? preferredLanguage = sharedPreferences.getString(languageKey);
 

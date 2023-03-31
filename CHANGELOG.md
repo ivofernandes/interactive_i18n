@@ -9,3 +9,6 @@ Improved testing capabilities with keys
 
 ## 0.0.4
 Tried to avoid errors on loading
+
+## 0.0.5
+Fix formatting, improve docs
