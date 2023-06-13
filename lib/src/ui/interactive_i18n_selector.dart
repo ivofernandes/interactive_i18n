@@ -21,7 +21,7 @@ class InteractiveI18nSelector extends StatelessWidget {
     }
 
     // If languages are loaded
-    String currentLanguage = LanguageProvider.instance!.getLanguage();
+    final String currentLanguage = LanguageProvider.instance!.getLanguage();
 
     // If there are no language skip it
     if (currentLanguage == '') {
@@ -31,7 +31,7 @@ class InteractiveI18nSelector extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(
+        MaterialPageRoute<Widget>(
           builder: (context) => SelectLanguageScreen(
             onLanguageSelected: onLanguageSelected,
           ),

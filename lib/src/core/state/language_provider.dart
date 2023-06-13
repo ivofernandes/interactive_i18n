@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: prefer_mixin
 class LanguageProvider with ChangeNotifier {
   static LanguageProvider? instance;
 
@@ -17,9 +18,7 @@ class LanguageProvider with ChangeNotifier {
   String _language = '';
   Map<String, String> _localizedStrings = {};
 
-  String getLanguage() {
-    return _language;
-  }
+  String getLanguage() => _language;
 
   LanguageProvider({
     required BuildContext context,
@@ -31,7 +30,7 @@ class LanguageProvider with ChangeNotifier {
     initLanguage(context);
   }
 
-  initLanguage(BuildContext context) async {
+  Future<void> initLanguage(BuildContext context) async {
     // To be best effort, we try to get the device language
     // But if we can't, we just use the default language
     String deviceLanguage = defaultLanguage;
@@ -44,10 +43,11 @@ class LanguageProvider with ChangeNotifier {
     // Here we try to get the preferred language from the shared preferences
     // If we can't, we just use the device language or the default language
     try {
-      SharedPreferences sharedPreferences =
+      final SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
 
-      String? preferredLanguage = sharedPreferences.getString(languageKey);
+      final String? preferredLanguage =
+          sharedPreferences.getString(languageKey);
 
       if (preferredLanguage == null) {
         if (useDeviceLocale) {
@@ -68,17 +68,16 @@ class LanguageProvider with ChangeNotifier {
 
   Future<void> updateLocations() async {
     // Load the new json
-    String jsonString =
+    final String jsonString =
         await rootBundle.loadString('$localesPath$_language.json');
-    Map<String, dynamic> jsonMap = json.decode(jsonString);
+    final Map<String, dynamic> jsonMap =
+        json.decode(jsonString) as Map<String, dynamic>;
 
-    _localizedStrings = jsonMap.map((key, value) {
-      return MapEntry(key, '$value');
-    });
+    _localizedStrings = jsonMap.map((key, value) => MapEntry(key, '$value'));
   }
 
   Future<void> updateLanguage(String language, SharedPreferences prefs) async {
-    bool languageChanged = _language != language;
+    final bool languageChanged = _language != language;
 
     // If is the already selected language, just skip
     if (!languageChanged && _localizedStrings.isNotEmpty) {
@@ -98,7 +97,7 @@ class LanguageProvider with ChangeNotifier {
 
   String getDeviceLanguage(BuildContext context) {
     try {
-      Locale myLocale = Localizations.localeOf(context);
+      final Locale myLocale = Localizations.localeOf(context);
       String deviceLanguage = myLocale.languageCode;
 
       if (deviceLanguage.length > 2) {

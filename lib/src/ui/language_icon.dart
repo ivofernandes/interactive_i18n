@@ -20,7 +20,7 @@ class LanguageIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String newLanguage = mapLanguage(language);
+    final String newLanguage = mapLanguage(language);
 
     return Column(
       children: [
@@ -32,12 +32,10 @@ class LanguageIcon extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.125),
-                blurRadius: 1.0,
-                spreadRadius: 0.0,
+                blurRadius: 1,
                 offset: const Offset(2, 3),
               )
             ],
-            shape: BoxShape.rectangle,
             image: DecorationImage(
                 fit: BoxFit.fitHeight,
                 image: Image.asset(
@@ -55,7 +53,7 @@ class LanguageIcon extends StatelessWidget {
   }
 
   String mapLanguage(String language) {
-    Map<String, String> map = {
+    final Map<String, String> map = {
       'en': 'gb-nir',
       'sv': 'se',
       'ar': 'sa',

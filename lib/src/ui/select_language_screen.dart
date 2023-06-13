@@ -14,42 +14,70 @@ class SelectLanguageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LanguageProvider languageProvider = LanguageProvider.instance!;
+    final LanguageProvider languageProvider = LanguageProvider.instance!;
 
-    List<String> languages = languageProvider.availableLanguages;
+    final List<String> languages = languageProvider.availableLanguages;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Select language'.t),
-      ),
-      body: Container(
-        margin: const EdgeInsets.all(10),
-        child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 60,
-                childAspectRatio: 0.85,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20),
-            itemCount: languages.length,
-            itemBuilder: (BuildContext ctx, index) {
-              String language = languages[index];
-              return GestureDetector(
-                onTap: () => selectLanguage(language, context),
-                child: LanguageIcon(
-                  key: Key(language),
-                  language: language,
-                  semanticLabel: language,
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 60,
+                    childAspectRatio: 0.85,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
+                  ),
+                  itemCount: languages.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    final String language = languages[index];
+                    return GestureDetector(
+                      onTap: () => selectLanguage(language, context),
+                      child: LanguageIcon(
+                        key: Key(language),
+                        language: language,
+                        semanticLabel: language,
+                      ),
+                    );
+                  }),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 50,
+                child: IconButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
-              );
-            }),
+              ),
+              Text(
+                'Settings'.t,
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyMedium!.color),
+              ),
+              const SizedBox(
+                width: 50,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
 
-  selectLanguage(String language, BuildContext context) async {
+  Future<void> selectLanguage(String language, BuildContext context) async {
     Navigator.pop(context);
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    LanguageProvider languageProvider = LanguageProvider.instance!;
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    final LanguageProvider languageProvider = LanguageProvider.instance!;
     await languageProvider.updateLanguage(language, sharedPreferences);
     if (onLanguageSelected != null) {
       onLanguageSelected!(language);

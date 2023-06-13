@@ -107,7 +107,7 @@ Future<List<String>> getMissingKeys(String path, List<String> keys) async {
     //keys.add(key);
   }
 
-  print('keys founded: $keys');
+  debugPrint('keys founded: $keys');
 
   return missingKeys;
 }

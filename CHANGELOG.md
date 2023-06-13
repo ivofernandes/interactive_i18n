@@ -12,3 +12,9 @@ Tried to avoid errors on loading
 
 ## 0.0.5
 Fix formatting, improve docs
+
+## 0.0.6
+Expose LanguageProvider
+
+## 1.0.0
+Added analysis

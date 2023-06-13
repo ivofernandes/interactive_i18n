@@ -32,34 +32,32 @@ class InteractiveLocalization extends StatelessWidget {
   final bool useDeviceLocale;
 
   /// Function called when the user updates the language
-  final Function? languageUpdated;
+  final void Function()? languageUpdated;
 
   @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => LanguageProvider(
-        context: context,
-        defaultLanguage: defaultLanguage,
-        availableLanguages: availableLanguages,
-        localesPath: localesPath,
-        useDeviceLocale: useDeviceLocale,
-      ),
-      child: Consumer<LanguageProvider>(
-        builder: (context, languageState, _) {
-          if (LanguageProvider.instance != null) {
-            // Hammer to avoid rebuilds
-            if (DateTime.now().difference(lastBuild).inSeconds > 2) {
-              if (languageUpdated != null) {
-                Future.delayed(Duration.zero, () => languageUpdated!());
-                lastBuild = DateTime.now();
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+        create: (_) => LanguageProvider(
+          context: context,
+          defaultLanguage: defaultLanguage,
+          availableLanguages: availableLanguages,
+          localesPath: localesPath,
+          useDeviceLocale: useDeviceLocale,
+        ),
+        child: Consumer<LanguageProvider>(
+          builder: (context, languageState, _) {
+            if (LanguageProvider.instance != null) {
+              // Hammer to avoid rebuilds
+              if (DateTime.now().difference(lastBuild).inSeconds > 2) {
+                if (languageUpdated != null) {
+                  Future.delayed(Duration.zero, () => languageUpdated!());
+                  lastBuild = DateTime.now();
+                }
               }
             }
-          }
 
-          LanguageProvider.instance = languageState;
-          return child;
-        },
-      ),
-    );
-  }
+            LanguageProvider.instance = languageState;
+            return child;
+          },
+        ),
+      );
 }
