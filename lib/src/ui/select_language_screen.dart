@@ -59,9 +59,10 @@ class SelectLanguageScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                'Settings'.t,
+                'Select language'.t,
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyMedium!.color),
+                  color: Theme.of(context).textTheme.bodyMedium!.color,
+                ),
               ),
               const SizedBox(
                 width: 50,

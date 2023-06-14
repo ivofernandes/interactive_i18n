@@ -18,3 +18,6 @@ Expose LanguageProvider
 
 ## 1.0.0
 Added analysis
+
+## 1.0.1
+Fix select language screen
