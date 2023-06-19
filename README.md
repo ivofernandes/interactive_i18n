@@ -1,3 +1,8 @@
+[![pub package](https://img.shields.io/pub/v/interactive_i18n.svg?label=interactive_i18n&color=blue)](https://pub.dev/packages/interactive_i18n)
+[![popularity](https://img.shields.io/pub/popularity/interactive_i18n?logo=dart)](https://pub.dev/packages/interactive_i18n/score)
+[![likes](https://img.shields.io/pub/likes/interactive_i18n?logo=dart)](https://pub.dev/packages/interactive_i18n/score)
+[![pub points](https://img.shields.io/pub/points/sentry?logo=dart)](https://pub.dev/packages/interactive_i18n/score)
+
 # interactive_i18n
 Flutter package to take care of internationalization
 

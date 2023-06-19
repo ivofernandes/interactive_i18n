@@ -42,65 +42,104 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) => InteractiveLocalization(
-        availableLanguages: const ['en', 'pt', 'es', 'fr', 'de', 'it', 'zh', 'hi', 'ja'],
-        languageUpdated: () => setState(() {}),
-        localesPath: 'assets/locales/',
-        child: Scaffold(
-          appBar: AppBar(
-            toolbarHeight: _toolbarHeight,
-            title: Text('Flutter Demo Home Page'.t),
-            actions: [
+  Widget build(BuildContext context) {
+    const List<String> availableLanguages = [
+      'ar',
+      'cs',
+      'da',
+      'de',
+      'el',
+      'en',
+      'es',
+      'fi',
+      'fil',
+      'fr',
+      'he',
+      'hi',
+      'hu',
+      'id',
+      'it',
+      'ja',
+      'ko',
+      'no',
+      'nl',
+      'pl',
+      'pt',
+      'ru',
+      'sv',
+      'th',
+      'tr',
+      'uk',
+      'vi',
+      'zh'
+    ];
+
+    return InteractiveLocalization(
+      availableLanguages: availableLanguages,
+      languageUpdated: languageUpdated,
+      localesPath: 'assets/locales/',
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: _toolbarHeight,
+          title: Text('Flutter Demo Home Page'.t),
+          actions: [
+            Container(
+              margin: const EdgeInsets.only(right: 5),
+              child: InteractiveI18nSelector(
+                iconSize: 50,
+                onLanguageSelected: (language) {
+                  debugPrint('User picked language $language');
+                },
+              ),
+            )
+          ],
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               Container(
-                margin: const EdgeInsets.only(right: 5),
-                child: InteractiveI18nSelector(
-                  iconSize: 50,
-                  onLanguageSelected: (language) {
-                    debugPrint('User picked language $language');
-                  },
+                margin: const EdgeInsets.all(20),
+                child: Text(
+                  'The purpose of this app is to show how to use the interactive_i18n package.'
+                      .t,
                 ),
-              )
+              ),
+              Text(
+                'You have pushed the button this many times:'.t,
+              ),
+              Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(height: 20),
+              Text('Toolbar height'.t),
+              Slider(
+                value: _toolbarHeight,
+                min: 30,
+                max: 100,
+                divisions: 7,
+                label: _toolbarHeight.round().toString(),
+                onChanged: (double value) {
+                  setState(() {
+                    _toolbarHeight = value;
+                  });
+                },
+              ),
             ],
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(20),
-                  child: Text(
-                    'The purpose of this app is to show how to use the interactive_i18n package.'.t,
-                  ),
-                ),
-                Text(
-                  'You have pushed the button this many times:'.t,
-                ),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(height: 20),
-                Text('Toolbar height'.t),
-                Slider(
-                  value: _toolbarHeight,
-                  min: 30,
-                  max: 100,
-                  divisions: 7,
-                  label: _toolbarHeight.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _toolbarHeight = value;
-                    });
-                  },
-                ),
-              ],
-            ),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: _incrementCounter,
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
         ),
-      );
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+
+  void languageUpdated() {
+    debugPrint('Set state');
+    setState(() {});
+  }
 }

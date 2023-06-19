@@ -14,11 +14,15 @@ class LanguageIcon extends StatelessWidget {
   /// Add a text description below the flag
   final bool textDescription;
 
+  /// Font style
+  final TextStyle? textFontStyle;
+
   const LanguageIcon({
     required this.language,
     this.semanticLabel,
     this.size = 38,
     this.textDescription = true,
+    this.textFontStyle,
     super.key,
   });
 
@@ -49,9 +53,14 @@ class LanguageIcon extends StatelessWidget {
                 ).image),
           ),
         ),
-        if(textDescription)
+        if (textDescription)
+          const SizedBox(
+            height: 10,
+          ),
+        if (textDescription)
           Text(
             language.toUpperCase(),
+            style: textFontStyle,
           ),
       ],
     );

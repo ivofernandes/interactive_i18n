@@ -21,3 +21,6 @@ Added analysis
 
 ## 1.0.1
 Fix select language screen
+
+## 1.0.2
+Fix select language screen

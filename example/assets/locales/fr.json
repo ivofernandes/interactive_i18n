@@ -1,6 +1,7 @@
 {
   "You have pushed the button this many times:": "Vous avez appuyé sur le bouton autant de fois:",
   "Toolbar height": "Hauteur de la barre d'outils",
-  "Flutter Demo Home Page": "Page d'accueil de la démo Flutter",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "Le but de cette application est de montrer comment utiliser le package interactive_i18n."
+  "Flutter Demo Home Page": "Page d'accueil de démo de Flutter",
+  "The purpose of this app is to show how to use the interactive_i18n package.": "Le but de cette application est de montrer comment utiliser le package interactive_i18n.",
+  "Select language": "Choisir la langue"
 }

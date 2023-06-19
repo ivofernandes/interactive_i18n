@@ -40,6 +40,7 @@ class InteractiveI18nSelector extends StatelessWidget {
         MaterialPageRoute<Widget>(
           builder: (context) => SelectLanguageScreen(
             onLanguageSelected: onLanguageSelected,
+            currentLanguage: currentLanguage,
           ),
         ),
       ),

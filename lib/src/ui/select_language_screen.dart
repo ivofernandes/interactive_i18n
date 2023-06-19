@@ -4,11 +4,17 @@ import 'package:interactive_i18n/src/core/string_localization.dart';
 import 'package:interactive_i18n/src/ui/language_icon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// This widget is responsible for letting user select a language
 class SelectLanguageScreen extends StatelessWidget {
+  /// Callback function to be called when user selects a language
   final ValueChanged<String>? onLanguageSelected;
+
+  /// Current language
+  final String currentLanguage;
 
   const SelectLanguageScreen({
     required this.onLanguageSelected,
+    required this.currentLanguage,
     super.key,
   });
 
@@ -16,7 +22,13 @@ class SelectLanguageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final LanguageProvider languageProvider = LanguageProvider.instance!;
 
+    // Fetch all available languages
     final List<String> languages = languageProvider.availableLanguages;
+
+    // Calculate the max cross axis extent and icon size based on screen size
+    final double maxCrossAxisExtent = MediaQuery.of(context).size.width /
+        (MediaQuery.of(context).size.width > 600 ? 10 : 5);
+    final double iconSize = MediaQuery.of(context).size.width > 600 ? 70 : 50;
 
     return Scaffold(
       body: Column(
@@ -25,24 +37,36 @@ class SelectLanguageScreen extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.all(10),
               child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 60,
-                    childAspectRatio: 0.85,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                  ),
-                  itemCount: languages.length,
-                  itemBuilder: (BuildContext ctx, index) {
-                    final String language = languages[index];
-                    return GestureDetector(
-                      onTap: () => selectLanguage(language, context),
-                      child: LanguageIcon(
-                        key: Key(language),
-                        language: language,
-                        semanticLabel: language,
-                      ),
-                    );
-                  }),
+                reverse: true,
+                // Use a SliverGridDelegate to produce a grid layout
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent:
+                      maxCrossAxisExtent, // Max cross axis extent calculated above
+                  childAspectRatio: 0.85,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                ),
+                itemCount: languages.length,
+                // Build the language icons
+                itemBuilder: (BuildContext ctx, index) {
+                  final String language = languages[index];
+                  return GestureDetector(
+                    onTap: () => selectLanguage(language, context),
+                    child: LanguageIcon(
+                      size: iconSize,
+                      // icon size based on screen size
+                      key: Key(language),
+                      language: language,
+                      semanticLabel: language,
+                      textFontStyle: language == currentLanguage
+                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                fontWeight: FontWeight.bold,
+                              )
+                          : null,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           Row(
@@ -58,6 +82,7 @@ class SelectLanguageScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              // Localized string
               Text(
                 'Select language'.t,
                 style: TextStyle(
@@ -74,6 +99,7 @@ class SelectLanguageScreen extends StatelessWidget {
     );
   }
 
+  /// Function to handle language selection
   Future<void> selectLanguage(String language, BuildContext context) async {
     Navigator.pop(context);
     final SharedPreferences sharedPreferences =
