@@ -1,3 +1,6 @@
 {
-  "You have pushed the button this many times:": "You have pushed the button this many times:"
+  "You have pushed the button this many times:": "You have pushed the button this many times:",
+  "Toolbar height": "Toolbar height",
+  "Flutter Demo Home Page": "Flutter Demo Home Page",
+  "The purpose of this app is to show how to use the interactive_i18n package.": "The purpouse of this app is to show how to use the interactive_i18n package."
 }
