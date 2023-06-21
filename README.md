@@ -15,70 +15,62 @@ Flutter package to take care of internationalization
 Add the dependency to your `pubspec.yaml`:
 
 ```
-interactive_i18n: ^0.0.3
+interactive_i18n: ^1.0.2
 ```
 
 ## Usage
 
+First to use this package you need to create the jsons files, check this example:
+
+https://github.com/ivofernandes/interactive_i18n/tree/main/example/assets/locales
+
+### InteractiveLocalization
+
+InteractiveLocalization is a widget that applies internationalization settings to its child widget. It necessitates a list of available languages and a function that is triggered whenever the language is updated.
+
+In this example, an InteractiveLocalization widget wraps the Scaffold widget of the MyHomePage widget. It specifies the available languages and provides a languageUpdated callback function. The path to the language files is also declared.
+
 ```dart
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return InteractiveLocalization(
-      availableLanguages: const ['en', 'pt'],
-      languageUpdated: () => setState(() {}),
+return InteractiveLocalization(
+      availableLanguages: availableLanguages,
+      languageUpdated: languageUpdated,
+      localesPath: 'assets/locales/',
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          actions: [
-            InteractiveI18nSelector(
-              onLanguageSelected: (language) {
-                debugPrint('User picked language $language');
-              },
-            )
-          ],
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'You have pushed the button this many times:'.t,
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
+        ...
       ),
     );
-  }
-}
+
 ```
+
+### InteractiveI18nSelector
+InteractiveI18nSelector is a widget enabling the user to choose the language. It exhibits an icon, which upon clicking presents a new screen with list of available languages. The onLanguageSelected property is a function that is triggered whenever the user selects a language.
+
+In this example, an InteractiveI18nSelector widget is placed in the AppBar widget of the Scaffold widget.
+
+```dart
+InteractiveI18nSelector(
+    iconSize: 50,
+    onLanguageSelected: (language) {
+      debugPrint('User picked language $language');
+    },
+),
+```
+
+### Translation String Extension
+The .t string extension is utilized to fetch the translated value of a string. In this example, strings are flagged with the .t extension to enable their translation.
+
+For instance, the application uses 'You have pushed the button this many times:'.t to acquire the translation of the string 'You have pushed the button this many times:'.
+
+```dart
+Text(
+  'You have pushed the button this many times:'.t,
+),
+```
+
+## Example
+Don't forget to check the complete example of how to use the package.
+
+https://pub.dev/packages/interactive_i18n/example
 
 ## Tests
 Check this test to validate missing translations
@@ -87,3 +79,7 @@ https://github.com/ivofernandes/interactive_i18n/blob/main/example/test/check_tr
 ## Like us on pub.dev
 Package url:
 https://pub.dev/packages/interactive_i18n/example
+
+## Contributing
+Would love to see you contributing to this project, if is not fulfilling all your i18n needs, come and open a new issue.
+https://github.com/ivofernandes/interactive_i18n
