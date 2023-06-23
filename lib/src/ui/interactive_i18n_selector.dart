@@ -10,14 +10,30 @@ class InteractiveI18nSelector extends StatelessWidget {
   const InteractiveI18nSelector({
     this.onLanguageSelected,
     this.iconSize = 38,
+    this.crossAxisSpacing = 20,
+    this.mainAxisSpacing = 20,
+    this.bigIconSize = 60,
+    this.smallIconSize = 40,
     super.key,
   });
 
   /// Callback when the user selects a new language
   final ValueChanged<String>? onLanguageSelected;
 
-  /// Size of the icon
+  /// Size of the icon button
   final double iconSize;
+
+  /// Cross axis spacing in the grid view
+  final double crossAxisSpacing;
+
+  /// Main axis spacing in the grid view
+  final double mainAxisSpacing;
+
+  /// Big icon size
+  final double bigIconSize;
+
+  /// Small icon size
+  final double smallIconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +57,10 @@ class InteractiveI18nSelector extends StatelessWidget {
           builder: (context) => SelectLanguageScreen(
             onLanguageSelected: onLanguageSelected,
             currentLanguage: currentLanguage,
+            crossAxisSpacing: crossAxisSpacing,
+            mainAxisSpacing: mainAxisSpacing,
+            bigIconSize: bigIconSize,
+            smallIconSize: smallIconSize,
           ),
         ),
       ),

@@ -27,3 +27,6 @@ Fix select language screen
 
 ## 1.0.3
 Improved documentation
+
+## 1.0.4
+Improved configuration of the package

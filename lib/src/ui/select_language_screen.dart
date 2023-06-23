@@ -12,9 +12,25 @@ class SelectLanguageScreen extends StatelessWidget {
   /// Current language
   final String currentLanguage;
 
+  /// Cross axis spacing in the grid view
+  final double crossAxisSpacing;
+
+  /// Main axis spacing in the grid view
+  final double mainAxisSpacing;
+
+  /// Big icon size
+  final double bigIconSize;
+
+  /// Small icon size
+  final double smallIconSize;
+
   const SelectLanguageScreen({
     required this.onLanguageSelected,
     required this.currentLanguage,
+    required this.crossAxisSpacing,
+    required this.mainAxisSpacing,
+    required this.bigIconSize,
+    required this.smallIconSize,
     super.key,
   });
 
@@ -28,7 +44,8 @@ class SelectLanguageScreen extends StatelessWidget {
     // Calculate the max cross axis extent and icon size based on screen size
     final double maxCrossAxisExtent = MediaQuery.of(context).size.width /
         (MediaQuery.of(context).size.width > 600 ? 10 : 5);
-    final double iconSize = MediaQuery.of(context).size.width > 600 ? 70 : 50;
+    final double iconSize =
+        MediaQuery.of(context).size.width > 600 ? bigIconSize : smallIconSize;
 
     return Scaffold(
       body: Column(
@@ -43,7 +60,7 @@ class SelectLanguageScreen extends StatelessWidget {
                   maxCrossAxisExtent:
                       maxCrossAxisExtent, // Max cross axis extent calculated above
                   childAspectRatio: 0.85,
-                  crossAxisSpacing: 20,
+                  crossAxisSpacing: crossAxisSpacing,
                   mainAxisSpacing: 20,
                 ),
                 itemCount: languages.length,

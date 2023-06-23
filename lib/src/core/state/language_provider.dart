@@ -4,20 +4,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// ignore: prefer_mixin
+/// A Provider for managing and changing the application's language settings.
+///
+/// This Provider will load language data from JSON files,
+/// maintain the current language state, and provide translation functionality.
 class LanguageProvider with ChangeNotifier {
+  /// Singleton instance of LanguageProvider.
   static LanguageProvider? instance;
 
+  /// Key for the language in Shared Preferences.
   static const String languageKey = 'language';
 
+  /// Default language code.
   final String defaultLanguage;
+
+  /// List of available languages codes.
   final List<String> availableLanguages;
+
+  /// Path to locales files.
   final String localesPath;
+
+  /// Flag to indicate if device locale should be used.
   final bool useDeviceLocale;
 
+  /// Current language in use.
   String _language = '';
+
+  /// Map of localized strings loaded from JSON.
   Map<String, String> _localizedStrings = {};
 
+  /// Returns the current language in use.
   String getLanguage() => _language;
 
   LanguageProvider({
