@@ -67,6 +67,7 @@ class SelectLanguageScreen extends StatelessWidget {
                 // Build the language icons
                 itemBuilder: (BuildContext ctx, index) {
                   final String language = languages[index];
+                  final bool selectedLanguage = language == currentLanguage;
                   return GestureDetector(
                     onTap: () => selectLanguage(language, context),
                     child: LanguageIcon(
@@ -75,11 +76,12 @@ class SelectLanguageScreen extends StatelessWidget {
                       key: Key(language),
                       language: language,
                       semanticLabel: language,
-                      textFontStyle: language == currentLanguage
+                      textFontStyle: selectedLanguage
                           ? Theme.of(context).textTheme.bodyMedium!.copyWith(
                                 fontWeight: FontWeight.bold,
                               )
                           : null,
+                      elevation: selectedLanguage ? 10 : 0,
                     ),
                   );
                 },

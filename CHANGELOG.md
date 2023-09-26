@@ -30,3 +30,6 @@ Improved documentation
 
 ## 1.0.4
 Improved configuration of the package
+
+## 1.0.5
+Material to help identify the selected language

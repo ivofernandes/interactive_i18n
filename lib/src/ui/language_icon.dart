@@ -17,12 +17,15 @@ class LanguageIcon extends StatelessWidget {
   /// Font style
   final TextStyle? textFontStyle;
 
+  final double elevation;
+
   const LanguageIcon({
     required this.language,
     this.semanticLabel,
     this.size = 38,
     this.textDescription = true,
     this.textFontStyle,
+    this.elevation = 0,
     super.key,
   });
 
@@ -30,39 +33,44 @@ class LanguageIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final String newLanguage = mapLanguage(language);
 
-    return Column(
-      children: [
-        Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.125),
-                blurRadius: 1,
-                offset: const Offset(2, 3),
-              )
-            ],
-            image: DecorationImage(
-                fit: BoxFit.fitHeight,
-                image: Image.asset(
-                  'icons/flags/png/$newLanguage.png',
-                  package: 'country_icons',
-                  semanticLabel: semanticLabel,
-                ).image),
+    return Material(
+      elevation: elevation,
+      borderRadius: BorderRadius.circular(10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.125),
+                  blurRadius: 1,
+                  offset: const Offset(2, 3),
+                )
+              ],
+              image: DecorationImage(
+                  fit: BoxFit.fitHeight,
+                  image: Image.asset(
+                    'icons/flags/png/$newLanguage.png',
+                    package: 'country_icons',
+                    semanticLabel: semanticLabel,
+                  ).image),
+            ),
           ),
-        ),
-        if (textDescription)
-          const SizedBox(
-            height: 10,
-          ),
-        if (textDescription)
-          Text(
-            language.toUpperCase(),
-            style: textFontStyle,
-          ),
-      ],
+          if (textDescription)
+            const SizedBox(
+              height: 10,
+            ),
+          if (textDescription)
+            Text(
+              language.toUpperCase(),
+              style: textFontStyle,
+            ),
+        ],
+      ),
     );
   }
 

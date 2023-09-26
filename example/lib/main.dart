@@ -5,25 +5,42 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({
     super.key,
   });
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _isDarkModeEnabled = false;
+
+  void _toggleDarkMode() {
+    setState(() {
+      _isDarkModeEnabled = !_isDarkModeEnabled;
+    });
+  }
+
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        themeMode: _isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light,
+        home: MyHomePage(
+          toggleDarkMode: _toggleDarkMode,
         ),
-        home: const MyHomePage(),
       );
 }
 
 class MyHomePage extends StatefulWidget {
+  final VoidCallback toggleDarkMode;
+
   const MyHomePage({
+    required this.toggleDarkMode,
     super.key,
   });
 
@@ -82,6 +99,13 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           toolbarHeight: _toolbarHeight,
           title: Text('Flutter Demo Home Page'.t),
+          leading: IconButton(
+            icon: Icon(
+              Icons.brightness_6,
+              color: Theme.of(context).appBarTheme.iconTheme?.color,
+            ),
+            onPressed: widget.toggleDarkMode,
+          ),
           actions: [
             Container(
               margin: const EdgeInsets.only(right: 5),
