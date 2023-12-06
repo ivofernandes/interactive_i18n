@@ -33,3 +33,6 @@ Improved configuration of the package
 
 ## 1.0.5
 Material to help identify the selected language
+
+## 1.0.6
+Use SIM card to get the country code

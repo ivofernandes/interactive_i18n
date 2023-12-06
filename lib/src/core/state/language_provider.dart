@@ -2,13 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:interactive_i18n/src/core/state/mixin_device_language.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// A Provider for managing and changing the application's language settings.
 ///
 /// This Provider will load language data from JSON files,
 /// maintain the current language state, and provide translation functionality.
-class LanguageProvider with ChangeNotifier {
+class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
   /// Singleton instance of LanguageProvider.
   static LanguageProvider? instance;
 
@@ -27,6 +28,9 @@ class LanguageProvider with ChangeNotifier {
   /// Flag to indicate if device locale should be used.
   final bool useDeviceLocale;
 
+  /// Flag to indicate if SIM card should be used for the device language.
+  final bool useSimCard;
+
   /// Current language in use.
   String _language = '';
 
@@ -42,6 +46,7 @@ class LanguageProvider with ChangeNotifier {
     required this.availableLanguages,
     required this.localesPath,
     required this.useDeviceLocale,
+    required this.useSimCard,
   }) {
     initLanguage(context);
   }
@@ -50,20 +55,20 @@ class LanguageProvider with ChangeNotifier {
     // To be best effort, we try to get the device language
     // But if we can't, we just use the default language
     String deviceLanguage = defaultLanguage;
-    try {
-      deviceLanguage = getDeviceLanguage(context);
-    } catch (error) {
-      debugPrint(error.toString());
-    }
 
+    if (useSimCard || useDeviceLocale) {
+      try {
+        deviceLanguage = await getDeviceLanguage(context, defaultLanguage, useSimCard, useDeviceLocale);
+      } catch (error) {
+        debugPrint(error.toString());
+      }
+    }
     // Here we try to get the preferred language from the shared preferences
     // If we can't, we just use the device language or the default language
     try {
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-      final String? preferredLanguage =
-          sharedPreferences.getString(languageKey);
+      final String? preferredLanguage = sharedPreferences.getString(languageKey);
 
       if (preferredLanguage == null) {
         if (useDeviceLocale) {
@@ -84,10 +89,8 @@ class LanguageProvider with ChangeNotifier {
 
   Future<void> updateLocations() async {
     // Load the new json
-    final String jsonString =
-        await rootBundle.loadString('$localesPath$_language.json');
-    final Map<String, dynamic> jsonMap =
-        json.decode(jsonString) as Map<String, dynamic>;
+    final String jsonString = await rootBundle.loadString('$localesPath$_language.json');
+    final Map<String, dynamic> jsonMap = json.decode(jsonString) as Map<String, dynamic>;
 
     _localizedStrings = jsonMap.map((key, value) => MapEntry(key, '$value'));
   }
@@ -110,21 +113,6 @@ class LanguageProvider with ChangeNotifier {
 
   /// Translate a single translation key
   String translate(String key) => _localizedStrings[key] ?? key;
-
-  String getDeviceLanguage(BuildContext context) {
-    try {
-      final Locale myLocale = Localizations.localeOf(context);
-      String deviceLanguage = myLocale.languageCode;
-
-      if (deviceLanguage.length > 2) {
-        deviceLanguage = deviceLanguage.substring(0, 2);
-      }
-
-      return deviceLanguage;
-    } catch (error) {
-      return defaultLanguage;
-    }
-  }
 
   void refresh() {
     notifyListeners();

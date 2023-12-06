@@ -12,6 +12,7 @@ class InteractiveLocalization extends StatelessWidget {
     this.availableLanguages = SettingsLanguageConstants.languages,
     this.localesPath = 'assets/locales/',
     this.useDeviceLocale = true,
+    this.useSimCard = true,
     this.languageUpdated,
     super.key,
   });
@@ -28,26 +29,35 @@ class InteractiveLocalization extends StatelessWidget {
   /// Path where the locales json is
   final String localesPath;
 
-  /// Should the app use the device locale
+  /// Should the operative system to get the language?
   final bool useDeviceLocale;
+
+  /// Should use SIM card for the device language?
+  final bool useSimCard;
 
   /// Function called when the user updates the language
   final void Function()? languageUpdated;
 
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (_) => LanguageProvider(
-          context: context,
-          defaultLanguage: defaultLanguage,
-          availableLanguages: availableLanguages,
-          localesPath: localesPath,
-          useDeviceLocale: useDeviceLocale,
-        ),
+  Widget build(BuildContext context) =>
+      ChangeNotifierProvider(
+        create: (_) =>
+            LanguageProvider(
+              context: context,
+              defaultLanguage: defaultLanguage,
+              availableLanguages: availableLanguages,
+              localesPath: localesPath,
+              useDeviceLocale: useDeviceLocale,
+              useSimCard: useSimCard,
+            ),
         child: Consumer<LanguageProvider>(
           builder: (context, languageState, _) {
             if (LanguageProvider.instance != null) {
               // Hammer to avoid rebuilds
-              if (DateTime.now().difference(lastBuild).inSeconds > 2) {
+              if (DateTime
+                  .now()
+                  .difference(lastBuild)
+                  .inSeconds > 2) {
                 if (languageUpdated != null) {
                   Future.delayed(Duration.zero, () => languageUpdated!());
                   lastBuild = DateTime.now();
