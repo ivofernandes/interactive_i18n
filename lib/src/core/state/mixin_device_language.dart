@@ -3,10 +3,12 @@ import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 
 /// Mixin to get the device language
 mixin MixinDeviceLanguage {
-  Future<String> getDeviceLanguage(BuildContext context,
-      String defaultLanguage,
-      bool useSimCard,
-      bool useDeviceLocale,) async {
+  Future<String> getDeviceLanguage(
+    BuildContext context,
+    String defaultLanguage,
+    bool useSimCard,
+    bool useDeviceLocale,
+  ) async {
     try {
       // Check the device operative system language configuration while the context is available
       final Locale myLocale = Localizations.localeOf(context);
@@ -16,7 +18,8 @@ mixin MixinDeviceLanguage {
         final String simCountryCode = await getCountryFromSIM();
 
         // If the SIM card country code is valid, we return it
-        if (!{'', '--', 'Unkown'}.contains(simCountryCode) && simCountryCode.length == 2) {
+        if (!{'', '--', 'Unkown'}.contains(simCountryCode) &&
+            simCountryCode.length == 2) {
           return simCountryCode.toLowerCase();
         }
       }

@@ -58,7 +58,8 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
 
     if (useSimCard || useDeviceLocale) {
       try {
-        deviceLanguage = await getDeviceLanguage(context, defaultLanguage, useSimCard, useDeviceLocale);
+        deviceLanguage = await getDeviceLanguage(
+            context, defaultLanguage, useSimCard, useDeviceLocale);
       } catch (error) {
         debugPrint(error.toString());
       }
@@ -66,9 +67,11 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
     // Here we try to get the preferred language from the shared preferences
     // If we can't, we just use the device language or the default language
     try {
-      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
 
-      final String? preferredLanguage = sharedPreferences.getString(languageKey);
+      final String? preferredLanguage =
+          sharedPreferences.getString(languageKey);
 
       if (preferredLanguage == null) {
         if (useDeviceLocale) {
@@ -89,8 +92,10 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
 
   Future<void> updateLocations() async {
     // Load the new json
-    final String jsonString = await rootBundle.loadString('$localesPath$_language.json');
-    final Map<String, dynamic> jsonMap = json.decode(jsonString) as Map<String, dynamic>;
+    final String jsonString =
+        await rootBundle.loadString('$localesPath$_language.json');
+    final Map<String, dynamic> jsonMap =
+        json.decode(jsonString) as Map<String, dynamic>;
 
     _localizedStrings = jsonMap.map((key, value) => MapEntry(key, '$value'));
   }

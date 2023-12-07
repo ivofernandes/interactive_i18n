@@ -39,25 +39,20 @@ class InteractiveLocalization extends StatelessWidget {
   final void Function()? languageUpdated;
 
   @override
-  Widget build(BuildContext context) =>
-      ChangeNotifierProvider(
-        create: (_) =>
-            LanguageProvider(
-              context: context,
-              defaultLanguage: defaultLanguage,
-              availableLanguages: availableLanguages,
-              localesPath: localesPath,
-              useDeviceLocale: useDeviceLocale,
-              useSimCard: useSimCard,
-            ),
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+        create: (_) => LanguageProvider(
+          context: context,
+          defaultLanguage: defaultLanguage,
+          availableLanguages: availableLanguages,
+          localesPath: localesPath,
+          useDeviceLocale: useDeviceLocale,
+          useSimCard: useSimCard,
+        ),
         child: Consumer<LanguageProvider>(
           builder: (context, languageState, _) {
             if (LanguageProvider.instance != null) {
               // Hammer to avoid rebuilds
-              if (DateTime
-                  .now()
-                  .difference(lastBuild)
-                  .inSeconds > 2) {
+              if (DateTime.now().difference(lastBuild).inSeconds > 2) {
                 if (languageUpdated != null) {
                   Future.delayed(Duration.zero, () => languageUpdated!());
                   lastBuild = DateTime.now();
