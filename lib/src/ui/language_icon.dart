@@ -17,6 +17,7 @@ class LanguageIcon extends StatelessWidget {
   /// Font style
   final TextStyle? textFontStyle;
 
+  /// Elevation of the language icon
   final double elevation;
 
   const LanguageIcon({
@@ -74,6 +75,7 @@ class LanguageIcon extends StatelessWidget {
     );
   }
 
+  /// Map the language to the correct flag
   String mapLanguage(String language) {
     final Map<String, String> map = {
       'en': 'gb-nir',

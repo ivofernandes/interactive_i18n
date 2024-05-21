@@ -11,10 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.1.1
-  shared_preferences: ^2.2.2
+  provider: ^6.1.2
+  shared_preferences: ^2.2.3
   flutter_sim_country_code: ^0.1.2
-  country_icons: ^2.0.2
+  country_icons: ^3.0.0
 
 dev_dependencies:
   flutter_test:

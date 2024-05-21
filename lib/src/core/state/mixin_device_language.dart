@@ -3,6 +3,20 @@ import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 
 /// Mixin to get the device language
 mixin MixinDeviceLanguage {
+
+  /// Device language
+  String _deviceLanguage = '';
+
+  /// Returns the device language.
+  String getDeviceCurrentLanguage() => _deviceLanguage;
+
+
+  /// device sim card country code
+  String _simCountryCode = '';
+
+  /// Returns the device sim card country code.
+  String getSimCountryCode() => _simCountryCode;
+
   Future<String> getDeviceLanguage(
     BuildContext context,
     String defaultLanguage,
@@ -15,24 +29,25 @@ mixin MixinDeviceLanguage {
 
       if (useSimCard) {
         // Try do do the async call to get the SIM card country code
-        final String simCountryCode = await getCountryFromSIM();
+        _simCountryCode = await getCountryFromSIM();
 
         // If the SIM card country code is valid, we return it
-        if (!{'', '--', 'Unkown'}.contains(simCountryCode) &&
-            simCountryCode.length == 2) {
-          return simCountryCode.toLowerCase();
+        if (!{'', '--', 'Unkown'}.contains(_simCountryCode) &&
+            _simCountryCode.length == 2) {
+          _simCountryCode = _simCountryCode.toLowerCase();
+          return _simCountryCode;
         }
       }
 
       if (useDeviceLocale) {
         // If the sim card is not valid for some reason, we return the operative system language configuration
-        String deviceLanguage = myLocale.languageCode;
+        _deviceLanguage = myLocale.languageCode;
 
-        if (deviceLanguage.length > 2) {
-          deviceLanguage = deviceLanguage.substring(0, 2);
+        if (_deviceLanguage.length > 2) {
+          _deviceLanguage = _deviceLanguage.substring(0, 2);
         }
 
-        return deviceLanguage.toLowerCase();
+        return _deviceLanguage.toLowerCase();
       } else {
         return defaultLanguage;
       }

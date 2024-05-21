@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:interactive_i18n/interactive_i18n.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -150,6 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
               ),
+              LanguageProviderWidget(),
             ],
           ),
         ),
@@ -165,5 +167,29 @@ class _MyHomePageState extends State<MyHomePage> {
   void languageUpdated() {
     debugPrint('Set state');
     setState(() {});
+  }
+}
+
+class LanguageProviderWidget extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    final LanguageProvider languageProvider =
+      Provider.of<LanguageProvider>(context);
+    final List<String> languages = languageProvider.availableLanguages;
+    final String currentLanguage = languageProvider.getLanguage();
+    final String currentDeviceLanguage = languageProvider.getDeviceCurrentLanguage();
+    final String currentSimCode = languageProvider.getSimCountryCode();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Current language: $currentLanguage'),
+        const SizedBox(height: 10),
+        Text('Current device language: $currentDeviceLanguage'),
+        Text('Current SIM code: $currentSimCode'),
+        const SizedBox(height: 10),
+        Text('Available languages: $languages'),
+      ],
+    );
   }
 }
