@@ -31,19 +31,14 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: _isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light,
-        home: MyHomePage(
-          toggleDarkMode: _toggleDarkMode,
-        ),
+        home: MyHomePage(toggleDarkMode: _toggleDarkMode),
       );
 }
 
 class MyHomePage extends StatefulWidget {
   final VoidCallback toggleDarkMode;
 
-  const MyHomePage({
-    required this.toggleDarkMode,
-    super.key,
-  });
+  const MyHomePage({required this.toggleDarkMode, super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -52,10 +47,31 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   double _toolbarHeight = 30;
+  bool _useDeviceLocale = true;
+  bool _useSimCard = true;
+  String _defaultLanguage = 'en';
 
   void _incrementCounter() {
     setState(() {
       _counter++;
+    });
+  }
+
+  void _toggleUseDeviceLocale(bool value) {
+    setState(() {
+      _useDeviceLocale = value;
+    });
+  }
+
+  void _toggleUseSimCard(bool value) {
+    setState(() {
+      _useSimCard = value;
+    });
+  }
+
+  void _setDefaultLanguage(String language) {
+    setState(() {
+      _defaultLanguage = language;
     });
   }
 
@@ -93,9 +109,13 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     return InteractiveLocalization(
+      key: ValueKey('key_$_counter'),
       availableLanguages: availableLanguages,
       languageUpdated: languageUpdated,
       localesPath: 'assets/locales/',
+      useDeviceLocale: _useDeviceLocale,
+      useSimCard: _useSimCard,
+      defaultLanguage: _defaultLanguage,
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: _toolbarHeight,
@@ -130,9 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       .t,
                 ),
               ),
-              Text(
-                'You have pushed the button this many times:'.t,
-              ),
+              Text('You have pushed the button this many times:'.t),
               Text(
                 '$_counter',
                 style: Theme.of(context).textTheme.headlineMedium,
@@ -150,6 +168,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     _toolbarHeight = value;
                   });
                 },
+              ),
+              SwitchListTile(
+                title: Text('Use Device Locale'.t),
+                value: _useDeviceLocale,
+                onChanged: _toggleUseDeviceLocale,
+              ),
+              SwitchListTile(
+                title: Text('Use SIM Card Locale'.t),
+                value: _useSimCard,
+                onChanged: _toggleUseSimCard,
+              ),
+              Row(
+                children: [
+                  Text('Default language:'.t),
+                  DropdownButton<String>(
+                    value: _defaultLanguage,
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        _setDefaultLanguage(newValue);
+                      }
+                    },
+                    items: availableLanguages
+                        .map<DropdownMenuItem<String>>((String language) {
+                      return DropdownMenuItem<String>(
+                        value: language,
+                        child: Text(language),
+                      );
+                    }).toList(),
+                  ),
+                ],
               ),
               LanguageProviderWidget(),
             ],
@@ -170,26 +218,30 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class LanguageProviderWidget extends StatelessWidget{
+class LanguageProviderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LanguageProvider languageProvider =
-      Provider.of<LanguageProvider>(context);
+        Provider.of<LanguageProvider>(context);
     final List<String> languages = languageProvider.availableLanguages;
     final String currentLanguage = languageProvider.getLanguage();
-    final String currentDeviceLanguage = languageProvider.getDeviceCurrentLanguage();
+    final String currentDeviceLanguage =
+        languageProvider.getDeviceCurrentLanguage();
     final String currentSimCode = languageProvider.getSimCountryCode();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Current language: $currentLanguage'),
-        const SizedBox(height: 10),
-        Text('Current device language: $currentDeviceLanguage'),
-        Text('Current SIM code: $currentSimCode'),
-        const SizedBox(height: 10),
-        Text('Available languages: $languages'),
-      ],
+    return Container(
+      margin: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Current language: $currentLanguage'),
+          const SizedBox(height: 10),
+          Text('Current device language: $currentDeviceLanguage'),
+          Text('Current SIM code: $currentSimCode'),
+          const SizedBox(height: 10),
+          Text('Available languages: $languages'),
+        ],
+      ),
     );
   }
 }

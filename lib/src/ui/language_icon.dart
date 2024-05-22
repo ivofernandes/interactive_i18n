@@ -55,7 +55,7 @@ class LanguageIcon extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.fitHeight,
                   image: Image.asset(
-                    'icons/flags/png/$newLanguage.png',
+                    'icons/flags/png100px/$newLanguage.png',
                     package: 'country_icons',
                     semanticLabel: semanticLabel,
                   ).image),
