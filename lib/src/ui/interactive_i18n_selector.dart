@@ -71,6 +71,7 @@ class InteractiveI18nSelector extends StatelessWidget {
           return LanguageIcon(
             key: const Key('language selection'),
             language: currentLanguage,
+            deviceLanguage: LanguageProvider.instance!.getDeviceCurrentLanguage(),
             semanticLabel: 'language selection',
             textDescription: false,
             size: size,

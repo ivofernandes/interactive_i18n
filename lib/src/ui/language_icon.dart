@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:interactive_i18n/src/ui/language_flag_map.dart';
 
 /// Widget that displays a flag for a given language
 class LanguageIcon extends StatelessWidget {
   /// The language to display
   final String language;
+
+  /// The language of the device
+  final String deviceLanguage;
 
   /// The semantic label for the flag
   final String? semanticLabel;
@@ -22,6 +26,7 @@ class LanguageIcon extends StatelessWidget {
 
   const LanguageIcon({
     required this.language,
+    required this.deviceLanguage,
     this.semanticLabel,
     this.size = 38,
     this.textDescription = true,
@@ -32,7 +37,7 @@ class LanguageIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String newLanguage = mapLanguage(language);
+    final String newLanguage = LanguageFlagMap.getFlagCode(language, deviceLanguage);
 
     return Material(
       elevation: elevation,
@@ -73,39 +78,5 @@ class LanguageIcon extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  /// Map the language to the correct flag
-  String mapLanguage(String language) {
-    final Map<String, String> map = {
-      'en': 'gb-nir',
-      'sv': 'se',
-      'ar': 'sa',
-      'da': 'dk',
-      'zh': 'cn',
-      'hi': 'in',
-      'te': 'in',
-      'ur': 'in',
-      'be': 'in',
-      'ko': 'kr',
-      'uk': 'ua',
-      'he': 'il',
-      'ja': 'jp',
-      'vi': 'vn',
-      'mr': 'in',
-      'ms': 'my',
-      'el': 'gr',
-      'fa': 'ir',
-      'cs': 'cz',
-      'fil': 'ph',
-      'pa': 'pk',
-      'km': 'kh'
-    };
-
-    if (map.containsKey(language)) {
-      return map[language]!;
-    }
-
-    return language;
   }
 }

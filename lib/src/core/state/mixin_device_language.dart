@@ -3,13 +3,11 @@ import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 
 /// Mixin to get the device language
 mixin MixinDeviceLanguage {
-
   /// Device language
   String _deviceLanguage = '';
 
   /// Returns the device language.
   String getDeviceCurrentLanguage() => _deviceLanguage;
-
 
   /// device sim card country code
   String _simCountryCode = '';
@@ -32,9 +30,9 @@ mixin MixinDeviceLanguage {
         _simCountryCode = await getCountryFromSIM();
 
         // If the SIM card country code is valid, we return it
-        if (!{'', '--', 'Unkown'}.contains(_simCountryCode) &&
-            _simCountryCode.length == 2) {
+        if (!{'', '--', 'Unkown'}.contains(_simCountryCode) && _simCountryCode.length == 2) {
           _simCountryCode = _simCountryCode.toLowerCase();
+          _deviceLanguage = _simCountryCode;
           return _simCountryCode;
         }
       }
