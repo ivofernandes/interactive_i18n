@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:interactive_i18n/src/ui/language_flag_map.dart';
+import 'package:interactive_i18n/src/core/language_map/language_flag_map.dart';
 
 /// Widget that displays a flag for a given language
 class LanguageIcon extends StatelessWidget {
@@ -37,7 +37,8 @@ class LanguageIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String newLanguage = LanguageFlagMap.getFlagCode(language, deviceLanguage);
+    final String newLanguage =
+        LanguageFlagMap.getFlagCode(language, deviceLanguage);
 
     return Material(
       elevation: elevation,
