@@ -29,15 +29,19 @@ mixin MixinDeviceLanguage {
       final Locale myLocale = Localizations.localeOf(context);
 
       if (useSimCard) {
-        // Try do do the async call to get the SIM card country code
-        _simCountryCode = await getCountryFromSIM();
+        try {
+          // Try do do the async call to get the SIM card country code
+          _simCountryCode = await getCountryFromSIM();
 
-        // If the SIM card country code is valid, we return it
-        if (!{'', '--', 'Unkown'}.contains(_simCountryCode) &&
-            _simCountryCode.length == 2) {
-          _simCountryCode = _simCountryCode.toLowerCase();
-          _deviceLanguage = _simCountryCode;
-          return _simCountryCode;
+          // If the SIM card country code is valid, we return it
+          if (!{'', '--', 'Unkown'}.contains(_simCountryCode) &&
+              _simCountryCode.length == 2) {
+            _simCountryCode = _simCountryCode.toLowerCase();
+            _deviceLanguage = _simCountryCode;
+            return _simCountryCode;
+          }
+        } catch (e) {
+          debugPrint('Can not get any sim card: $e');
         }
       }
 

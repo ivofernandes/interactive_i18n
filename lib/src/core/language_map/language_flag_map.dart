@@ -1,4 +1,6 @@
-class LanguageFlagMap {
+import 'package:interactive_i18n/src/core/language_map/supported_flags.dart';
+
+abstract class LanguageFlagMap {
   static const Map<String, String> _map = {
     'en': 'gb-nir',
     'sv': 'se',
@@ -106,13 +108,33 @@ class LanguageFlagMap {
 
   /// Returns the flag code for a given language and device language
   static String getFlagCode(String language, String deviceLanguage) {
+    String flagLanguage = language;
     if (_proximityMap.containsKey(language)) {
-      if (_proximityMap[language]!.contains(deviceLanguage)) {
-        language = deviceLanguage;
+      final bool isDeviceLanguageSupported = _proximityMap[language]!.contains(deviceLanguage);
+      final bool deviceLanguageHasFlag = SupportedFlags.availableFlags.contains(deviceLanguage);
+
+      if (isDeviceLanguageSupported && deviceLanguageHasFlag) {
+        flagLanguage = deviceLanguage;
       }
     }
 
     // Default conversion
-    return _map[language] ?? language;
+    return _map[flagLanguage] ?? language;
+  }
+
+  static String getLanguage(String deviceLanguage, List<String> availableLanguages) {
+    if (availableLanguages.contains(deviceLanguage)) {
+      return deviceLanguage;
+    }
+
+    final List<String> convertedLanguages = _proximityMap.keys.toList();
+
+    for (final String language in convertedLanguages) {
+      if (_proximityMap[language]!.contains(deviceLanguage)) {
+        return language;
+      }
+    }
+
+    return '';
   }
 }

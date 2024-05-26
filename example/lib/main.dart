@@ -140,67 +140,69 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.all(20),
-                child: Text(
-                  'The purpose of this app is to show how to use the interactive_i18n package.'
-                      .t,
-                ),
-              ),
-              Text('You have pushed the button this many times:'.t),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 20),
-              Text('Toolbar height'.t),
-              Slider(
-                value: _toolbarHeight,
-                min: 30,
-                max: 100,
-                divisions: 7,
-                label: _toolbarHeight.round().toString(),
-                onChanged: (double value) {
-                  setState(() {
-                    _toolbarHeight = value;
-                  });
-                },
-              ),
-              SwitchListTile(
-                title: Text('Use Device Locale'.t),
-                value: _useDeviceLocale,
-                onChanged: _toggleUseDeviceLocale,
-              ),
-              SwitchListTile(
-                title: Text('Use SIM Card Locale'.t),
-                value: _useSimCard,
-                onChanged: _toggleUseSimCard,
-              ),
-              Row(
-                children: [
-                  Text('Default language:'.t),
-                  DropdownButton<String>(
-                    value: _defaultLanguage,
-                    onChanged: (String? newValue) {
-                      if (newValue != null) {
-                        _setDefaultLanguage(newValue);
-                      }
-                    },
-                    items: availableLanguages
-                        .map<DropdownMenuItem<String>>((String language) {
-                      return DropdownMenuItem<String>(
-                        value: language,
-                        child: Text(language),
-                      );
-                    }).toList(),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(20),
+                  child: Text(
+                    'The purpose of this app is to show how to use the interactive_i18n package.'
+                        .t,
                   ),
-                ],
-              ),
-              LanguageProviderWidget(),
-            ],
+                ),
+                Text('You have pushed the button this many times:'.t),
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const SizedBox(height: 20),
+                Text('Toolbar height'.t),
+                Slider(
+                  value: _toolbarHeight,
+                  min: 30,
+                  max: 100,
+                  divisions: 7,
+                  label: _toolbarHeight.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _toolbarHeight = value;
+                    });
+                  },
+                ),
+                SwitchListTile(
+                  title: Text('Use Device Locale'.t),
+                  value: _useDeviceLocale,
+                  onChanged: _toggleUseDeviceLocale,
+                ),
+                SwitchListTile(
+                  title: Text('Use SIM Card Locale'.t),
+                  value: _useSimCard,
+                  onChanged: _toggleUseSimCard,
+                ),
+                Row(
+                  children: [
+                    Text('Default language:'.t),
+                    DropdownButton<String>(
+                      value: _defaultLanguage,
+                      onChanged: (String? newValue) {
+                        if (newValue != null) {
+                          _setDefaultLanguage(newValue);
+                        }
+                      },
+                      items: availableLanguages
+                          .map<DropdownMenuItem<String>>((String language) {
+                        return DropdownMenuItem<String>(
+                          value: language,
+                          child: Text(language),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+                LanguageProviderWidget(),
+              ],
+            ),
           ),
         ),
         floatingActionButton: FloatingActionButton(

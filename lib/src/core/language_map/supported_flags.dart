@@ -1,5 +1,5 @@
 abstract class SupportedFlags {
-  Set<String> availableFlags = {
+  static Set<String> availableFlags = {
     'ad',
     'bj',
     'co',

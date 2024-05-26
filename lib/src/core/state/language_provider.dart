@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:interactive_i18n/src/core/language_map/language_flag_map.dart';
 import 'package:interactive_i18n/src/core/state/mixin_device_language.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -58,8 +59,7 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
 
     if (useSimCard || useDeviceLocale) {
       try {
-        deviceLanguage = await getDeviceLanguage(
-            context, defaultLanguage, useSimCard, useDeviceLocale);
+        deviceLanguage = await getDeviceLanguage(context, defaultLanguage, useSimCard, useDeviceLocale);
       } catch (error) {
         debugPrint(error.toString());
       }
@@ -67,16 +67,20 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
     // Here we try to get the preferred language from the shared preferences
     // If we can't, we just use the device language or the default language
     try {
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-      final String? preferredLanguage =
-          sharedPreferences.getString(languageKey);
+      final String? preferredLanguage = sharedPreferences.getString(languageKey);
 
       if (preferredLanguage == null) {
+        bool usedDeviceLanguage = false;
         if (useDeviceLocale) {
-          _language = deviceLanguage;
-        } else {
+          final String convertedDeviceLanguage = LanguageFlagMap.getLanguage(deviceLanguage, availableLanguages);
+          if (convertedDeviceLanguage != '') {
+            _language = convertedDeviceLanguage;
+            usedDeviceLanguage = true;
+          }
+        }
+        if (!usedDeviceLanguage) {
           _language = defaultLanguage;
         }
       } else {
@@ -92,10 +96,8 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
 
   Future<void> updateLocations() async {
     // Load the new json
-    final String jsonString =
-        await rootBundle.loadString('$localesPath$_language.json');
-    final Map<String, dynamic> jsonMap =
-        json.decode(jsonString) as Map<String, dynamic>;
+    final String jsonString = await rootBundle.loadString('$localesPath$_language.json');
+    final Map<String, dynamic> jsonMap = json.decode(jsonString) as Map<String, dynamic>;
 
     _localizedStrings = jsonMap.map((key, value) => MapEntry(key, '$value'));
   }
