@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:interactive_i18n/src/core/language_map/language_flag_map.dart';
 import 'package:interactive_i18n/src/core/state/mixin_device_language.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,6 +37,8 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
   /// Map of localized strings loaded from JSON.
   Map<String, String> _localizedStrings = {};
 
+  final AssetBundle assetBundle;
+
   /// Returns the current language in use.
   String getLanguage() => _language;
 
@@ -48,6 +49,7 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
     required this.localesPath,
     required this.useDeviceLocale,
     required this.useSimCard,
+    required this.assetBundle,
   }) {
     initLanguage(context);
   }
@@ -96,7 +98,7 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
 
   Future<void> updateLocations() async {
     // Load the new json
-    final String jsonString = await rootBundle.loadString('$localesPath$_language.json');
+    final String jsonString = await assetBundle.loadString('$localesPath$_language.json');
     final Map<String, dynamic> jsonMap = json.decode(jsonString) as Map<String, dynamic>;
 
     _localizedStrings = jsonMap.map((key, value) => MapEntry(key, '$value'));

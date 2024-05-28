@@ -47,6 +47,7 @@ class InteractiveLocalization extends StatelessWidget {
           localesPath: localesPath,
           useDeviceLocale: useDeviceLocale,
           useSimCard: useSimCard,
+          assetBundle: DefaultAssetBundle.of(context),
         ),
         child: Consumer<LanguageProvider>(
           builder: (context, languageState, _) {
