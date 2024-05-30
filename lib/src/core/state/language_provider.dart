@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:interactive_i18n/src/core/language_map/language_flag_map.dart';
-import 'package:interactive_i18n/src/core/state/mixin_device_language.dart';
+import 'package:interactive_i18n/src/core/state/mixin/mixin_device_language.dart';
+import 'package:interactive_i18n/src/core/state/utils/calculate_language_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// A Provider for managing and changing the application's language settings.
@@ -70,26 +70,12 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
     // If we can't, we just use the device language or the default language
     try {
       final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
       final String? preferredLanguage = sharedPreferences.getString(languageKey);
 
-      if (preferredLanguage == null) {
-        bool usedDeviceLanguage = false;
-        if (useDeviceLocale) {
-          final String convertedDeviceLanguage = LanguageFlagMap.getLanguage(deviceLanguage, availableLanguages);
-          if (convertedDeviceLanguage != '') {
-            _language = convertedDeviceLanguage;
-            usedDeviceLanguage = true;
-          }
-        }
-        if (!usedDeviceLanguage) {
-          _language = defaultLanguage;
-        }
-      } else {
-        _language = preferredLanguage;
-      }
+      _language = CalculateLanguageUtils.calculateLanguage(
+          preferredLanguage, useDeviceLocale, deviceLanguage, availableLanguages, defaultLanguage);
     } catch (error) {
-      _language = deviceLanguage;
+      _language = defaultLanguage;
     }
 
     // Update the frontend

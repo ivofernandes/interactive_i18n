@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:interactive_i18n/src/core/state/language_provider.dart';
-import 'package:interactive_i18n/src/core/state/settings_language_constants.dart';
+import 'package:interactive_i18n/src/core/state/utils/settings_language_constants.dart';
 import 'package:provider/provider.dart';
 
 class InteractiveLocalization extends StatelessWidget {
