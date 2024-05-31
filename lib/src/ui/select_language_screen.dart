@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:interactive_i18n/src/core/language_map/language_flag_map.dart';
 import 'package:interactive_i18n/src/core/state/language_provider.dart';
 import 'package:interactive_i18n/src/core/string_localization.dart';
 import 'package:interactive_i18n/src/ui/language_icon.dart';
@@ -24,6 +25,9 @@ class SelectLanguageScreen extends StatelessWidget {
   /// Small icon size
   final double smallIconSize;
 
+  /// Show the text below the flag
+  final bool textDescription;
+
   const SelectLanguageScreen({
     required this.onLanguageSelected,
     required this.currentLanguage,
@@ -31,6 +35,7 @@ class SelectLanguageScreen extends StatelessWidget {
     required this.mainAxisSpacing,
     required this.bigIconSize,
     required this.smallIconSize,
+    this.textDescription = true,
     super.key,
   });
 
@@ -42,10 +47,9 @@ class SelectLanguageScreen extends StatelessWidget {
     final List<String> languages = languageProvider.availableLanguages;
 
     // Calculate the max cross axis extent and icon size based on screen size
-    final double maxCrossAxisExtent = MediaQuery.of(context).size.width /
-        (MediaQuery.of(context).size.width > 600 ? 10 : 5);
-    final double iconSize =
-        MediaQuery.of(context).size.width > 600 ? bigIconSize : smallIconSize;
+    final double maxCrossAxisExtent =
+        MediaQuery.of(context).size.width / (MediaQuery.of(context).size.width > 600 ? 10 : 5);
+    final double iconSize = MediaQuery.of(context).size.width > 600 ? bigIconSize : smallIconSize;
 
     return Scaffold(
       body: Column(
@@ -57,8 +61,7 @@ class SelectLanguageScreen extends StatelessWidget {
                 reverse: true,
                 // Use a SliverGridDelegate to produce a grid layout
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent:
-                      maxCrossAxisExtent, // Max cross axis extent calculated above
+                  maxCrossAxisExtent: maxCrossAxisExtent, // Max cross axis extent calculated above
                   childAspectRatio: 0.85,
                   crossAxisSpacing: crossAxisSpacing,
                   mainAxisSpacing: 20,
@@ -66,8 +69,11 @@ class SelectLanguageScreen extends StatelessWidget {
                 itemCount: languages.length,
                 // Build the language icons
                 itemBuilder: (BuildContext ctx, index) {
-                  final String language = languages[index];
+                  String language = languages[index];
+                  final String deviceLanguage = languageProvider.getDeviceCurrentLanguage();
+                  language = LanguageFlagMap.getDeviceAwareCountryCode(language, deviceLanguage);
                   final bool selectedLanguage = language == currentLanguage;
+
                   return GestureDetector(
                     onTap: () => selectLanguage(language, context),
                     child: LanguageIcon(
@@ -75,8 +81,7 @@ class SelectLanguageScreen extends StatelessWidget {
                       // icon size based on screen size
                       key: Key(language),
                       language: language,
-                      deviceLanguage:
-                          languageProvider.getDeviceCurrentLanguage(),
+                      deviceLanguage: languageProvider.getDeviceCurrentLanguage(),
                       semanticLabel: language,
                       textFontStyle: selectedLanguage
                           ? Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -84,6 +89,7 @@ class SelectLanguageScreen extends StatelessWidget {
                               )
                           : null,
                       elevation: selectedLanguage ? 10 : 0,
+                      textDescription: textDescription,
                     ),
                   );
                 },
@@ -123,8 +129,7 @@ class SelectLanguageScreen extends StatelessWidget {
   /// Function to handle language selection
   Future<void> selectLanguage(String language, BuildContext context) async {
     Navigator.pop(context);
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final LanguageProvider languageProvider = LanguageProvider.instance!;
     await languageProvider.updateLanguage(language, sharedPreferences);
     if (onLanguageSelected != null) {

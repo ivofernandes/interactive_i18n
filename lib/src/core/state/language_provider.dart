@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:interactive_i18n/src/core/language_map/language_flag_map.dart';
 import 'package:interactive_i18n/src/core/state/mixin/mixin_device_language.dart';
 import 'package:interactive_i18n/src/core/state/utils/calculate_language_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -90,7 +91,10 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
     _localizedStrings = jsonMap.map((key, value) => MapEntry(key, '$value'));
   }
 
-  Future<void> updateLanguage(String language, SharedPreferences prefs) async {
+  Future<void> updateLanguage(String languageParam, SharedPreferences prefs) async {
+    // Get the language
+    final String language = LanguageFlagMap.getLanguage(languageParam, availableLanguages);
+
     final bool languageChanged = _language != language;
 
     // If is the already selected language, just skip
@@ -111,5 +115,13 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
 
   void refresh() {
     notifyListeners();
+  }
+
+  /// Get the language selected by the user or the device
+  /// But if the device language can be mapped to the actual language, return the device language
+  String getCountryDeviceAware() {
+    final String deviceLanguage = getDeviceCurrentLanguage();
+
+    return LanguageFlagMap.getDeviceAwareCountryCode(_language, deviceLanguage);
   }
 }

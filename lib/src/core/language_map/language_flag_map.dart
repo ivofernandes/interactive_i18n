@@ -122,6 +122,7 @@ abstract class LanguageFlagMap {
     return _map[flagLanguage] ?? language;
   }
 
+  /// Returns the language code for a given device language, depending on if the language is available
   static String getLanguage(String deviceLanguage, List<String> availableLanguages) {
     if (availableLanguages.contains(deviceLanguage)) {
       return deviceLanguage;
@@ -136,5 +137,16 @@ abstract class LanguageFlagMap {
     }
 
     return '';
+  }
+
+  /// Get device aware country code
+  static String getDeviceAwareCountryCode(String language, String deviceLanguage) {
+    if (_proximityMap.containsKey(language)) {
+      if (_proximityMap[language]!.contains(deviceLanguage)) {
+        return deviceLanguage;
+      }
+    }
+
+    return language;
   }
 }

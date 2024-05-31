@@ -14,6 +14,7 @@ class InteractiveI18nSelector extends StatelessWidget {
     this.mainAxisSpacing = 20,
     this.bigIconSize = 60,
     this.smallIconSize = 40,
+    this.textDescription = true,
     super.key,
   });
 
@@ -35,6 +36,9 @@ class InteractiveI18nSelector extends StatelessWidget {
   /// Small icon size
   final double smallIconSize;
 
+  /// Text description below the flag
+  final bool textDescription;
+
   @override
   Widget build(BuildContext context) {
     // If languages are not loaded yet
@@ -43,7 +47,7 @@ class InteractiveI18nSelector extends StatelessWidget {
     }
 
     // If languages are loaded
-    final String currentLanguage = LanguageProvider.instance!.getLanguage();
+    final String currentLanguage = LanguageProvider.instance!.getCountryDeviceAware();
 
     // If there are no language skip it
     if (currentLanguage == '') {
@@ -61,6 +65,7 @@ class InteractiveI18nSelector extends StatelessWidget {
             mainAxisSpacing: mainAxisSpacing,
             bigIconSize: bigIconSize,
             smallIconSize: smallIconSize,
+            textDescription: textDescription,
           ),
         ),
       ),
@@ -71,8 +76,7 @@ class InteractiveI18nSelector extends StatelessWidget {
           return LanguageIcon(
             key: const Key('language selection'),
             language: currentLanguage,
-            deviceLanguage:
-                LanguageProvider.instance!.getDeviceCurrentLanguage(),
+            deviceLanguage: LanguageProvider.instance!.getDeviceCurrentLanguage(),
             semanticLabel: 'language selection',
             textDescription: false,
             size: size,
