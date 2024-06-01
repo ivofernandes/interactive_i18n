@@ -13,7 +13,8 @@ import 'language_provider_test.mocks.dart';
 class TestAssetBundle extends CachingAssetBundle {
   @override
   Future<ByteData> load(String key) async {
-    return ByteData.view(Uint8List.fromList(utf8.encode(await loadString(key))).buffer);
+    return ByteData.view(
+        Uint8List.fromList(utf8.encode(await loadString(key))).buffer);
   }
 
   @override
@@ -27,7 +28,8 @@ class TestAssetBundle extends CachingAssetBundle {
   }
 }
 
-@GenerateMocks([SharedPreferences, AssetBundle], customMocks: [MockSpec<BuildContext>(as: #MockLanguageBuildContext)])
+@GenerateMocks([SharedPreferences, AssetBundle],
+    customMocks: [MockSpec<BuildContext>(as: #MockLanguageBuildContext)])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -40,9 +42,12 @@ void main() {
   });
 
   group('LanguageProvider', () {
-    test('initializes with default language when no preference is set', () async {
-      when(mockSharedPreferences.getString(LanguageProvider.languageKey)).thenReturn(null);
-      when(mockSharedPreferences.setString(any, any)).thenAnswer((_) async => true);
+    test('initializes with default language when no preference is set',
+        () async {
+      when(mockSharedPreferences.getString(LanguageProvider.languageKey))
+          .thenReturn(null);
+      when(mockSharedPreferences.setString(any, any))
+          .thenAnswer((_) async => true);
 
       final LanguageProvider provider = LanguageProvider(
         context: MockLanguageBuildContext(),
@@ -52,6 +57,7 @@ void main() {
         useDeviceLocale: false,
         useSimCard: false,
         assetBundle: testAssetBundle,
+        localeFromContext: true,
       );
 
       await provider.initLanguage(MockLanguageBuildContext());
@@ -60,8 +66,10 @@ void main() {
     });
 
     test('updates language and loads new translations', () async {
-      when(mockSharedPreferences.getString(LanguageProvider.languageKey)).thenReturn('en');
-      when(mockSharedPreferences.setString(any, any)).thenAnswer((_) async => true);
+      when(mockSharedPreferences.getString(LanguageProvider.languageKey))
+          .thenReturn('en');
+      when(mockSharedPreferences.setString(any, any))
+          .thenAnswer((_) async => true);
 
       final LanguageProvider provider = LanguageProvider(
         context: MockLanguageBuildContext(),
@@ -71,6 +79,7 @@ void main() {
         useDeviceLocale: false,
         useSimCard: false,
         assetBundle: testAssetBundle,
+        localeFromContext: true,
       );
 
       await provider.initLanguage(MockLanguageBuildContext());
@@ -84,8 +93,10 @@ void main() {
     });
 
     test('translates a key correctly', () async {
-      when(mockSharedPreferences.getString(LanguageProvider.languageKey)).thenReturn('en');
-      when(mockSharedPreferences.setString(any, any)).thenAnswer((_) async => true);
+      when(mockSharedPreferences.getString(LanguageProvider.languageKey))
+          .thenReturn('en');
+      when(mockSharedPreferences.setString(any, any))
+          .thenAnswer((_) async => true);
 
       final LanguageProvider provider = LanguageProvider(
         context: MockLanguageBuildContext(),
@@ -95,6 +106,7 @@ void main() {
         useDeviceLocale: false,
         useSimCard: false,
         assetBundle: testAssetBundle,
+        localeFromContext: true,
       );
 
       await provider.initLanguage(MockLanguageBuildContext());
@@ -102,9 +114,12 @@ void main() {
       expect(provider.translate('hello'), 'Hello');
     });
 
-    test('fallback to default language if device language is not available', () async {
-      when(mockSharedPreferences.getString(LanguageProvider.languageKey)).thenReturn(null);
-      when(mockSharedPreferences.setString(any, any)).thenAnswer((_) async => true);
+    test('fallback to default language if device language is not available',
+        () async {
+      when(mockSharedPreferences.getString(LanguageProvider.languageKey))
+          .thenReturn(null);
+      when(mockSharedPreferences.setString(any, any))
+          .thenAnswer((_) async => true);
 
       final LanguageProvider provider = LanguageProvider(
         context: MockLanguageBuildContext(),
@@ -114,6 +129,7 @@ void main() {
         useDeviceLocale: true,
         useSimCard: false,
         assetBundle: testAssetBundle,
+        localeFromContext: true,
       );
 
       await provider.initLanguage(MockLanguageBuildContext());

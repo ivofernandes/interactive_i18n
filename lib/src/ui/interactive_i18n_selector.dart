@@ -47,7 +47,8 @@ class InteractiveI18nSelector extends StatelessWidget {
     }
 
     // If languages are loaded
-    final String currentLanguage = LanguageProvider.instance!.getCountryDeviceAware();
+    final String currentLanguage =
+        LanguageProvider.instance!.getCountryDeviceAware();
 
     // If there are no language skip it
     if (currentLanguage == '') {
@@ -74,9 +75,9 @@ class InteractiveI18nSelector extends StatelessWidget {
           final double size = min(constraints.maxHeight, iconSize);
           debugPrint('Language selector constraints: $constraints');
           return LanguageIcon(
-            key: const Key('language selection'),
             language: currentLanguage,
-            deviceLanguage: LanguageProvider.instance!.getDeviceCurrentLanguage(),
+            deviceLanguage:
+                LanguageProvider.instance!.getDeviceCurrentLanguage(),
             semanticLabel: 'language selection',
             textDescription: false,
             size: size,

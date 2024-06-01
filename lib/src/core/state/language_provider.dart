@@ -38,7 +38,11 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
   /// Map of localized strings loaded from JSON.
   Map<String, String> _localizedStrings = {};
 
+  /// Asset bundle to load JSON files.
   final AssetBundle assetBundle;
+
+  /// Should get the locale from the context or from view?
+  final bool localeFromContext;
 
   /// Returns the current language in use.
   String getLanguage() => _language;
@@ -51,6 +55,7 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
     required this.useDeviceLocale,
     required this.useSimCard,
     required this.assetBundle,
+    required this.localeFromContext,
   }) {
     initLanguage(context);
   }
@@ -62,7 +67,8 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
 
     if (useSimCard || useDeviceLocale) {
       try {
-        deviceLanguage = await getDeviceLanguage(context, defaultLanguage, useSimCard, useDeviceLocale);
+        deviceLanguage = await getDeviceLanguage(context, defaultLanguage,
+            useSimCard, useDeviceLocale, localeFromContext);
       } catch (error) {
         debugPrint(error.toString());
       }
@@ -70,11 +76,13 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
     // Here we try to get the preferred language from the shared preferences
     // If we can't, we just use the device language or the default language
     try {
-      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      final String? preferredLanguage = sharedPreferences.getString(languageKey);
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      final String? preferredLanguage =
+          sharedPreferences.getString(languageKey);
 
-      _language = CalculateLanguageUtils.calculateLanguage(
-          preferredLanguage, useDeviceLocale, deviceLanguage, availableLanguages, defaultLanguage);
+      _language = CalculateLanguageUtils.calculateLanguage(preferredLanguage,
+          useDeviceLocale, deviceLanguage, availableLanguages, defaultLanguage);
     } catch (error) {
       _language = defaultLanguage;
     }
@@ -85,15 +93,19 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
 
   Future<void> updateLocations() async {
     // Load the new json
-    final String jsonString = await assetBundle.loadString('$localesPath$_language.json');
-    final Map<String, dynamic> jsonMap = json.decode(jsonString) as Map<String, dynamic>;
+    final String jsonString =
+        await assetBundle.loadString('$localesPath$_language.json');
+    final Map<String, dynamic> jsonMap =
+        json.decode(jsonString) as Map<String, dynamic>;
 
     _localizedStrings = jsonMap.map((key, value) => MapEntry(key, '$value'));
   }
 
-  Future<void> updateLanguage(String languageParam, SharedPreferences prefs) async {
+  Future<void> updateLanguage(
+      String languageParam, SharedPreferences prefs) async {
     // Get the language
-    final String language = LanguageFlagMap.getLanguage(languageParam, availableLanguages);
+    final String language =
+        LanguageFlagMap.getLanguage(languageParam, availableLanguages);
 
     final bool languageChanged = _language != language;
 

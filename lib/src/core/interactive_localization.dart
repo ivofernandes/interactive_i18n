@@ -35,6 +35,9 @@ class InteractiveLocalization extends StatelessWidget {
   /// Should use SIM card for the device language?
   final bool useSimCard;
 
+  /// If SIM is not available. Should get the locale from the context or from view?
+  final bool localeFromContext = false;
+
   /// Function called when the user updates the language
   final void Function()? languageUpdated;
 
@@ -48,6 +51,7 @@ class InteractiveLocalization extends StatelessWidget {
           useDeviceLocale: useDeviceLocale,
           useSimCard: useSimCard,
           assetBundle: DefaultAssetBundle.of(context),
+          localeFromContext: localeFromContext,
         ),
         child: Consumer<LanguageProvider>(
           builder: (context, languageState, _) {
