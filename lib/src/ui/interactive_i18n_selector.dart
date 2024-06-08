@@ -47,8 +47,10 @@ class InteractiveI18nSelector extends StatelessWidget {
     }
 
     // If languages are loaded
-    final String currentLanguage = LanguageProvider.instance!.getCountryDeviceAware();
-    final String deviceLanguage = LanguageProvider.instance!.getDeviceCurrentLanguage();
+    final String currentLanguage =
+        LanguageProvider.instance!.getCountryDeviceAware();
+    final String deviceLanguage =
+        LanguageProvider.instance!.getDeviceCurrentLanguage();
 
     // If there are no language skip it
     if (currentLanguage == '') {

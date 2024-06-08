@@ -10,6 +10,7 @@ extension StringLocalization on String {
       return languageProvider.translate(this);
     }
 
+    // If provider is not ready, we show a temporary empty string to avoid one frame with a wrong language
     return '';
   }
 }

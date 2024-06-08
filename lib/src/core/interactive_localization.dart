@@ -55,6 +55,8 @@ class InteractiveLocalization extends StatelessWidget {
         ),
         child: Consumer<LanguageProvider>(
           builder: (context, languageState, _) {
+            LanguageProvider.instance = languageState;
+
             if (LanguageProvider.instance != null) {
               // Hammer to avoid rebuilds
               if (DateTime.now().difference(lastBuild).inSeconds > 2) {
@@ -65,7 +67,6 @@ class InteractiveLocalization extends StatelessWidget {
               }
             }
 
-            LanguageProvider.instance = languageState;
             return child;
           },
         ),
