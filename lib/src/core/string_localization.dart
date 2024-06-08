@@ -10,6 +10,6 @@ extension StringLocalization on String {
       return languageProvider.translate(this);
     }
 
-    return this;
+    return '';
   }
 }

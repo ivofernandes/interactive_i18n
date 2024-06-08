@@ -47,6 +47,9 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
   /// Returns the current language in use.
   String getLanguage() => _language;
 
+  /// Is provider already passed init state?
+  bool _isInit = false;
+
   LanguageProvider({
     required BuildContext context,
     required this.defaultLanguage,
@@ -57,55 +60,54 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
     required this.assetBundle,
     required this.localeFromContext,
   }) {
-    initLanguage(context);
+    Future.delayed(Duration.zero, () => initLanguage(context));
   }
 
   Future<void> initLanguage(BuildContext context) async {
-    // To be best effort, we try to get the device language
-    // But if we can't, we just use the default language
-    String deviceLanguage = defaultLanguage;
-
-    if (useSimCard || useDeviceLocale) {
-      try {
-        deviceLanguage = await getDeviceLanguage(context, defaultLanguage,
-            useSimCard, useDeviceLocale, localeFromContext);
-      } catch (error) {
-        debugPrint(error.toString());
-      }
-    }
-    // Here we try to get the preferred language from the shared preferences
-    // If we can't, we just use the device language or the default language
     try {
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      final String? preferredLanguage =
-          sharedPreferences.getString(languageKey);
+      // To be best effort, we try to get the device language
+      // But if we can't, we just use the default language
+      String deviceLanguage = defaultLanguage;
 
-      _language = CalculateLanguageUtils.calculateLanguage(preferredLanguage,
-          useDeviceLocale, deviceLanguage, availableLanguages, defaultLanguage);
-    } catch (error) {
-      _language = defaultLanguage;
+      if (useSimCard || useDeviceLocale) {
+        try {
+          deviceLanguage =
+              await getDeviceLanguage(context, defaultLanguage, useSimCard, useDeviceLocale, localeFromContext);
+        } catch (error) {
+          debugPrint(error.toString());
+        }
+      }
+      // Here we try to get the preferred language from the shared preferences
+      // If we can't, we just use the device language or the default language
+      try {
+        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+        final String? preferredLanguage = sharedPreferences.getString(languageKey);
+
+        _language = CalculateLanguageUtils.calculateLanguage(
+            preferredLanguage, useDeviceLocale, deviceLanguage, availableLanguages, defaultLanguage);
+      } catch (error) {
+        _language = defaultLanguage;
+      }
+
+      // Update the frontend
+      await updateLocations();
+    } finally {
+      _isInit = true;
+      refresh();
     }
-
-    // Update the frontend
-    await updateLocations();
   }
 
   Future<void> updateLocations() async {
     // Load the new json
-    final String jsonString =
-        await assetBundle.loadString('$localesPath$_language.json');
-    final Map<String, dynamic> jsonMap =
-        json.decode(jsonString) as Map<String, dynamic>;
+    final String jsonString = await assetBundle.loadString('$localesPath$_language.json');
+    final Map<String, dynamic> jsonMap = json.decode(jsonString) as Map<String, dynamic>;
 
     _localizedStrings = jsonMap.map((key, value) => MapEntry(key, '$value'));
   }
 
-  Future<void> updateLanguage(
-      String languageParam, SharedPreferences prefs) async {
+  Future<void> updateLanguage(String languageParam, SharedPreferences prefs) async {
     // Get the language
-    final String language =
-        LanguageFlagMap.getLanguage(languageParam, availableLanguages);
+    final String language = LanguageFlagMap.getLanguage(languageParam, availableLanguages);
 
     final bool languageChanged = _language != language;
 
@@ -123,7 +125,14 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
   }
 
   /// Translate a single translation key
-  String translate(String key) => _localizedStrings[key] ?? key;
+  String translate(String key) {
+    // If still performing the init, wait to show some text
+    if (!_isInit) {
+      return '';
+    }
+
+    return _localizedStrings[key] ?? key;
+  }
 
   void refresh() {
     notifyListeners();

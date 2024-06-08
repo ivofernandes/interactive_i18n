@@ -53,3 +53,7 @@ Use SIM card to get the country code
 ## 1.0.7
 
 Map device locale to supported languages
+
+# 1.0.8
+
+Hide text on init
