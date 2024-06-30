@@ -250,6 +250,7 @@ class LanguageProviderWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Current language: $currentLanguage'),
+          Text('Language description: ${languageProvider.languageDescription}'),
           const SizedBox(height: 10),
           Text('Current device language: $currentDeviceLanguage'),
           // TextField to set the device language

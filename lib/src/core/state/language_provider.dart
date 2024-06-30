@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:interactive_i18n/src/core/language_map/language_flag_map.dart';
 import 'package:interactive_i18n/src/core/state/mixin/mixin_device_language.dart';
 import 'package:interactive_i18n/src/core/state/utils/calculate_language_utils.dart';
+import 'package:interactive_i18n/src/core/state/utils/settings_language_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// A Provider for managing and changing the application's language settings.
@@ -46,6 +47,10 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
 
   /// Returns the current language in use.
   String getLanguage() => _language;
+
+  /// Tries to convert the language into a longer description
+  String get languageDescription =>
+      SettingsLanguageConstants.languageDescriptions[_language] ?? _language;
 
   /// Is provider already passed init state?
   bool _isInit = false;

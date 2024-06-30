@@ -57,3 +57,7 @@ Map device locale to supported languages
 # 1.0.8
 
 Hide text on init
+
+# 1.0.9
+
+Add a description of the language
