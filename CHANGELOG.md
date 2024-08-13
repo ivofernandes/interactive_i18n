@@ -61,3 +61,7 @@ Hide text on init
 # 1.0.9
 
 Add a description of the language
+
+# 1.0.10
+
+Safe area on language selection screen

@@ -53,80 +53,82 @@ class SelectLanguageScreen extends StatelessWidget {
         MediaQuery.of(context).size.width > 600 ? bigIconSize : smallIconSize;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              child: GridView.builder(
-                reverse: true,
-                // Use a SliverGridDelegate to produce a grid layout
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent:
-                      maxCrossAxisExtent, // Max cross axis extent calculated above
-                  childAspectRatio: 0.85,
-                  crossAxisSpacing: crossAxisSpacing,
-                  mainAxisSpacing: 20,
-                ),
-                itemCount: languages.length,
-                // Build the language icons
-                itemBuilder: (BuildContext ctx, index) {
-                  String language = languages[index];
-                  final String deviceLanguage =
-                      languageProvider.getDeviceCurrentLanguage();
-                  language = LanguageFlagMap.getDeviceAwareCountryCode(
-                      language, deviceLanguage);
-                  final bool selectedLanguage = language == currentLanguage;
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.all(10),
+                child: GridView.builder(
+                  reverse: true,
+                  // Use a SliverGridDelegate to produce a grid layout
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent:
+                        maxCrossAxisExtent, // Max cross axis extent calculated above
+                    childAspectRatio: 0.85,
+                    crossAxisSpacing: crossAxisSpacing,
+                    mainAxisSpacing: 20,
+                  ),
+                  itemCount: languages.length,
+                  // Build the language icons
+                  itemBuilder: (BuildContext ctx, index) {
+                    String language = languages[index];
+                    final String deviceLanguage =
+                        languageProvider.getDeviceCurrentLanguage();
+                    language = LanguageFlagMap.getDeviceAwareCountryCode(
+                        language, deviceLanguage);
+                    final bool selectedLanguage = language == currentLanguage;
 
-                  return GestureDetector(
-                    onTap: () => selectLanguage(language, context),
-                    child: LanguageIcon(
-                      size: iconSize,
-                      // icon size based on screen size
-                      key: Key(language),
-                      language: language,
-                      deviceLanguage:
-                          languageProvider.getDeviceCurrentLanguage(),
-                      semanticLabel: language,
-                      textFontStyle: selectedLanguage
-                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                fontWeight: FontWeight.bold,
-                              )
-                          : null,
-                      elevation: selectedLanguage ? 10 : 0,
-                      textDescription: textDescription,
-                    ),
-                  );
-                },
+                    return GestureDetector(
+                      onTap: () => selectLanguage(language, context),
+                      child: LanguageIcon(
+                        size: iconSize,
+                        // icon size based on screen size
+                        key: Key(language),
+                        language: language,
+                        deviceLanguage:
+                            languageProvider.getDeviceCurrentLanguage(),
+                        semanticLabel: language,
+                        textFontStyle: selectedLanguage
+                            ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                )
+                            : null,
+                        elevation: selectedLanguage ? 10 : 0,
+                        textDescription: textDescription,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 50,
-                child: IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Theme.of(context).colorScheme.primary,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 50,
+                  child: IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
-              ),
-              // Localized string
-              Text(
-                'Select language'.t,
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyMedium!.color,
+                // Localized string
+                Text(
+                  'Select language'.t,
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyMedium!.color,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 50,
-              ),
-            ],
-          )
-        ],
+                const SizedBox(
+                  width: 50,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
