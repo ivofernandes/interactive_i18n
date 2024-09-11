@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:interactive_i18n/src/core/language_map/language_flag_map.dart';
 
 /// Widget that displays a flag for a given language
@@ -37,8 +38,7 @@ class LanguageIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String newLanguage =
-        LanguageFlagMap.getFlagCode(language, deviceLanguage);
+    final String newLanguage = LanguageFlagMap.getFlagCode(language, deviceLanguage);
 
     return Material(
       elevation: elevation,
@@ -56,21 +56,22 @@ class LanguageIcon extends StatelessWidget {
                   color: Colors.black.withOpacity(0.125),
                   blurRadius: 1,
                   offset: const Offset(2, 3),
-                )
+                ),
               ],
-              image: DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: Image.asset(
-                    'icons/flags/png100px/$newLanguage.png',
-                    package: 'country_icons',
-                    semanticLabel: semanticLabel,
-                  ).image),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: SvgPicture.asset(
+                'icons/flags/svg/$newLanguage.svg', // Update the path to your SVG files
+                package: 'country_icons',
+                width: size,
+                height: size,
+                semanticsLabel: semanticLabel,
+                fit: BoxFit.fitHeight,
+              ),
             ),
           ),
-          if (textDescription)
-            const SizedBox(
-              height: 10,
-            ),
+          if (textDescription) const SizedBox(height: 10),
           if (textDescription)
             Text(
               language.toUpperCase(),

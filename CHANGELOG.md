@@ -65,3 +65,7 @@ Add a description of the language
 # 1.0.10
 
 Safe area on language selection screen
+
+# 1.0.11
+
+Use svg icons
