@@ -1,6 +1,6 @@
 name: interactive_i18n
 description: Package for manage translations jsons and widget to let user choose the language
-version: 1.0.11
+version: 1.0.12
 homepage: https://incaview.com
 repository: https://github.com/ivofernandes/interactive_i18n
 

@@ -39,7 +39,8 @@ class SelectLanguageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String localCurrentLanguage = currentLanguage ?? LanguageProvider.instance!.getCountryDeviceAware();
+    final String localCurrentLanguage =
+        currentLanguage ?? LanguageProvider.instance!.getCountryDeviceAware();
 
     // If languages are not loaded yet
     if (LanguageProvider.instance == null) {

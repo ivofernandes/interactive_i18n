@@ -25,6 +25,9 @@ class LanguageIcon extends StatelessWidget {
   /// Elevation of the language icon
   final double elevation;
 
+  /// Margin top for the text
+  final double marginTextTop;
+
   const LanguageIcon({
     required this.language,
     required this.deviceLanguage,
@@ -33,51 +36,57 @@ class LanguageIcon extends StatelessWidget {
     this.textDescription = true,
     this.textFontStyle,
     this.elevation = 0,
+    this.marginTextTop = 10,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final String newLanguage = LanguageFlagMap.getFlagCode(language, deviceLanguage);
+    final String newLanguage =
+        LanguageFlagMap.getFlagCode(language, deviceLanguage);
 
-    return Material(
-      elevation: elevation,
-      borderRadius: BorderRadius.circular(10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.125),
-                  blurRadius: 1,
-                  offset: const Offset(2, 3),
+    return FittedBox(
+      child: Material(
+        elevation: elevation,
+        borderRadius: BorderRadius.circular(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: size,
+              height: size,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.125),
+                    blurRadius: 1,
+                    offset: const Offset(2, 3),
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: SvgPicture.asset(
+                  'icons/flags/svg/$newLanguage.svg', // Update the path to your SVG files
+                  package: 'country_icons',
+                  width: size,
+                  height: size,
+                  semanticsLabel: semanticLabel,
+                  fit: BoxFit.fitHeight,
                 ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: SvgPicture.asset(
-                'icons/flags/svg/$newLanguage.svg', // Update the path to your SVG files
-                package: 'country_icons',
-                width: size,
-                height: size,
-                semanticsLabel: semanticLabel,
-                fit: BoxFit.fitHeight,
               ),
             ),
-          ),
-          if (textDescription) const SizedBox(height: 10),
-          if (textDescription)
-            Text(
-              language.toUpperCase(),
-              style: textFontStyle,
-            ),
-        ],
+            if (textDescription)
+              Container(
+                margin: EdgeInsets.only(top: marginTextTop),
+                child: Text(
+                  language.toUpperCase(),
+                  style: textFontStyle,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

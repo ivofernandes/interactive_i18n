@@ -69,3 +69,7 @@ Safe area on language selection screen
 # 1.0.11
 
 Use svg icons
+
+# 1.0.12
+
+Expose grid variables to the library

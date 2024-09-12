@@ -26,6 +26,18 @@ class SelectLanguageWidget extends StatelessWidget {
   /// Show the text below the flag
   final bool textDescription;
 
+  /// Should the grid be reversed
+  final bool reverse;
+
+  /// Should the grid be shrinked
+  final bool shrinkWrap;
+
+  /// Physics of the grid
+  final ScrollPhysics? physics;
+
+  /// Margin top for the text
+  final double marginTextTop;
+
   const SelectLanguageWidget({
     this.currentLanguage,
     this.onLanguageSelected,
@@ -34,6 +46,10 @@ class SelectLanguageWidget extends StatelessWidget {
     this.bigIconSize = 60,
     this.smallIconSize = 40,
     this.textDescription = true,
+    this.reverse = true,
+    this.shrinkWrap = false,
+    this.physics,
+    this.marginTextTop = 10,
     super.key,
   });
 
@@ -41,7 +57,8 @@ class SelectLanguageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final LanguageProvider? languageProvider = LanguageProvider.instance;
 
-    final String localCurrentLanguage = currentLanguage ?? LanguageProvider.instance!.getCountryDeviceAware();
+    final String localCurrentLanguage =
+        currentLanguage ?? LanguageProvider.instance!.getCountryDeviceAware();
 
     // If languages are not loaded yet
     if (languageProvider == null) {
@@ -52,15 +69,19 @@ class SelectLanguageWidget extends StatelessWidget {
     final List<String> languages = languageProvider.availableLanguages;
 
     // Calculate the max cross axis extent and icon size based on screen size
-    final double maxCrossAxisExtent =
-        MediaQuery.of(context).size.width / (MediaQuery.of(context).size.width > 600 ? 10 : 5);
-    final double iconSize = MediaQuery.of(context).size.width > 600 ? bigIconSize : smallIconSize;
+    final double maxCrossAxisExtent = MediaQuery.of(context).size.width /
+        (MediaQuery.of(context).size.width > 600 ? 10 : 5);
+    final double iconSize =
+        MediaQuery.of(context).size.width > 600 ? bigIconSize : smallIconSize;
 
     return GridView.builder(
-      reverse: true,
+      reverse: reverse,
+      shrinkWrap: shrinkWrap,
+      physics: physics,
       // Use a SliverGridDelegate to produce a grid layout
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: maxCrossAxisExtent, // Max cross axis extent calculated above
+        maxCrossAxisExtent:
+            maxCrossAxisExtent, // Max cross axis extent calculated above
         childAspectRatio: 0.85,
         crossAxisSpacing: crossAxisSpacing,
         mainAxisSpacing: 20,
@@ -69,9 +90,11 @@ class SelectLanguageWidget extends StatelessWidget {
       // Build the language icons
       itemBuilder: (BuildContext ctx, index) {
         String language = languages[index];
-        final String deviceLanguage = languageProvider.getDeviceCurrentLanguage();
-        language = LanguageFlagMap.getDeviceAwareCountryCode(language, deviceLanguage);
-        final bool selectedLanguage = language == currentLanguage;
+        final String deviceLanguage =
+            languageProvider.getDeviceCurrentLanguage();
+        language =
+            LanguageFlagMap.getDeviceAwareCountryCode(language, deviceLanguage);
+        final bool selectedLanguage = language == localCurrentLanguage;
 
         return GestureDetector(
           onTap: () => selectLanguage(language, context),
@@ -89,6 +112,7 @@ class SelectLanguageWidget extends StatelessWidget {
                 : null,
             elevation: selectedLanguage ? 10 : 0,
             textDescription: textDescription,
+            marginTextTop: marginTextTop,
           ),
         );
       },
@@ -98,7 +122,8 @@ class SelectLanguageWidget extends StatelessWidget {
   /// Function to handle language selection
   Future<void> selectLanguage(String language, BuildContext context) async {
     Navigator.pop(context);
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     final LanguageProvider languageProvider = LanguageProvider.instance!;
     await languageProvider.updateLanguage(language, sharedPreferences);
     if (onLanguageSelected != null) {
