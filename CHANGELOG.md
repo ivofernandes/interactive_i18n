@@ -73,3 +73,7 @@ Use svg icons
 # 1.0.12
 
 Expose grid variables to the library
+
+# 1.0.13
+
+Fix tests

@@ -38,6 +38,10 @@ class SelectLanguageWidget extends StatelessWidget {
   /// Margin top for the text
   final double marginTextTop;
 
+  /// Because the normal flow is to have a screen to select the new language this will default to true,
+  /// But if you want to use the widget in a different way, you can set this to false
+  final bool popNavigatorOnSelect;
+
   const SelectLanguageWidget({
     this.currentLanguage,
     this.onLanguageSelected,
@@ -50,6 +54,7 @@ class SelectLanguageWidget extends StatelessWidget {
     this.shrinkWrap = false,
     this.physics,
     this.marginTextTop = 10,
+    this.popNavigatorOnSelect = true,
     super.key,
   });
 
@@ -121,7 +126,11 @@ class SelectLanguageWidget extends StatelessWidget {
 
   /// Function to handle language selection
   Future<void> selectLanguage(String language, BuildContext context) async {
-    Navigator.pop(context);
+    /// If the language is already selected, do nothing
+    if (popNavigatorOnSelect) {
+      Navigator.pop(context);
+    }
+
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     final LanguageProvider languageProvider = LanguageProvider.instance!;
