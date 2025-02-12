@@ -13,7 +13,9 @@ dependencies:
     sdk: flutter
   provider: ^6.1.2
   shared_preferences: ^2.3.2
-  flutter_sim_country_code: ^0.1.2
+  flutter_sim_country_code:
+    git:
+      url: https://github.com/fenil2024/flutter_sim_country_code/
   country_icons: ^3.0.0
   flutter_svg: ^2.0.10+1
 
