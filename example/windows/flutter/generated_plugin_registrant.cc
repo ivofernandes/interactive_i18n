@@ -6,6 +6,9 @@
 
 #include "generated_plugin_registrant.h"
 
+#include <sim_card_info/sim_card_info_plugin_c_api.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
+  SimCardInfoPluginCApiRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("SimCardInfoPluginCApi"));
 }
