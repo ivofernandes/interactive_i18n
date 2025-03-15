@@ -77,3 +77,7 @@ Expose grid variables to the library
 # 1.0.13
 
 Fix tests
+
+# 2.0.1
+
+Drop sim card support

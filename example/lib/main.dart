@@ -48,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   double _toolbarHeight = 30;
   bool _useDeviceLocale = true;
-  bool _useSimCard = true;
   String _defaultLanguage = 'pt';
   bool textDescription = true;
 
@@ -61,12 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void _toggleUseDeviceLocale(bool value) {
     setState(() {
       _useDeviceLocale = value;
-    });
-  }
-
-  void _toggleUseSimCard(bool value) {
-    setState(() {
-      _useSimCard = value;
     });
   }
 
@@ -114,7 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
       languageUpdated: languageUpdated,
       localesPath: 'assets/locales/',
       useDeviceLocale: _useDeviceLocale,
-      useSimCard: _useSimCard,
       defaultLanguage: _defaultLanguage,
       child: Scaffold(
         appBar: AppBar(
@@ -149,8 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   margin: const EdgeInsets.all(20),
                   child: Text(
-                    'The purpose of this app is to show how to use the interactive_i18n package.'
-                        .t,
+                    'The purpose of this app is to show how to use the interactive_i18n package.'.t,
                   ),
                 ),
                 Text('You have pushed the button this many times:'.t),
@@ -186,11 +177,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   value: _useDeviceLocale,
                   onChanged: _toggleUseDeviceLocale,
                 ),
-                SwitchListTile(
-                  title: Text('Use SIM Card Locale'.t),
-                  value: _useSimCard,
-                  onChanged: _toggleUseSimCard,
-                ),
                 Row(
                   children: [
                     Text('Default language:'.t),
@@ -202,16 +188,25 @@ class _MyHomePageState extends State<MyHomePage> {
                         }
                       },
                       items: availableLanguages
-                          .map<DropdownMenuItem<String>>(
-                              (String language) => DropdownMenuItem<String>(
-                                    value: language,
-                                    child: Text(language),
-                                  ))
+                          .map<DropdownMenuItem<String>>((String language) => DropdownMenuItem<String>(
+                                value: language,
+                                child: Text(language),
+                              ))
                           .toList(),
                     ),
                   ],
                 ),
                 LanguageProviderWidget(),
+                const SizedBox(height: 20),
+                SelectLanguageWidget(
+                  shrinkWrap: true,
+                  reverse: false,
+                  physics: const NeverScrollableScrollPhysics(),
+                  popNavigatorOnSelect: false,
+                  onLanguageSelected: (language) async {
+                    debugPrint('new language: $language');
+                  },
+                ),
               ],
             ),
           ),
@@ -234,15 +229,11 @@ class _MyHomePageState extends State<MyHomePage> {
 class LanguageProviderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final LanguageProvider languageProvider =
-        Provider.of<LanguageProvider>(context);
+    final LanguageProvider languageProvider = Provider.of<LanguageProvider>(context);
     final List<String> languages = languageProvider.availableLanguages;
     final String currentLanguage = languageProvider.getLanguage();
-    final String currentDeviceLanguage =
-        languageProvider.getDeviceCurrentLanguage();
-    final String currentSimCode = languageProvider.getSimCountryCode();
-    final TextEditingController _deviceLanguageController =
-        TextEditingController();
+    final String currentDeviceLanguage = languageProvider.getDeviceCurrentLanguage();
+    final TextEditingController _deviceLanguageController = TextEditingController();
 
     return Container(
       margin: const EdgeInsets.all(20),
@@ -267,14 +258,11 @@ class LanguageProviderWidget extends StatelessWidget {
           ),
           MaterialButton(
             onPressed: () {
-              languageProvider
-                  .setDeviceLanguage(_deviceLanguageController.text);
+              languageProvider.setDeviceLanguage(_deviceLanguageController.text);
               languageProvider.refresh();
             },
             child: const Text('Set device language'),
           ),
-          const SizedBox(height: 10),
-          Text('Current SIM code: $currentSimCode'),
           const SizedBox(height: 10),
           Text('Available languages: $languages'),
         ],

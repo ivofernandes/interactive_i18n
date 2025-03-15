@@ -12,7 +12,6 @@ class InteractiveLocalization extends StatelessWidget {
     this.availableLanguages = SettingsLanguageConstants.languages,
     this.localesPath = 'assets/locales/',
     this.useDeviceLocale = true,
-    this.useSimCard = true,
     this.languageUpdated,
     super.key,
   });
@@ -32,9 +31,6 @@ class InteractiveLocalization extends StatelessWidget {
   /// Should the operative system to get the language?
   final bool useDeviceLocale;
 
-  /// Should use SIM card for the device language?
-  final bool useSimCard;
-
   /// If SIM is not available. Should get the locale from the context or from view?
   final bool localeFromContext = false;
 
@@ -49,7 +45,6 @@ class InteractiveLocalization extends StatelessWidget {
           availableLanguages: availableLanguages,
           localesPath: localesPath,
           useDeviceLocale: useDeviceLocale,
-          useSimCard: useSimCard,
           assetBundle: DefaultAssetBundle.of(context),
           localeFromContext: localeFromContext,
         ),

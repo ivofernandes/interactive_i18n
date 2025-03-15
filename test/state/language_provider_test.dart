@@ -42,15 +42,13 @@ void main() {
   });
 
   group('LanguageProvider', () {
-    test('initializes with default language when no preference is set',
-        () async {
+    test('initializes with default language when no preference is set', () async {
       final LanguageProvider provider = LanguageProvider(
         context: MockBuildContext(),
         defaultLanguage: 'en',
         availableLanguages: ['en', 'es'],
         localesPath: 'assets/locales/',
         useDeviceLocale: false,
-        useSimCard: false,
         assetBundle: TestAssetBundle(),
         localeFromContext: true,
       );
@@ -67,7 +65,6 @@ void main() {
         availableLanguages: ['en', 'es'],
         localesPath: 'assets/locales/',
         useDeviceLocale: false,
-        useSimCard: false,
         assetBundle: TestAssetBundle(),
         localeFromContext: true,
       );
@@ -93,7 +90,6 @@ void main() {
         availableLanguages: ['en', 'es'],
         localesPath: 'assets/locales/',
         useDeviceLocale: false,
-        useSimCard: false,
         assetBundle: TestAssetBundle(),
         localeFromContext: true,
       );
@@ -103,8 +99,7 @@ void main() {
       expect(provider.translate('hello'), 'Hello');
     });
 
-    test('fallback to default language if device language is not available',
-        () async {
+    test('fallback to default language if device language is not available', () async {
       final LanguageProvider provider = LanguageProvider(
         context: MockBuildContext(),
         defaultLanguage: 'en',
@@ -112,7 +107,6 @@ void main() {
         localesPath: 'assets/locales/',
         useDeviceLocale: true,
         // Enable device locale usage.
-        useSimCard: false,
         assetBundle: TestAssetBundle(),
         localeFromContext: true,
       );
