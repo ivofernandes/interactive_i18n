@@ -4,7 +4,8 @@ import 'package:interactive_i18n/src/core/state/utils/settings_language_constant
 import 'package:provider/provider.dart';
 
 class InteractiveLocalization extends StatelessWidget {
-  static DateTime lastBuild = DateTime.now();
+  // Variables to avoid rebuilds
+  static String lastCurrentLanguage = '';
 
   const InteractiveLocalization({
     required this.child,
@@ -35,7 +36,7 @@ class InteractiveLocalization extends StatelessWidget {
   final bool localeFromContext = false;
 
   /// Function called when the user updates the language
-  final void Function()? languageUpdated;
+  final void Function(String)? languageUpdated;
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
@@ -51,15 +52,14 @@ class InteractiveLocalization extends StatelessWidget {
         child: Consumer<LanguageProvider>(
           builder: (context, languageState, _) {
             LanguageProvider.instance = languageState;
+            final currentLanguage = languageState.getLanguage();
+            final bool languageChanged = lastCurrentLanguage != currentLanguage;
+            final hasListener = languageUpdated != null;
 
-            if (LanguageProvider.instance != null) {
-              // Hammer to avoid rebuilds
-              if (DateTime.now().difference(lastBuild).inSeconds > 2) {
-                if (languageUpdated != null) {
-                  Future.delayed(Duration.zero, () => languageUpdated!());
-                  lastBuild = DateTime.now();
-                }
-              }
+            // Strategy to avoid rebuilds
+            if (languageChanged && hasListener) {
+              lastCurrentLanguage = currentLanguage;
+              Future.delayed(Duration.zero, () => languageUpdated!(currentLanguage));
             }
 
             return child;

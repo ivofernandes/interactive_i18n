@@ -3,5 +3,11 @@
   "Toolbar height": "Toolbar height",
   "Flutter Demo Home Page": "Flutter Demo Home Page",
   "The purpose of this app is to show how to use the interactive_i18n package.": "The purpouse of this app is to show how to use the interactive_i18n package.",
-  "Select language": "Select language"
+  "Select language": "Select language",
+  "Text Description": "Text Description",
+  "Use Device Locale": "Use Device Locale",
+  "Default language:": "Default language:",
+  "Current language": "Current language",
+  "Language description": "Language description",
+  "Current device language": "Current device language"
 }

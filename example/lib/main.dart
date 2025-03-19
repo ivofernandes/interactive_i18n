@@ -38,7 +38,10 @@ class _MyAppState extends State<MyApp> {
 class MyHomePage extends StatefulWidget {
   final VoidCallback toggleDarkMode;
 
-  const MyHomePage({required this.toggleDarkMode, super.key});
+  const MyHomePage({
+    required this.toggleDarkMode,
+    super.key,
+  });
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -220,8 +223,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void languageUpdated() {
-    debugPrint('Set state');
+  void languageUpdated(String language) {
+    debugPrint('languageUpdated to $language');
     setState(() {});
   }
 }
@@ -240,10 +243,10 @@ class LanguageProviderWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Current language: $currentLanguage'),
-          Text('Language description: ${languageProvider.languageDescription}'),
+          Text('Current language'.t + ': $currentLanguage'),
+          Text('Language description'.t + ': ${languageProvider.languageDescription}'),
           const SizedBox(height: 10),
-          Text('Current device language: $currentDeviceLanguage'),
+          Text('Current device language'.t + ': $currentDeviceLanguage'),
           // TextField to set the device language
           TextField(
             decoration: const InputDecoration(
