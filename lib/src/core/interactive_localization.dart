@@ -32,7 +32,7 @@ class InteractiveLocalization extends StatelessWidget {
   /// Should the operative system to get the language?
   final bool useDeviceLocale;
 
-  /// If SIM is not available. Should get the locale from the context or from view?
+  /// Should get the locale from the context or from view?
   final bool localeFromContext = false;
 
   /// Function called when the user updates the language

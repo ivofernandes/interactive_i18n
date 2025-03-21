@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "Vous avez appuyé sur le bouton autant de fois:",
-  "Toolbar height": "Hauteur de la barre d'outils",
-  "Flutter Demo Home Page": "Page d'accueil de démo de Flutter",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "Le but de cette application est de montrer comment utiliser le package interactive_i18n.",
-  "Select language": "Choisir la langue"
+    "You have pushed the button this many times:": "Vous avez appuyé sur le bouton autant de fois:",
+    "Toolbar height": "Hauteur de la barre d'outils",
+    "Flutter Demo Home Page": "Page d'accueil de démo de Flutter",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "Le but de cette application est de montrer comment utiliser le package interactive_i18n.",
+    "Select language": "Choisir la langue",
+    "Text Description": "Description du texte",
+    "Use Device Locale": "Utiliser les paramètres régionaux de l'appareil",
+    "Default language:": "Langue par défaut :",
+    "Current language": "Langue actuelle",
+    "Language description": "Description de la langue",
+    "Current device language": "Langue actuelle de l'appareil"
 }

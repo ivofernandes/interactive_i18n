@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "Anda telah menekan tombol ini sebanyak ini:",
-  "Toolbar height": "Tinggi toolbar",
-  "Flutter Demo Home Page": "Halaman Utama Demo Flutter",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "Tujuan dari aplikasi ini adalah untuk menunjukkan cara menggunakan paket interactive_i18n.",
-  "Select language": "Pilih bahasa"
+    "You have pushed the button this many times:": "Anda telah menekan tombol ini sebanyak ini:",
+    "Toolbar height": "Tinggi toolbar",
+    "Flutter Demo Home Page": "Halaman Utama Demo Flutter",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "Tujuan dari aplikasi ini adalah untuk menunjukkan cara menggunakan paket interactive_i18n.",
+    "Select language": "Pilih bahasa",
+    "Text Description": "Deskripsi Teks",
+    "Use Device Locale": "Gunakan Lokal Perangkat",
+    "Default language:": "Bahasa default:",
+    "Current language": "Bahasa saat ini",
+    "Language description": "Deskripsi bahasa",
+    "Current device language": "Bahasa perangkat saat ini"
 }

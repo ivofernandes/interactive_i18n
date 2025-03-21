@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "Je hebt zo vaak op de knop gedrukt:",
-  "Toolbar height": "Hoogte van de werkbalk",
-  "Flutter Demo Home Page": "Flutter Demo-startpagina",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "Het doel van deze app is om te laten zien hoe je het interactive_i18n-pakket kunt gebruiken.",
-  "Select language": "Selecteer taal"
+    "You have pushed the button this many times:": "Je hebt zo vaak op de knop gedrukt:",
+    "Toolbar height": "Hoogte van de werkbalk",
+    "Flutter Demo Home Page": "Flutter Demo-startpagina",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "Het doel van deze app is om te laten zien hoe je het interactive_i18n-pakket kunt gebruiken.",
+    "Select language": "Selecteer taal",
+    "Text Description": "Tekstbeschrijving",
+    "Use Device Locale": "Landinstellingen van apparaat gebruiken",
+    "Default language:": "Standaardtaal:",
+    "Current language": "Huidige taal",
+    "Language description": "Taalbeschrijving",
+    "Current device language": "Huidige apparaattaal"
 }

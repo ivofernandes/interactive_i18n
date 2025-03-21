@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "आपने इतनी बार बटन दबाया है:",
-  "Toolbar height": "टूलबार की ऊंचाई",
-  "Flutter Demo Home Page": "फ्लटर डेमो होम पेज",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "इस ऐप का उद्देश्य यह दिखाना है कि interactive_i18n पैकेज का उपयोग कैसे करें।",
-  "Select language": "भाषा चुनिए"
+    "You have pushed the button this many times:": "आपने इतनी बार बटन दबाया है:",
+    "Toolbar height": "टूलबार की ऊंचाई",
+    "Flutter Demo Home Page": "फ्लटर डेमो होम पेज",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "इस ऐप का उद्देश्य यह दिखाना है कि interactive_i18n पैकेज का उपयोग कैसे करें।",
+    "Select language": "भाषा चुनिए",
+    "Text Description": "पाठ विवरण",
+    "Use Device Locale": "डिवाइस लोकेल का उपयोग करें",
+    "Default language:": "डिफ़ॉल्ट भाषा:",
+    "Current language": "वर्तमान भाषा",
+    "Language description": "भाषा विवरण",
+    "Current device language": "वर्तमान डिवाइस भाषा"
 }

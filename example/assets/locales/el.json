@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "Έχετε πατήσει το κουμπί τόσες φορές:",
-  "Toolbar height": "Ύψος γραμμής εργαλείων",
-  "Flutter Demo Home Page": "Αρχική σελίδα επίδειξης Flutter",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "Ο σκοπός αυτής της εφαρμογής είναι να δείξει πώς να χρησιμοποιηθεί το πακέτο interactive_i18n.",
-  "Select language": "Επιλέξτε γλώσσα"
+    "You have pushed the button this many times:": "Έχετε πατήσει το κουμπί τόσες φορές:",
+    "Toolbar height": "Ύψος γραμμής εργαλείων",
+    "Flutter Demo Home Page": "Αρχική σελίδα επίδειξης Flutter",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "Ο σκοπός αυτής της εφαρμογής είναι να δείξει πώς να χρησιμοποιηθεί το πακέτο interactive_i18n.",
+    "Select language": "Επιλέξτε γλώσσα",
+    "Text Description": "Περιγραφή κειμένου",
+    "Use Device Locale": "Χρησιμοποιήστε το Device Locale",
+    "Default language:": "Προεπιλεγμένη γλώσσα:",
+    "Current language": "Τρέχουσα γλώσσα",
+    "Language description": "Περιγραφή γλώσσας",
+    "Current device language": "Τρέχουσα γλώσσα συσκευής"
 }

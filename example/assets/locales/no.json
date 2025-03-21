@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "Du har trykket på knappen så mange ganger:",
-  "Toolbar height": "Verktøylinjehøyde",
-  "Flutter Demo Home Page": "Flutter Demo Hjemmeside",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "Formålet med denne appen er å vise hvordan man bruker interactive_i18n-pakken.",
-  "Select language": "Velg språk"
+    "You have pushed the button this many times:": "Du har trykket på knappen så mange ganger:",
+    "Toolbar height": "Verktøylinjehøyde",
+    "Flutter Demo Home Page": "Flutter Demo Hjemmeside",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "Formålet med denne appen er å vise hvordan man bruker interactive_i18n-pakken.",
+    "Select language": "Velg språk",
+    "Text Description": "Tekstbeskrivelse",
+    "Use Device Locale": "Bruk enhetslokalitet",
+    "Default language:": "Standardspråk:",
+    "Current language": "Gjeldende språk",
+    "Language description": "Språkbeskrivelse",
+    "Current device language": "Nåværende enhetsspråk"
 }

@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "לחצת על הכפתור כמה פעמים:",
-  "Toolbar height": "גובה סרגל הכלים",
-  "Flutter Demo Home Page": "דף הבית של הדמונסטרציה של Flutter",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "מטרת האפליקציה הזו היא להראות איך להשתמש בחבילת ה-interactive_i18n.",
-  "Select language": "בחר שפה"
+    "You have pushed the button this many times:": "לחצת על הכפתור כמה פעמים:",
+    "Toolbar height": "גובה סרגל הכלים",
+    "Flutter Demo Home Page": "דף הבית של הדמונסטרציה של Flutter",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "מטרת האפליקציה הזו היא להראות איך להשתמש בחבילת ה-interactive_i18n.",
+    "Select language": "בחר שפה",
+    "Text Description": "תיאור טקסט",
+    "Use Device Locale": "השתמש ב-Device Locale",
+    "Default language:": "שפת ברירת מחדל:",
+    "Current language": "שפה נוכחית",
+    "Language description": "תיאור שפה",
+    "Current device language": "שפת המכשיר הנוכחית"
 }

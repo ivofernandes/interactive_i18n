@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "لقد ضغطت على الزر هذا العدد من المرات:",
-  "Toolbar height": "ارتفاع شريط الأدوات",
-  "Flutter Demo Home Page": "صفحة البداية لتجربة Flutter",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "الهدف من هذا التطبيق هو إظهار كيفية استخدام حزمة interactive_i18n.",
-  "Select language": "اختر اللغة"
+    "You have pushed the button this many times:": "لقد ضغطت على الزر هذا العدد من المرات:",
+    "Toolbar height": "ارتفاع شريط الأدوات",
+    "Flutter Demo Home Page": "صفحة البداية لتجربة Flutter",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "الهدف من هذا التطبيق هو إظهار كيفية استخدام حزمة interactive_i18n.",
+    "Select language": "اختر اللغة",
+    "Text Description": "وصف النص",
+    "Use Device Locale": "استخدام إعدادات الجهاز المحلية",
+    "Default language:": "اللغة الافتراضية:",
+    "Current language": "اللغة الحالية",
+    "Language description": "وصف اللغة",
+    "Current device language": "لغة الجهاز الحالية"
 }

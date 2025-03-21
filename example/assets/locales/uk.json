@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "Ви натиснули цю кнопку стільки разів:",
-  "Toolbar height": "Висота панелі інструментів",
-  "Flutter Demo Home Page": "Домашня сторінка демо Flutter",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "Мета цього додатку - показати, як використовувати пакет interactive_i18n.",
-  "Select language": "Виберіть мову"
+    "You have pushed the button this many times:": "Ви натиснули цю кнопку стільки разів:",
+    "Toolbar height": "Висота панелі інструментів",
+    "Flutter Demo Home Page": "Домашня сторінка демо Flutter",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "Мета цього додатку - показати, як використовувати пакет interactive_i18n.",
+    "Select language": "Виберіть мову",
+    "Text Description": "Текстовий опис",
+    "Use Device Locale": "Використовувати мову пристрою",
+    "Default language:": "Мова за замовчуванням:",
+    "Current language": "Актуальна мова",
+    "Language description": "Опис мови",
+    "Current device language": "Поточна мова пристрою"
 }

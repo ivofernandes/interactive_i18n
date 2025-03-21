@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "당신은 이 버튼을 이렇게 많이 눌렀습니다:",
-  "Toolbar height": "툴바 높이",
-  "Flutter Demo Home Page": "플러터 데모 홈페이지",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "이 앱의 목적은 interactive_i18n 패키지의 사용법을 보여주는 것입니다.",
-  "Select language": "언어 선택"
+    "You have pushed the button this many times:": "당신은 이 버튼을 이렇게 많이 눌렀습니다:",
+    "Toolbar height": "툴바 높이",
+    "Flutter Demo Home Page": "플러터 데모 홈페이지",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "이 앱의 목적은 interactive_i18n 패키지의 사용법을 보여주는 것입니다.",
+    "Select language": "언어 선택",
+    "Text Description": "텍스트 설명",
+    "Use Device Locale": "장치 로캘 사용",
+    "Default language:": "기본 언어:",
+    "Current language": "현재 언어",
+    "Language description": "언어 설명",
+    "Current device language": "현재 장치 언어"
 }

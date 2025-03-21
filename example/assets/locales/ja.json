@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "あなたはこのボタンをこれだけの回数押しました:",
-  "Toolbar height": "ツールバーの高さ",
-  "Flutter Demo Home Page": "Flutterデモホームページ",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "このアプリの目的は、interactive_i18nパッケージの使用方法を示すことです。",
-  "Select language": "言語を選択"
+    "You have pushed the button this many times:": "あなたはこのボタンをこれだけの回数押しました:",
+    "Toolbar height": "ツールバーの高さ",
+    "Flutter Demo Home Page": "Flutterデモホームページ",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "このアプリの目的は、interactive_i18nパッケージの使用方法を示すことです。",
+    "Select language": "言語を選択",
+    "Text Description": "テキストの説明",
+    "Use Device Locale": "デバイスのロケールを使用する",
+    "Default language:": "デフォルト言語:",
+    "Current language": "現在の言語",
+    "Language description": "言語の説明",
+    "Current device language": "現在のデバイスの言語"
 }

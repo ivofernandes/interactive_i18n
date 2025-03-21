@@ -1,7 +1,13 @@
 {
-  "You have pushed the button this many times:": "Bu kadar çok kez düğmeye bastınız:",
-  "Toolbar height": "Araç çubuğu yüksekliği",
-  "Flutter Demo Home Page": "Flutter Demo Ana Sayfa",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "Bu uygulamanın amacı, interactive_i18n paketinin nasıl kullanılacağını göstermektir.",
-  "Select language": "Dil Seçin"
+    "You have pushed the button this many times:": "Bu kadar çok kez düğmeye bastınız:",
+    "Toolbar height": "Araç çubuğu yüksekliği",
+    "Flutter Demo Home Page": "Flutter Demo Ana Sayfa",
+    "The purpose of this app is to show how to use the interactive_i18n package.": "Bu uygulamanın amacı, interactive_i18n paketinin nasıl kullanılacağını göstermektir.",
+    "Select language": "Dil Seçin",
+    "Text Description": "Metin Açıklaması",
+    "Use Device Locale": "Aygıt Yerel Ayarını Kullan",
+    "Default language:": "Varsayılan dil:",
+    "Current language": "Mevcut dil",
+    "Language description": "Dil açıklaması",
+    "Current device language": "Mevcut cihaz dili"
 }
