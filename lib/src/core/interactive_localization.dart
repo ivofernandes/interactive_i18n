@@ -14,6 +14,7 @@ class InteractiveLocalization extends StatelessWidget {
     this.localesPath = 'assets/locales/',
     this.useDeviceLocale = true,
     this.languageUpdated,
+    this.localeFromContext = true,
     super.key,
   });
 
@@ -33,7 +34,7 @@ class InteractiveLocalization extends StatelessWidget {
   final bool useDeviceLocale;
 
   /// Should get the locale from the context or from view?
-  final bool localeFromContext = false;
+  final bool localeFromContext;
 
   /// Function called when the user updates the language
   final void Function(String)? languageUpdated;

@@ -236,17 +236,17 @@ class LanguageProviderWidget extends StatelessWidget {
     final List<String> languages = languageProvider.availableLanguages;
     final String currentLanguage = languageProvider.getLanguage();
     final String currentDeviceLanguage = languageProvider.getDeviceCurrentLanguage();
-    final TextEditingController _deviceLanguageController = TextEditingController();
+    final TextEditingController deviceLanguageController = TextEditingController();
 
     return Container(
       margin: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Current language'.t + ': $currentLanguage'),
-          Text('Language description'.t + ': ${languageProvider.languageDescription}'),
+          Text('${'Current language'.t}: $currentLanguage'),
+          Text('${'Language description'.t}: ${languageProvider.languageDescription}'),
           const SizedBox(height: 10),
-          Text('Current device language'.t + ': $currentDeviceLanguage'),
+          Text('${'Current device language'.t}: $currentDeviceLanguage'),
           // TextField to set the device language
           TextField(
             decoration: const InputDecoration(
@@ -257,11 +257,11 @@ class LanguageProviderWidget extends StatelessWidget {
               languageProvider.setDeviceLanguage(value);
               languageProvider.refresh();
             },
-            controller: _deviceLanguageController,
+            controller: deviceLanguageController,
           ),
           MaterialButton(
             onPressed: () {
-              languageProvider.setDeviceLanguage(_deviceLanguageController.text);
+              languageProvider.setDeviceLanguage(deviceLanguageController.text);
               languageProvider.refresh();
             },
             child: const Text('Set device language'),

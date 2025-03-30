@@ -42,8 +42,7 @@ class LanguageIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String newLanguage =
-        LanguageFlagMap.getFlagCode(language, deviceLanguage);
+    final String newLanguage = LanguageFlagMap.getFlagCode(language, deviceLanguage);
 
     return FittedBox(
       child: Material(
@@ -59,7 +58,7 @@ class LanguageIcon extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.125),
+                    color: Colors.black.withAlpha((255.0 * 0.125).round()),
                     blurRadius: 1,
                     offset: const Offset(2, 3),
                   ),

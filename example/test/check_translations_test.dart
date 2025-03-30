@@ -31,11 +31,11 @@ String referenceLocale = 'en';
 void main() async {
   test('Test the translation key regex', () async {
     // Test if finds false positives
-    bool shouldNotMatch = translateRegex.hasMatch("'en', 'pt");
+    final bool shouldNotMatch = translateRegex.hasMatch("'en', 'pt");
     assert(!shouldNotMatch);
 
     // Test if finds the correct transaltion key
-    bool shouldMatch = translateRegex.hasMatch("'key'.t");
+    final bool shouldMatch = translateRegex.hasMatch("'key'.t");
     assert(shouldMatch);
   });
 
@@ -43,7 +43,7 @@ void main() async {
   /// This test will fail if there are missing keys
   test('Find missing translation keys for the referenceLocale', () async {
     final List<String> translationKeys = await getTranslationKeys(false);
-    String filePath = '$localesDir/$referenceLocale.json';
+    final String filePath = '$localesDir/$referenceLocale.json';
 
     final List<String> missingKeys = await getMissingKeys(filePath, translationKeys);
 
@@ -79,7 +79,7 @@ void main() async {
 
 void reportMissingKeys(String filePath, List<String> missingKeys) {
   debugPrint('On file $filePath add: ');
-  for (var key in missingKeys) {
+  for (final key in missingKeys) {
     if (filePath.contains('en.json')) {
       debugPrint('"$key": "$key",');
     } else {
@@ -124,7 +124,7 @@ Future<List<String>> getTranslationKeys(bool searchForKeysInOtherFiles) async {
         final Map<String, dynamic> jsonObject = json.decode(content) as Map<String, dynamic>;
         final List<String> jsonKeys = jsonObject.keys.toList();
 
-        for (var key in jsonKeys) {
+        for (final key in jsonKeys) {
           if (!keys.contains(key)) {
             keys.add(key);
           }

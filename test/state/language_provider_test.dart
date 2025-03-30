@@ -11,11 +11,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// It simulates loading JSON language files from assets.
 class TestAssetBundle extends CachingAssetBundle {
   @override
-  Future<ByteData> load(String key) async {
-    return ByteData.view(
-      Uint8List.fromList(utf8.encode(await loadString(key))).buffer,
-    );
-  }
+  Future<ByteData> load(String key) async => ByteData.view(
+        Uint8List.fromList(utf8.encode(await loadString(key))).buffer,
+      );
 
   @override
   Future<String> loadString(String key, {bool cache = true}) async {
@@ -74,7 +72,7 @@ void main() {
       expect(provider.getLanguage(), 'en');
 
       // Retrieve the SharedPreferences instance.
-      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
 
       // Update the language to 'es' and verify the change.
       await provider.updateLanguage('es', prefs);
