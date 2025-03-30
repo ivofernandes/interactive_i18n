@@ -45,7 +45,8 @@ void main() async {
     final List<String> translationKeys = await getTranslationKeys(false);
     final String filePath = '$localesDir/$referenceLocale.json';
 
-    final List<String> missingKeys = await getMissingKeys(filePath, translationKeys);
+    final List<String> missingKeys =
+        await getMissingKeys(filePath, translationKeys);
 
     if (missingKeys.isNotEmpty) {
       reportMissingKeys(filePath, missingKeys);
@@ -59,12 +60,14 @@ void main() async {
 
     // Check if all locales have all the keys
     final Directory source = Directory(localesDir);
-    final List<FileSystemEntity> translationFiles = source.listSync(recursive: true).toList();
+    final List<FileSystemEntity> translationFiles =
+        source.listSync(recursive: true).toList();
 
     for (final FileSystemEntity translationFile in translationFiles) {
       if (translationFile.path.endsWith('.json')) {
         // Get missing keys
-        final List<String> missingKeys = await getMissingKeys(translationFile.path, translationKeys);
+        final List<String> missingKeys =
+            await getMissingKeys(translationFile.path, translationKeys);
 
         if (missingKeys.isNotEmpty) {
           reportMissingKeys(translationFile.path, missingKeys);
@@ -93,7 +96,8 @@ void reportMissingKeys(String filePath, List<String> missingKeys) {
 Future<List<String>> getMissingKeys(String path, List<String> keys) async {
   final List<String> missingKeys = [];
   final String content = await File(path).readAsString();
-  final Map<String, dynamic> jsonObject = json.decode(content) as Map<String, dynamic>;
+  final Map<String, dynamic> jsonObject =
+      json.decode(content) as Map<String, dynamic>;
   final List<String> jsonKeys = jsonObject.keys.toList();
 
   for (final String key in keys) {
@@ -116,12 +120,14 @@ Future<List<String>> getTranslationKeys(bool searchForKeysInOtherFiles) async {
   if (searchForKeysInOtherFiles) {
     // Check if all locales have all the keys
     final Directory source = Directory(localesDir);
-    final List<FileSystemEntity> entries = source.listSync(recursive: true).toList();
+    final List<FileSystemEntity> entries =
+        source.listSync(recursive: true).toList();
 
     for (final FileSystemEntity entry in entries) {
       if (entry.path.endsWith('.json')) {
         final String content = await File(entry.path).readAsString();
-        final Map<String, dynamic> jsonObject = json.decode(content) as Map<String, dynamic>;
+        final Map<String, dynamic> jsonObject =
+            json.decode(content) as Map<String, dynamic>;
         final List<String> jsonKeys = jsonObject.keys.toList();
 
         for (final key in jsonKeys) {
@@ -144,7 +150,8 @@ Future<List<String>> getDartTranslationKeys() async {
     debugPrint('Searching for stuff inside $sourceDir');
     final Directory source = Directory(sourceDir);
 
-    final List<FileSystemEntity> entries = source.listSync(recursive: true).toList();
+    final List<FileSystemEntity> entries =
+        source.listSync(recursive: true).toList();
 
     debugPrint('Will validate ${entries.length} files/folders');
 

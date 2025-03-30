@@ -60,7 +60,8 @@ class InteractiveLocalization extends StatelessWidget {
             // Strategy to avoid rebuilds
             if (languageChanged && hasListener) {
               lastCurrentLanguage = currentLanguage;
-              Future.delayed(Duration.zero, () => languageUpdated!(currentLanguage));
+              Future.delayed(
+                  Duration.zero, () => languageUpdated!(currentLanguage));
             }
 
             return child;

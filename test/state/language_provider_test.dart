@@ -40,7 +40,8 @@ void main() {
   });
 
   group('LanguageProvider', () {
-    test('initializes with default language when no preference is set', () async {
+    test('initializes with default language when no preference is set',
+        () async {
       final LanguageProvider provider = LanguageProvider(
         context: MockBuildContext(),
         defaultLanguage: 'en',
@@ -97,7 +98,8 @@ void main() {
       expect(provider.translate('hello'), 'Hello');
     });
 
-    test('fallback to default language if device language is not available', () async {
+    test('fallback to default language if device language is not available',
+        () async {
       final LanguageProvider provider = LanguageProvider(
         context: MockBuildContext(),
         defaultLanguage: 'en',

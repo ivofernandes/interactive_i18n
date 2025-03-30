@@ -42,7 +42,8 @@ class LanguageIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String newLanguage = LanguageFlagMap.getFlagCode(language, deviceLanguage);
+    final String newLanguage =
+        LanguageFlagMap.getFlagCode(language, deviceLanguage);
 
     return FittedBox(
       child: Material(
