@@ -15,6 +15,8 @@ class InteractiveI18nSelector extends StatelessWidget {
     this.bigIconSize = 60,
     this.smallIconSize = 40,
     this.textDescription = true,
+    this.flagPadding = const EdgeInsets.only(left: 5, top: 5, right: 5),
+    this.borderRadius = 10,
     super.key,
   });
 
@@ -38,6 +40,12 @@ class InteractiveI18nSelector extends StatelessWidget {
 
   /// Text description below the flag
   final bool textDescription;
+
+  /// Horizontal padding for the flag
+  final EdgeInsets flagPadding;
+
+  /// Border radius
+  final double borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +77,7 @@ class InteractiveI18nSelector extends StatelessWidget {
             bigIconSize: bigIconSize,
             smallIconSize: smallIconSize,
             textDescription: textDescription,
+            borderRadius: borderRadius,
           ),
         ),
       ),
@@ -82,6 +91,8 @@ class InteractiveI18nSelector extends StatelessWidget {
             semanticLabel: 'language selection',
             textDescription: false,
             size: size,
+            flagPadding: const EdgeInsets.all(5),
+            borderRadius: borderRadius,
           );
         },
       ),

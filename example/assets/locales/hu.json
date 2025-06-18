@@ -1,6 +1,13 @@
 {
-  "You have pushed the button this many times:": "Ennyiszer nyomta meg a gombot:",
-  "Toolbar height": "Eszköztár magasság",
-  "Flutter Demo Home Page": "Flutter Demó Főoldal",
-  "The purpose of this app is to show how to use the interactive_i18n package.": "Az alkalmazás célja, hogy bemutassa, hogyan kell használni az interactive_i18n csomagot.",
-  "Select language": "Nyelv kiv
+  "You have pushed the button this many times:": "Ennyiszer nyomtad meg a gombot:",
+  "Toolbar height": "Eszköztár magassága",
+  "Flutter Demo Home Page": "Flutter demó kezdőlap",
+  "The purpose of this app is to show how to use the interactive_i18n package.": "Ez az alkalmazás azt mutatja be, hogyan kell használni az interactive_i18n csomagot.",
+  "Select language": "Nyelv kiválasztása",
+  "Text Description": "Szöveges leírás",
+  "Use Device Locale": "Eszköz nyelvének használata",
+  "Default language:": "Alapértelmezett nyelv:",
+  "Current language": "Jelenlegi nyelv",
+  "Language description": "Nyelv leírása",
+  "Current device language": "Az eszköz jelenlegi nyelve"
+}

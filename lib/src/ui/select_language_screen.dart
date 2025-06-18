@@ -26,6 +26,12 @@ class SelectLanguageScreen extends StatelessWidget {
   /// Show the text below the flag
   final bool textDescription;
 
+  /// Padding for the flag
+  final EdgeInsets flagPadding;
+
+  /// Border radius
+  final double borderRadius;
+
   const SelectLanguageScreen({
     this.currentLanguage,
     this.onLanguageSelected,
@@ -34,6 +40,8 @@ class SelectLanguageScreen extends StatelessWidget {
     this.bigIconSize = 60,
     this.smallIconSize = 40,
     this.textDescription = true,
+    this.flagPadding = const EdgeInsets.only(left: 5, top: 5, right: 5),
+    this.borderRadius = 10,
     super.key,
   });
 
@@ -62,6 +70,8 @@ class SelectLanguageScreen extends StatelessWidget {
                   bigIconSize: bigIconSize,
                   smallIconSize: smallIconSize,
                   textDescription: textDescription,
+                  flagPadding: flagPadding,
+                  borderRadius: borderRadius,
                 ),
               ),
             ),

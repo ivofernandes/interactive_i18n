@@ -42,6 +42,12 @@ class SelectLanguageWidget extends StatelessWidget {
   /// But if you want to use the widget in a different way, you can set this to false
   final bool popNavigatorOnSelect;
 
+  /// Padding for the flag
+  final EdgeInsets flagPadding;
+
+  /// Border radius
+  final double borderRadius;
+
   const SelectLanguageWidget({
     this.currentLanguage,
     this.onLanguageSelected,
@@ -55,6 +61,8 @@ class SelectLanguageWidget extends StatelessWidget {
     this.physics,
     this.marginTextTop = 10,
     this.popNavigatorOnSelect = true,
+    this.flagPadding = const EdgeInsets.only(left: 5, top: 5, right: 5),
+    this.borderRadius = 10,
     super.key,
   });
 
@@ -115,9 +123,11 @@ class SelectLanguageWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     )
                 : null,
-            elevation: selectedLanguage ? 10 : 0,
+            elevation: selectedLanguage ? 0 : 10,
             textDescription: textDescription,
             marginTextTop: marginTextTop,
+            flagPadding: flagPadding,
+            borderRadius: borderRadius,
           ),
         );
       },

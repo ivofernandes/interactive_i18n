@@ -81,3 +81,6 @@ Fix tests
 # 2.0.0
 
 Drop sim card support
+
+# 2.0.1
+Improve design of the language selection screen

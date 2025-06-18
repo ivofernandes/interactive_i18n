@@ -132,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   debugPrint('User picked language $language');
                 },
                 textDescription: textDescription,
+                borderRadius: 50,
               ),
             )
           ],
@@ -211,6 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onLanguageSelected: (language) async {
                     debugPrint('new language: $language');
                   },
+                  borderRadius: 50,
                 ),
               ],
             ),
