@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:interactive_i18n/src/core/state/language_provider.dart';
-import 'package:interactive_i18n/src/core/string_localization.dart';
-import 'package:interactive_i18n/src/ui/select_language_widget.dart';
+import 'package:interactive_i18n/interactive_i18n.dart';
 
 /// This widget is responsible for letting user select a language
 class SelectLanguageScreen extends StatelessWidget {
@@ -32,6 +30,9 @@ class SelectLanguageScreen extends StatelessWidget {
   /// Border radius
   final double borderRadius;
 
+  /// Background color for the selected language
+  final Color selectedColor;
+
   const SelectLanguageScreen({
     this.currentLanguage,
     this.onLanguageSelected,
@@ -42,6 +43,7 @@ class SelectLanguageScreen extends StatelessWidget {
     this.textDescription = true,
     this.flagPadding = const EdgeInsets.only(left: 5, top: 5, right: 5),
     this.borderRadius = 10,
+    this.selectedColor = Colors.transparent,
     super.key,
   });
 
@@ -57,49 +59,72 @@ class SelectLanguageScreen extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(10),
-                child: SelectLanguageWidget(
-                  onLanguageSelected: onLanguageSelected,
-                  currentLanguage: localCurrentLanguage,
-                  crossAxisSpacing: crossAxisSpacing,
-                  mainAxisSpacing: mainAxisSpacing,
-                  bigIconSize: bigIconSize,
-                  smallIconSize: smallIconSize,
-                  textDescription: textDescription,
-                  flagPadding: flagPadding,
-                  borderRadius: borderRadius,
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: SelectLanguageWidget(
+                onLanguageSelected: onLanguageSelected,
+                currentLanguage: localCurrentLanguage,
+                crossAxisSpacing: crossAxisSpacing,
+                mainAxisSpacing: mainAxisSpacing,
+                bigIconSize: bigIconSize,
+                smallIconSize: smallIconSize,
+                textDescription: textDescription,
+                flagPadding: flagPadding,
+                borderRadius: borderRadius,
+                selectedColor: selectedColor,
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: SizedBox.expand(
+                  // ✅ This makes Stack take full width & height of its parent
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      // Centered label
+                      Material(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                        ),
+                        elevation: 10,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius: BorderRadius.circular(borderRadius),
+                            border: Border.all(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .color!,
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            'Select language'.t,
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.bodyMedium!.color,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // Back button on the left
+                      Positioned(
+                        left: 10,
+                        child: const MyBackButton(),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 50,
-                  child: IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ),
-                // Localized string
-                Text(
-                  'Select language'.t,
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyMedium!.color,
-                  ),
-                ),
-                const SizedBox(
-                  width: 50,
-                ),
-              ],
-            )
           ],
         ),
       ),

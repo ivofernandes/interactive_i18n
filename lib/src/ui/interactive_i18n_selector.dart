@@ -17,6 +17,7 @@ class InteractiveI18nSelector extends StatelessWidget {
     this.textDescription = true,
     this.flagPadding = const EdgeInsets.only(left: 5, top: 5, right: 5),
     this.borderRadius = 10,
+    this.selectedColor = Colors.transparent,
     super.key,
   });
 
@@ -46,6 +47,9 @@ class InteractiveI18nSelector extends StatelessWidget {
 
   /// Border radius
   final double borderRadius;
+
+  /// Background color for the selected language
+  final Color selectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +82,7 @@ class InteractiveI18nSelector extends StatelessWidget {
             smallIconSize: smallIconSize,
             textDescription: textDescription,
             borderRadius: borderRadius,
+            selectedColor: selectedColor,
           ),
         ),
       ),

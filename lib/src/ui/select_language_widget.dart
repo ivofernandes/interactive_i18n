@@ -48,6 +48,9 @@ class SelectLanguageWidget extends StatelessWidget {
   /// Border radius
   final double borderRadius;
 
+  /// Background color for the selected language
+  final Color selectedColor;
+
   const SelectLanguageWidget({
     this.currentLanguage,
     this.onLanguageSelected,
@@ -63,6 +66,7 @@ class SelectLanguageWidget extends StatelessWidget {
     this.popNavigatorOnSelect = true,
     this.flagPadding = const EdgeInsets.only(left: 5, top: 5, right: 5),
     this.borderRadius = 10,
+    this.selectedColor = Colors.transparent,
     super.key,
   });
 
@@ -91,6 +95,7 @@ class SelectLanguageWidget extends StatelessWidget {
       reverse: reverse,
       shrinkWrap: shrinkWrap,
       physics: physics,
+      padding: const EdgeInsets.only(bottom: 50),
       // Use a SliverGridDelegate to produce a grid layout
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent:
@@ -124,6 +129,8 @@ class SelectLanguageWidget extends StatelessWidget {
                     )
                 : null,
             elevation: selectedLanguage ? 0 : 10,
+            backgroundColor:
+                selectedLanguage ? selectedColor : Colors.transparent,
             textDescription: textDescription,
             marginTextTop: marginTextTop,
             flagPadding: flagPadding,

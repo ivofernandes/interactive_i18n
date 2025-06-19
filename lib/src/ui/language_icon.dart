@@ -34,6 +34,9 @@ class LanguageIcon extends StatelessWidget {
   /// Border radius
   final double borderRadius;
 
+  /// Background color of the flag container
+  final Color backgroundColor;
+
   const LanguageIcon({
     required this.language,
     required this.deviceLanguage,
@@ -45,6 +48,7 @@ class LanguageIcon extends StatelessWidget {
     this.marginTextTop = 10,
     this.flagPadding = const EdgeInsets.only(left: 5, top: 5, right: 5),
     this.borderRadius = 50,
+    this.backgroundColor = Colors.transparent,
     super.key,
   });
 
@@ -57,52 +61,58 @@ class LanguageIcon extends StatelessWidget {
       child: Material(
         elevation: elevation,
         borderRadius: BorderRadius.circular(borderRadius),
-        child: Container(
+        child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(
-              color: Theme.of(context).textTheme.bodyMedium!.color!.withAlpha(30),
-              width: 1,
+              color:
+                  Theme.of(context).textTheme.bodyMedium!.color!.withAlpha(30),
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: flagPadding,
-                width: size,
-                height: size,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withAlpha(31),
-                      blurRadius: 1,
-                      offset: const Offset(2, 3),
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                  child: SvgPicture.asset(
-                    'icons/flags/svg/$newLanguage.svg', // Update the path to your SVG files
-                    package: 'country_icons',
-                    width: size,
-                    height: size,
-                    semanticsLabel: semanticLabel,
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-              ),
-              if (textDescription)
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.circular(borderRadius),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 Container(
-                  margin: EdgeInsets.only(top: marginTextTop),
-                  child: Text(
-                    language.toUpperCase(),
-                    style: textFontStyle,
+                  margin: flagPadding,
+                  width: size,
+                  height: size,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(borderRadius),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(31),
+                        blurRadius: 1,
+                        offset: const Offset(2, 3),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(borderRadius),
+                    child: SvgPicture.asset(
+                      'icons/flags/svg/$newLanguage.svg', // Update the path to your SVG files
+                      package: 'country_icons',
+                      width: size,
+                      height: size,
+                      semanticsLabel: semanticLabel,
+                      fit: BoxFit.fitHeight,
+                    ),
                   ),
                 ),
-            ],
+                if (textDescription)
+                  Container(
+                    margin: EdgeInsets.only(top: marginTextTop),
+                    child: Text(
+                      language.toUpperCase(),
+                      style: textFontStyle,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),

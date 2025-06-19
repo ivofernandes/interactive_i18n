@@ -133,6 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 textDescription: textDescription,
                 borderRadius: 50,
+                selectedColor: Colors.green,
               ),
             )
           ],
@@ -213,6 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     debugPrint('new language: $language');
                   },
                   borderRadius: 50,
+                  selectedColor: Colors.green,
                 ),
               ],
             ),
