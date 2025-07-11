@@ -128,7 +128,9 @@ class SelectLanguageWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     )
                 : null,
-            elevation: selectedLanguage ? 0 : 10,
+            elevation: selectedLanguage
+                ? 0
+                : Theme.of(context).cardTheme.elevation ?? 5,
             backgroundColor:
                 selectedLanguage ? selectedColor : Colors.transparent,
             textDescription: textDescription,

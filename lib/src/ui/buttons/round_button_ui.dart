@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 
 class RoundButtonUI extends StatelessWidget {
   final Widget? child;
+  final double? width;
+  final double? height;
 
   const RoundButtonUI({
     this.child,
+    this.width,
+    this.height,
     super.key,
   });
 
@@ -12,7 +16,7 @@ class RoundButtonUI extends StatelessWidget {
   Widget build(BuildContext context) => Stack(
         children: [
           Material(
-            elevation: 10,
+            elevation: Theme.of(context).cardTheme.elevation ?? 5,
             shape: const CircleBorder(),
             child: Container(
               decoration: BoxDecoration(
@@ -23,14 +27,14 @@ class RoundButtonUI extends StatelessWidget {
                   width: 1,
                 ),
               ),
-              width: 40,
-              height: 40,
+              width: width ?? 40,
+              height: height ?? 40,
             ),
           ),
           ClipOval(
             child: SizedBox(
-              width: 40,
-              height: 40,
+              width: width ?? 40,
+              height: height ?? 40,
               child: child,
             ),
           )

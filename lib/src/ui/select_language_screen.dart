@@ -90,7 +90,7 @@ class SelectLanguageScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(borderRadius),
                         ),
-                        elevation: 10,
+                        elevation: Theme.of(context).cardTheme.elevation ?? 5,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
