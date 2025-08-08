@@ -89,3 +89,7 @@ Improve design of the language selection screen
 # 2.0.2
 
 UI more customizable
+
+# 2.0.3
+
+Better buttons
