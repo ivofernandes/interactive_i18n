@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 /// A customizable round button widget that can contain a child widget,
 /// has a specified width and height, and can handle tap events.
-class RoundButtonUI extends StatelessWidget {
+/// Now with a tap animation that shrinks and bounces back.
+class RoundButtonUI extends StatefulWidget {
   /// child is the widget that will be displayed inside the round button.
   final Widget? child;
 
@@ -32,35 +33,74 @@ class RoundButtonUI extends StatelessWidget {
   });
 
   @override
+  State<RoundButtonUI> createState() => _RoundButtonUIState();
+}
+
+class _RoundButtonUIState extends State<RoundButtonUI> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 120),
+      reverseDuration: const Duration(milliseconds: 160),
+    );
+    _scaleAnimation =
+        Tween<double>(begin: 1.0, end: 0.92).chain(CurveTween(curve: Curves.easeOut)).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _onTap() async {
+    await _controller.forward();
+    await _controller.reverse();
+    widget.onTap?.call();
+  }
+
+  @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap,
-        child: Stack(
-          children: [
-            Material(
-              elevation: Theme.of(context).cardTheme.elevation ?? 5,
-              shape: const CircleBorder(),
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: backgroundColor ?? Theme.of(context).colorScheme.surface,
-                  border: border ??
-                      Border.all(
-                        color: Theme.of(context).colorScheme.primary,
-                        width: 1,
-                      ),
+        onTap: _onTap,
+        child: AnimatedBuilder(
+          animation: _scaleAnimation,
+          builder: (context, child) => Transform.scale(
+            scale: _scaleAnimation.value,
+            child: child,
+          ),
+          child: Stack(
+            children: [
+              Material(
+                elevation: Theme.of(context).cardTheme.elevation ?? 5,
+                shape: const CircleBorder(),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
+                    border: widget.border ??
+                        Border.all(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 1,
+                        ),
+                  ),
+                  width: widget.width,
+                  height: widget.height,
                 ),
-                width: width,
-                height: height,
               ),
-            ),
-            ClipOval(
-              child: SizedBox(
-                width: width,
-                height: height,
-                child: child,
-              ),
-            )
-          ],
+              ClipOval(
+                child: SizedBox(
+                  width: widget.width,
+                  height: widget.height,
+                  child: widget.child,
+                ),
+              )
+            ],
+          ),
         ),
       );
 }

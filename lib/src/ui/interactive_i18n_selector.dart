@@ -59,10 +59,8 @@ class InteractiveI18nSelector extends StatelessWidget {
     }
 
     // If languages are loaded
-    final String currentLanguage =
-        LanguageProvider.instance!.getCountryDeviceAware();
-    final String deviceLanguage =
-        LanguageProvider.instance!.getDeviceCurrentLanguage();
+    final String currentLanguage = LanguageProvider.instance!.getCountryDeviceAware();
+    final String deviceLanguage = LanguageProvider.instance!.getDeviceCurrentLanguage();
 
     // If there are no language skip it
     if (currentLanguage == '') {
@@ -93,7 +91,7 @@ class InteractiveI18nSelector extends StatelessWidget {
           return LanguageIcon(
             language: currentLanguage,
             deviceLanguage: deviceLanguage,
-            semanticLabel: 'language selection',
+            semanticLabel: 'language selection $currentLanguage',
             textDescription: false,
             size: size,
             flagPadding: const EdgeInsets.all(5),
