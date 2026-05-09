@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:interactive_i18n/src/core/state/language_provider.dart';
 import 'package:interactive_i18n/src/ui/language_icon.dart';
@@ -59,12 +57,18 @@ class InteractiveI18nSelector extends StatelessWidget {
     }
 
     // If languages are loaded
-    final String currentLanguage = LanguageProvider.instance!.getCountryDeviceAware();
-    final String deviceLanguage = LanguageProvider.instance!.getDeviceCurrentLanguage();
+    final LanguageProvider languageProvider = LanguageProvider.instance!;
+    final String currentLanguage = languageProvider.getCountryDeviceAware();
+    final String deviceLanguage = languageProvider.getDeviceCurrentLanguage();
 
-    // If there are no language skip it
-    if (currentLanguage == '') {
-      return const SizedBox.shrink();
+    final String fallbackLanguage = _getFallbackLanguage(languageProvider, deviceLanguage);
+    final bool hasSelectedLanguage = currentLanguage.isNotEmpty;
+    final String displayedLanguage = hasSelectedLanguage ? currentLanguage : fallbackLanguage;
+
+    if (!hasSelectedLanguage) {
+      debugPrint(
+        '[interactive_i18n] No language selected yet. Showing fallback selector icon for "$displayedLanguage".',
+      );
     }
 
     return GestureDetector(
@@ -73,7 +77,7 @@ class InteractiveI18nSelector extends StatelessWidget {
         MaterialPageRoute<Widget>(
           builder: (context) => SelectLanguageScreen(
             onLanguageSelected: onLanguageSelected,
-            currentLanguage: currentLanguage,
+            currentLanguage: displayedLanguage,
             crossAxisSpacing: crossAxisSpacing,
             mainAxisSpacing: mainAxisSpacing,
             bigIconSize: bigIconSize,
@@ -84,21 +88,52 @@ class InteractiveI18nSelector extends StatelessWidget {
           ),
         ),
       ),
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          final double size = min(constraints.maxHeight, iconSize);
-          debugPrint('Language selector constraints: $constraints');
-          return LanguageIcon(
-            language: currentLanguage,
-            deviceLanguage: deviceLanguage,
-            semanticLabel: 'language selection $currentLanguage',
-            textDescription: false,
-            size: size,
-            flagPadding: const EdgeInsets.all(5),
-            borderRadius: borderRadius,
-          );
-        },
-      ),
+      child: hasSelectedLanguage && false
+          ? LanguageIcon(
+              language: displayedLanguage,
+              deviceLanguage: deviceLanguage,
+              semanticLabel: 'language selection $displayedLanguage',
+              textDescription: false,
+              size: iconSize,
+              flagPadding: const EdgeInsets.all(5),
+              borderRadius: borderRadius,
+            )
+          : _buildUnresolvedLanguageSelector(context),
     );
+  }
+
+  Widget _buildUnresolvedLanguageSelector(BuildContext context) => Tooltip(
+        message: 'Language is not selected yet. Tap to choose one.',
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(borderRadius),
+            border: Border.all(color: Theme.of(context).colorScheme.error),
+            color: Theme.of(context).colorScheme.errorContainer.withAlpha(80),
+          ),
+          child: Padding(
+            padding: flagPadding,
+            child: Icon(
+              Icons.language,
+              size: iconSize / 2,
+              color: Theme.of(context).colorScheme.onErrorContainer,
+              semanticLabel: 'language selection unavailable, tap to choose language',
+            ),
+          ),
+        ),
+      );
+
+  String _getFallbackLanguage(
+    LanguageProvider languageProvider,
+    String deviceLanguage,
+  ) {
+    if (languageProvider.availableLanguages.contains(deviceLanguage)) {
+      return deviceLanguage;
+    }
+
+    if (languageProvider.availableLanguages.isNotEmpty) {
+      return languageProvider.availableLanguages.first;
+    }
+
+    return '';
   }
 }

@@ -14,7 +14,7 @@ class RoundButtonUI extends StatefulWidget {
   final double? height;
 
   /// onTap is the callback function that will be executed when the button is tapped.
-  final GestureTapCallback? onTap;
+  final GestureTapCallback onTap;
 
   /// border is an optional border for the round button. If not provided, a default border will be used.
   final Border? border;
@@ -26,7 +26,7 @@ class RoundButtonUI extends StatefulWidget {
     this.child,
     this.width = 40,
     this.height = 40,
-    this.onTap,
+    required this.onTap,
     this.border,
     this.backgroundColor,
     super.key,
@@ -36,7 +36,8 @@ class RoundButtonUI extends StatefulWidget {
   State<RoundButtonUI> createState() => _RoundButtonUIState();
 }
 
-class _RoundButtonUIState extends State<RoundButtonUI> with SingleTickerProviderStateMixin {
+class _RoundButtonUIState extends State<RoundButtonUI>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _scaleAnimation;
 
@@ -48,8 +49,9 @@ class _RoundButtonUIState extends State<RoundButtonUI> with SingleTickerProvider
       duration: const Duration(milliseconds: 120),
       reverseDuration: const Duration(milliseconds: 160),
     );
-    _scaleAnimation =
-        Tween<double>(begin: 1.0, end: 0.92).chain(CurveTween(curve: Curves.easeOut)).animate(_controller);
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.92)
+        .chain(CurveTween(curve: Curves.easeOut))
+        .animate(_controller);
   }
 
   @override
@@ -81,7 +83,8 @@ class _RoundButtonUIState extends State<RoundButtonUI> with SingleTickerProvider
                 child: Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
+                    color: widget.backgroundColor ??
+                        Theme.of(context).colorScheme.surface,
                     border: widget.border ??
                         Border.all(
                           color: Theme.of(context).colorScheme.primary,
