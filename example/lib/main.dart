@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:interactive_i18n/interactive_i18n.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,6 @@ class _MyAppState extends State<MyApp> {
       _isDarkModeEnabled = !_isDarkModeEnabled;
     });
   }
-
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -72,6 +72,16 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<void> _reproWithNavigationPopUntilRoot() async {
+    final navigator = Navigator.of(context);
+
+    await navigator.push(
+      MaterialPageRoute<void>(
+        builder: (_) => const _ReproStepPage(step: 1),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     const List<String> availableLanguages = [
@@ -106,126 +116,132 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     return InteractiveLocalization(
-      availableLanguages: availableLanguages,
-      languageUpdated: languageUpdated,
-      localesPath: 'assets/locales/',
-      useDeviceLocale: _useDeviceLocale,
-      defaultLanguage: _defaultLanguage,
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: _toolbarHeight,
-          title: Text('Flutter Demo Home Page'.t),
-          leading: IconButton(
-            icon: Icon(
-              Icons.brightness_6,
-              color: Theme.of(context).appBarTheme.iconTheme?.color,
-            ),
-            onPressed: widget.toggleDarkMode,
-          ),
-          actions: [
-            Container(
-              margin: const EdgeInsets.only(right: 5),
-              child: InteractiveI18nSelector(
-                key: UniqueKey(),
-                iconSize: 50,
-                onLanguageSelected: (language) {
-                  debugPrint('User picked language $language');
-                },
-                textDescription: textDescription,
-                borderRadius: 50,
-                selectedColor: Colors.green,
+        availableLanguages: availableLanguages,
+        languageUpdated: languageUpdated,
+        localesPath: 'assets/locales/',
+        useDeviceLocale: _useDeviceLocale,
+        defaultLanguage: _defaultLanguage,
+        child: Scaffold(
+          appBar: AppBar(
+            toolbarHeight: _toolbarHeight,
+            title: Text('Flutter Demo Home Page'.t),
+            leading: IconButton(
+              icon: Icon(
+                Icons.brightness_6,
+                color: Theme.of(context).appBarTheme.iconTheme?.color,
               ),
-            )
-          ],
-        ),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(20),
-                  child: Text(
-                    'The purpose of this app is to show how to use the interactive_i18n package.'
-                        .t,
-                  ),
-                ),
-                Text('You have pushed the button this many times:'.t),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(height: 20),
-                Text('Toolbar height'.t),
-                Slider(
-                  value: _toolbarHeight,
-                  min: 30,
-                  max: 100,
-                  divisions: 7,
-                  label: _toolbarHeight.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _toolbarHeight = value;
-                    });
+              onPressed: widget.toggleDarkMode,
+            ),
+            actions: [
+              Container(
+                margin: const EdgeInsets.only(right: 5),
+                child: InteractiveI18nSelector(
+                  key: UniqueKey(),
+                  iconSize: 50,
+                  onLanguageSelected: (language) {
+                    debugPrint('User picked language $language');
                   },
-                ),
-                SwitchListTile(
-                  title: Text('Text Description'.t),
-                  value: textDescription,
-                  onChanged: (bool value) {
-                    setState(() {
-                      textDescription = value;
-                    });
-                  },
-                ),
-                SwitchListTile(
-                  title: Text('Use Device Locale'.t),
-                  value: _useDeviceLocale,
-                  onChanged: _toggleUseDeviceLocale,
-                ),
-                Row(
-                  children: [
-                    Text('Default language:'.t),
-                    DropdownButton<String>(
-                      value: _defaultLanguage,
-                      onChanged: (String? newValue) {
-                        if (newValue != null) {
-                          _setDefaultLanguage(newValue);
-                        }
-                      },
-                      items: availableLanguages
-                          .map<DropdownMenuItem<String>>(
-                              (String language) => DropdownMenuItem<String>(
-                                    value: language,
-                                    child: Text(language),
-                                  ))
-                          .toList(),
-                    ),
-                  ],
-                ),
-                LanguageProviderWidget(),
-                const SizedBox(height: 20),
-                SelectLanguageWidget(
-                  shrinkWrap: true,
-                  reverse: false,
-                  physics: const NeverScrollableScrollPhysics(),
-                  popNavigatorOnSelect: false,
-                  onLanguageSelected: (language) async {
-                    debugPrint('new language: $language');
-                  },
+                  textDescription: textDescription,
                   borderRadius: 50,
                   selectedColor: Colors.green,
                 ),
-              ],
+              )
+            ],
+          ),
+          body: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(20),
+                    child: Text(
+                      'The purpose of this app is to show how to use the interactive_i18n package.'
+                          .t,
+                    ),
+                  ),
+                  Text('You have pushed the button this many times:'.t),
+                  Text(
+                    '$_counter',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const SizedBox(height: 20),
+                  Text('Toolbar height'.t),
+                  Slider(
+                    value: _toolbarHeight,
+                    min: 30,
+                    max: 100,
+                    divisions: 7,
+                    label: _toolbarHeight.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        _toolbarHeight = value;
+                      });
+                    },
+                  ),
+                  SwitchListTile(
+                    title: Text('Text Description'.t),
+                    value: textDescription,
+                    onChanged: (bool value) {
+                      setState(() {
+                        textDescription = value;
+                      });
+                    },
+                  ),
+                  SwitchListTile(
+                    title: Text('Use Device Locale'.t),
+                    value: _useDeviceLocale,
+                    onChanged: _toggleUseDeviceLocale,
+                  ),
+                  ListTile(
+                    title: const Text('Repro with navigation popUntil(root)'),
+                    subtitle: const Text('Push multiple routes, update language, then popUntil root'),
+                    trailing: const Icon(Icons.play_arrow),
+                    onTap: _reproWithNavigationPopUntilRoot,
+                  ),
+                  Row(
+                    children: [
+                      Text('Default language:'.t),
+                      DropdownButton<String>(
+                        value: _defaultLanguage,
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            _setDefaultLanguage(newValue);
+                          }
+                        },
+                        items: availableLanguages
+                            .map<DropdownMenuItem<String>>(
+                                (String language) => DropdownMenuItem<String>(
+                                      value: language,
+                                      child: Text(language),
+                                    ))
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                  LanguageProviderWidget(),
+                  const SizedBox(height: 20),
+                  SelectLanguageWidget(
+                    shrinkWrap: true,
+                    reverse: false,
+                    physics: const NeverScrollableScrollPhysics(),
+                    popNavigatorOnSelect: false,
+                    onLanguageSelected: (language) async {
+                      debugPrint('new language: $language');
+                    },
+                    borderRadius: 50,
+                    selectedColor: Colors.green,
+                  ),
+                ],
+              ),
             ),
           ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
-      ),
     );
   }
 
@@ -279,6 +295,49 @@ class LanguageProviderWidget extends StatelessWidget {
           const SizedBox(height: 10),
           Text('Available languages: $languages'),
         ],
+      ),
+    );
+  }
+}
+
+
+class _ReproStepPage extends StatelessWidget {
+  const _ReproStepPage({required this.step});
+
+  final int step;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Repro step $step')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Step $step'),
+            const SizedBox(height: 12),
+            if (step < 3)
+              ElevatedButton(
+                onPressed: () async {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => _ReproStepPage(step: step + 1),
+                    ),
+                  );
+                },
+                child: const Text('Push next step'),
+              ),
+            ElevatedButton(
+              onPressed: () async {
+                final provider = context.read<LanguageProvider>();
+                final prefs = await SharedPreferences.getInstance();
+                await provider.updateLanguage(step.isEven ? 'en' : 'pt', prefs);
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
+              child: const Text('Change language + popUntil(root)'),
+            ),
+          ],
+        ),
       ),
     );
   }
