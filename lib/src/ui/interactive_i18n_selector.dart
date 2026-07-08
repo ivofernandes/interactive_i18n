@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:interactive_i18n/src/core/state/language_provider.dart';
 import 'package:interactive_i18n/src/ui/language_icon.dart';
 import 'package:interactive_i18n/src/ui/select_language_screen.dart';
+import 'package:provider/provider.dart';
 
 /// Widget to let the user select a different language
 class InteractiveI18nSelector extends StatelessWidget {
@@ -51,54 +52,57 @@ class InteractiveI18nSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // If languages are not loaded yet
-    if (LanguageProvider.instance == null) {
-      return const SizedBox.shrink();
-    }
+    // Rebuild the selector whenever the language provider changes so the
+    // toolbar icon reflects the current selected language.
+    return Consumer<LanguageProvider>(
+      builder: (context, languageProvider, _) {
+        final String currentLanguage = languageProvider.getCountryDeviceAware();
+        final String deviceLanguage =
+            languageProvider.getDeviceCurrentLanguage();
 
-    // If languages are loaded
-    final LanguageProvider languageProvider = LanguageProvider.instance!;
-    final String currentLanguage = languageProvider.getCountryDeviceAware();
-    final String deviceLanguage = languageProvider.getDeviceCurrentLanguage();
+        final String fallbackLanguage =
+            _getFallbackLanguage(languageProvider, deviceLanguage);
+        final bool hasSelectedLanguage = currentLanguage.isNotEmpty;
+        final String displayedLanguage =
+            hasSelectedLanguage ? currentLanguage : fallbackLanguage;
 
-    final String fallbackLanguage = _getFallbackLanguage(languageProvider, deviceLanguage);
-    final bool hasSelectedLanguage = currentLanguage.isNotEmpty;
-    final String displayedLanguage = hasSelectedLanguage ? currentLanguage : fallbackLanguage;
+        if (!hasSelectedLanguage) {
+          debugPrint(
+            '[interactive_i18n] No language selected yet. Showing fallback selector icon for "$displayedLanguage".',
+          );
+        }
 
-    if (!hasSelectedLanguage) {
-      debugPrint(
-        '[interactive_i18n] No language selected yet. Showing fallback selector icon for "$displayedLanguage".',
-      );
-    }
-
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute<Widget>(
-          builder: (context) => SelectLanguageScreen(
-            onLanguageSelected: onLanguageSelected,
-            currentLanguage: displayedLanguage,
-            crossAxisSpacing: crossAxisSpacing,
-            mainAxisSpacing: mainAxisSpacing,
-            bigIconSize: bigIconSize,
-            smallIconSize: smallIconSize,
-            textDescription: textDescription,
-            borderRadius: borderRadius,
-            selectedColor: selectedColor,
+        return GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute<Widget>(
+              builder: (context) => SelectLanguageScreen(
+                onLanguageSelected: onLanguageSelected,
+                currentLanguage: displayedLanguage,
+                crossAxisSpacing: crossAxisSpacing,
+                mainAxisSpacing: mainAxisSpacing,
+                bigIconSize: bigIconSize,
+                smallIconSize: smallIconSize,
+                textDescription: textDescription,
+                borderRadius: borderRadius,
+                selectedColor: selectedColor,
+              ),
+            ),
           ),
-        ),
-      ),
-      child: hasSelectedLanguage && false
-          ? LanguageIcon(
-              language: displayedLanguage,
-              deviceLanguage: deviceLanguage,
-              semanticLabel: 'language selection $displayedLanguage',
-              textDescription: false,
-              size: iconSize,
-              flagPadding: const EdgeInsets.all(5),
-              borderRadius: borderRadius,
-            )
-          : _buildUnresolvedLanguageSelector(context),
+          child: hasSelectedLanguage
+              ? LanguageIcon(
+                  key: ValueKey<String>(displayedLanguage),
+                  language: displayedLanguage,
+                  deviceLanguage: deviceLanguage,
+                  semanticLabel: 'language selection $displayedLanguage',
+                  textDescription: false,
+                  size: iconSize,
+                  flagPadding: const EdgeInsets.all(5),
+                  borderRadius: borderRadius,
+                )
+              : _buildUnresolvedLanguageSelector(context),
+        );
+      },
     );
   }
 
@@ -116,7 +120,8 @@ class InteractiveI18nSelector extends StatelessWidget {
               Icons.language,
               size: iconSize / 2,
               color: Theme.of(context).colorScheme.onErrorContainer,
-              semanticLabel: 'language selection unavailable, tap to choose language',
+              semanticLabel:
+                  'language selection unavailable, tap to choose language',
             ),
           ),
         ),
