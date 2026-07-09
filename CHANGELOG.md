@@ -93,3 +93,7 @@ UI more customizable
 # 2.0.3
 
 Better buttons
+
+# 2.0.4
+
+Refresh the language selection icon on startup
