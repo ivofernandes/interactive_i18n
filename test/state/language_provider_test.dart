@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:interactive_i18n/src/core/state/language_provider.dart';
-import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// A custom [AssetBundle] for testing purposes.
@@ -26,10 +25,6 @@ class TestAssetBundle extends CachingAssetBundle {
   }
 }
 
-/// A mock [BuildContext] for testing.
-/// Since we're not actually building widgets, we can use a simple mock.
-class MockBuildContext extends Mock implements BuildContext {}
-
 void main() {
   // Ensure the test environment is properly initialized.
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +38,7 @@ void main() {
     test('initializes with default language when no preference is set',
         () async {
       final LanguageProvider provider = LanguageProvider(
-        context: MockBuildContext(),
+        contextLocale: const Locale('en'),
         defaultLanguage: 'en',
         availableLanguages: ['en', 'es'],
         localesPath: 'assets/locales/',
@@ -52,14 +47,14 @@ void main() {
         localeFromContext: true,
       );
 
-      await provider.initLanguage(MockBuildContext());
+      await provider.initLanguage(const Locale('en'));
 
       expect(provider.getLanguage(), 'en');
     });
 
     test('updates language and loads new translations', () async {
       final LanguageProvider provider = LanguageProvider(
-        context: MockBuildContext(),
+        contextLocale: const Locale('en'),
         defaultLanguage: 'en',
         availableLanguages: ['en', 'es'],
         localesPath: 'assets/locales/',
@@ -68,7 +63,7 @@ void main() {
         localeFromContext: true,
       );
 
-      await provider.initLanguage(MockBuildContext());
+      await provider.initLanguage(const Locale('en'));
 
       expect(provider.getLanguage(), 'en');
 
@@ -84,7 +79,7 @@ void main() {
 
     test('translates a key correctly', () async {
       final LanguageProvider provider = LanguageProvider(
-        context: MockBuildContext(),
+        contextLocale: const Locale('en'),
         defaultLanguage: 'en',
         availableLanguages: ['en', 'es'],
         localesPath: 'assets/locales/',
@@ -93,7 +88,7 @@ void main() {
         localeFromContext: true,
       );
 
-      await provider.initLanguage(MockBuildContext());
+      await provider.initLanguage(const Locale('en'));
 
       expect(provider.translate('hello'), 'Hello');
     });
@@ -101,7 +96,7 @@ void main() {
     test('fallback to default language if device language is not available',
         () async {
       final LanguageProvider provider = LanguageProvider(
-        context: MockBuildContext(),
+        contextLocale: const Locale('en'),
         defaultLanguage: 'en',
         availableLanguages: ['en', 'es'],
         localesPath: 'assets/locales/',
@@ -111,7 +106,7 @@ void main() {
         localeFromContext: true,
       );
 
-      await provider.initLanguage(MockBuildContext());
+      await provider.initLanguage(const Locale('en'));
 
       // Assuming the device language is not 'en' or 'es', it should fallback to 'en'.
       expect(provider.getLanguage(), 'en');

@@ -11,16 +11,16 @@ mixin MixinDeviceLanguage {
   String getDeviceCurrentLanguage() => _deviceLanguage;
 
   /// Override the device language
-  void setDeviceLanguage(String language) => _deviceLanguage = language;
+  set deviceLanguage(String language) => _deviceLanguage = language;
 
   Future<String> getDeviceLanguage(
-    BuildContext context,
+    Locale contextLocale,
     String defaultLanguage,
     bool useDeviceLocale,
     bool localeFromContext,
   ) async {
     try {
-      Locale myLocale = Localizations.localeOf(context);
+      Locale myLocale = contextLocale;
 
       if (useDeviceLocale) {
         if (!localeFromContext) {

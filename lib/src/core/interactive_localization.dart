@@ -42,7 +42,7 @@ class InteractiveLocalization extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
         create: (_) => LanguageProvider(
-          context: context,
+          contextLocale: Localizations.localeOf(context),
           defaultLanguage: defaultLanguage,
           availableLanguages: availableLanguages,
           localesPath: localesPath,

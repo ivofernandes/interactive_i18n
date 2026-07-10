@@ -23,10 +23,10 @@ class RoundButtonUI extends StatefulWidget {
   final Color? backgroundColor;
 
   const RoundButtonUI({
+    required this.onTap,
     this.child,
     this.width = 40,
     this.height = 40,
-    required this.onTap,
     this.border,
     this.backgroundColor,
     super.key,
@@ -49,7 +49,7 @@ class _RoundButtonUIState extends State<RoundButtonUI>
       duration: const Duration(milliseconds: 120),
       reverseDuration: const Duration(milliseconds: 160),
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.92)
+    _scaleAnimation = Tween<double>(begin: 1, end: 0.92)
         .chain(CurveTween(curve: Curves.easeOut))
         .animate(_controller);
   }
@@ -63,7 +63,7 @@ class _RoundButtonUIState extends State<RoundButtonUI>
   Future<void> _onTap() async {
     await _controller.forward();
     await _controller.reverse();
-    widget.onTap?.call();
+    widget.onTap();
   }
 
   @override
@@ -88,7 +88,6 @@ class _RoundButtonUIState extends State<RoundButtonUI>
                     border: widget.border ??
                         Border.all(
                           color: Theme.of(context).colorScheme.primary,
-                          width: 1,
                         ),
                   ),
                   width: widget.width,

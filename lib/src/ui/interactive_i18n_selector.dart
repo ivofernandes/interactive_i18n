@@ -51,10 +51,7 @@ class InteractiveI18nSelector extends StatelessWidget {
   final Color selectedColor;
 
   @override
-  Widget build(BuildContext context) {
-    // Rebuild the selector whenever the language provider changes so the
-    // toolbar icon reflects the current selected language.
-    return Consumer<LanguageProvider>(
+  Widget build(BuildContext context) => Consumer<LanguageProvider>(
       builder: (context, languageProvider, _) {
         final String currentLanguage = languageProvider.getCountryDeviceAware();
         final String deviceLanguage =
@@ -104,7 +101,6 @@ class InteractiveI18nSelector extends StatelessWidget {
         );
       },
     );
-  }
 
   Widget _buildUnresolvedLanguageSelector(BuildContext context) => Tooltip(
         message: 'Language is not selected yet. Tap to choose one.',

@@ -49,13 +49,15 @@ class SelectLanguageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String localCurrentLanguage =
-        currentLanguage ?? LanguageProvider.instance!.getCountryDeviceAware();
+    final LanguageProvider? languageProvider = LanguageProvider.instance;
 
     // If languages are not loaded yet
-    if (LanguageProvider.instance == null) {
+    if (languageProvider == null) {
       return const SizedBox.shrink();
     }
+
+    final String localCurrentLanguage =
+        currentLanguage ?? languageProvider.getCountryDeviceAware();
 
     return Scaffold(
       body: SafeArea(
@@ -102,7 +104,6 @@ class SelectLanguageScreen extends StatelessWidget {
                                   .textTheme
                                   .bodyMedium!
                                   .color!,
-                              width: 1,
                             ),
                           ),
                           child: Text(
@@ -116,9 +117,9 @@ class SelectLanguageScreen extends StatelessWidget {
                       ),
 
                       // Back button on the left
-                      Positioned(
+                      const Positioned(
                         left: 10,
-                        child: const MyBackButton(),
+                        child: MyBackButton(),
                       ),
                     ],
                   ),

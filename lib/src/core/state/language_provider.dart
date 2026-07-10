@@ -53,7 +53,7 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
   bool _isInit = false;
 
   LanguageProvider({
-    required BuildContext context,
+    required Locale contextLocale,
     required this.defaultLanguage,
     required this.availableLanguages,
     required this.localesPath,
@@ -61,10 +61,10 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
     required this.assetBundle,
     required this.localeFromContext,
   }) {
-    Future.delayed(Duration.zero, () => initLanguage(context));
+    Future.delayed(Duration.zero, () => initLanguage(contextLocale));
   }
 
-  Future<void> initLanguage(BuildContext context) async {
+  Future<void> initLanguage(Locale contextLocale) async {
     try {
       // To be best effort, we try to get the device language
       // But if we can't, we just use the default language
@@ -73,7 +73,7 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
       if (useDeviceLocale) {
         try {
           deviceLanguage = await getDeviceLanguage(
-              context, defaultLanguage, useDeviceLocale, localeFromContext);
+              contextLocale, defaultLanguage, useDeviceLocale, localeFromContext);
         } catch (error) {
           debugPrint(error.toString());
         }

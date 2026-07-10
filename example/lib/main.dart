@@ -118,7 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return InteractiveLocalization(
         availableLanguages: availableLanguages,
         languageUpdated: languageUpdated,
-        localesPath: 'assets/locales/',
         useDeviceLocale: _useDeviceLocale,
         defaultLanguage: _defaultLanguage,
         child: Scaffold(
@@ -280,14 +279,14 @@ class LanguageProviderWidget extends StatelessWidget {
               hintText: 'en',
             ),
             onSubmitted: (String value) {
-              languageProvider.setDeviceLanguage(value);
+              languageProvider.deviceLanguage = value;
               languageProvider.refresh();
             },
             controller: deviceLanguageController,
           ),
           MaterialButton(
             onPressed: () {
-              languageProvider.setDeviceLanguage(deviceLanguageController.text);
+              languageProvider.deviceLanguage = deviceLanguageController.text;
               languageProvider.refresh();
             },
             child: const Text('Set device language'),
@@ -300,15 +299,13 @@ class LanguageProviderWidget extends StatelessWidget {
   }
 }
 
-
 class _ReproStepPage extends StatelessWidget {
   const _ReproStepPage({required this.step});
 
   final int step;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text('Repro step $step')),
       body: Center(
         child: Column(
@@ -329,10 +326,11 @@ class _ReproStepPage extends StatelessWidget {
               ),
             ElevatedButton(
               onPressed: () async {
+                final navigator = Navigator.of(context);
                 final provider = context.read<LanguageProvider>();
                 final prefs = await SharedPreferences.getInstance();
                 await provider.updateLanguage(step.isEven ? 'en' : 'pt', prefs);
-                Navigator.of(context).popUntil((route) => route.isFirst);
+                navigator.popUntil((route) => route.isFirst);
               },
               child: const Text('Change language + popUntil(root)'),
             ),
@@ -340,5 +338,4 @@ class _ReproStepPage extends StatelessWidget {
         ),
       ),
     );
-  }
 }
