@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:interactive_i18n/src/core/language_map/language_flag_map.dart';
 import 'package:interactive_i18n/src/core/state/language_provider.dart';
 import 'package:interactive_i18n/src/ui/language_icon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -107,11 +106,9 @@ class SelectLanguageWidget extends StatelessWidget {
       itemCount: languages.length,
       // Build the language icons
       itemBuilder: (BuildContext ctx, index) {
-        String language = languages[index];
+        final String language = languages[index];
         final String deviceLanguage =
             languageProvider.getDeviceCurrentLanguage();
-        language =
-            LanguageFlagMap.getDeviceAwareCountryCode(language, deviceLanguage);
         final bool selectedLanguage = language == localCurrentLanguage;
 
         return GestureDetector(

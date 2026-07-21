@@ -57,7 +57,7 @@ class SelectLanguageScreen extends StatelessWidget {
     }
 
     final String localCurrentLanguage =
-        currentLanguage ?? languageProvider.getCountryDeviceAware();
+        currentLanguage ?? languageProvider.getLanguage();
 
     return Scaffold(
       body: SafeArea(

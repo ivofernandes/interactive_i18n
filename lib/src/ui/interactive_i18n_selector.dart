@@ -53,7 +53,11 @@ class InteractiveI18nSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Consumer<LanguageProvider>(
       builder: (context, languageProvider, _) {
-        final String currentLanguage = languageProvider.getCountryDeviceAware();
+        // Keep the selected value as a language code. [LanguageIcon] resolves
+        // the device-aware flag through [LanguageFlagMap], so using a country
+        // code here would make that country code appear as the selected
+        // language and could persist it through the selection callback.
+        final String currentLanguage = languageProvider.getLanguage();
         final String deviceLanguage =
             languageProvider.getDeviceCurrentLanguage();
 
