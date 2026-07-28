@@ -72,8 +72,8 @@ class LanguageProvider with ChangeNotifier, MixinDeviceLanguage {
 
       if (useDeviceLocale) {
         try {
-          deviceLanguage = await getDeviceLanguage(
-              contextLocale, defaultLanguage, useDeviceLocale, localeFromContext);
+          deviceLanguage = await getDeviceLanguage(contextLocale,
+              defaultLanguage, useDeviceLocale, localeFromContext);
         } catch (error) {
           debugPrint(error.toString());
         }
