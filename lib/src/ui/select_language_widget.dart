@@ -107,8 +107,6 @@ class SelectLanguageWidget extends StatelessWidget {
       // Build the language icons
       itemBuilder: (BuildContext ctx, index) {
         final String language = languages[index];
-        final String deviceLanguage =
-            languageProvider.getDeviceCurrentLanguage();
         final bool selectedLanguage = language == localCurrentLanguage;
 
         return GestureDetector(

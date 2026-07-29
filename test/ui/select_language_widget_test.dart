@@ -8,13 +8,22 @@ import 'package:interactive_i18n/src/ui/select_language_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class _TestAssetBundle extends CachingAssetBundle {
-  @override
-  Future<String> loadString(String key, {bool cache = true}) async {
+  String _assetFor(String key) {
     if (key == 'assets/locales/en.json') {
       return jsonEncode(<String, String>{'hello': 'Hello'});
     }
     throw FlutterError('Unable to load asset: $key');
   }
+
+  @override
+  Future<ByteData> load(String key) async {
+    final Uint8List bytes = utf8.encode(_assetFor(key));
+    return ByteData.sublistView(bytes);
+  }
+
+  @override
+  Future<String> loadString(String key, {bool cache = true}) async =>
+      _assetFor(key);
 }
 
 void main() {
