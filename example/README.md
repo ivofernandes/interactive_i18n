@@ -1,5 +1,10 @@
 # example
 
+The language selector includes both Brazilian Portuguese (`pt-br`) and
+European Portuguese (`pt-pt`) to demonstrate regional locale support. Their
+translations are stored in `assets/locales/pt-br.json` and
+`assets/locales/pt-pt.json` respectively.
+
 A new Flutter project.
 
 ## Getting Started

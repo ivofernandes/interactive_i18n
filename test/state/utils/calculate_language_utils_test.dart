@@ -168,4 +168,40 @@ void main() {
 
     expect(language, 'pt');
   });
+
+  test('Device locale selects its language-country translation', () {
+    final language = CalculateLanguageUtils.calculateLanguage(
+      null,
+      true,
+      'pt-BR',
+      ['en', 'pt-pt', 'pt-br'],
+      'en',
+    );
+
+    expect(language, 'pt-br');
+  });
+
+  test('Device locale accepts underscore and case variants', () {
+    final language = CalculateLanguageUtils.calculateLanguage(
+      null,
+      true,
+      'pt_BR',
+      ['en', 'pt-br'],
+      'en',
+    );
+
+    expect(language, 'pt-br');
+  });
+
+  test('Regional device locale falls back to its base language', () {
+    final language = CalculateLanguageUtils.calculateLanguage(
+      null,
+      true,
+      'pt-BR',
+      ['en', 'pt'],
+      'en',
+    );
+
+    expect(language, 'pt');
+  });
 }

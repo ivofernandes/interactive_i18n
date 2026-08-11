@@ -1,0 +1,13 @@
+{
+  "You have pushed the button this many times:": "Carregou no botão este número de vezes:",
+  "Toolbar height": "Altura da barra de ferramentas",
+  "Flutter Demo Home Page": "Página inicial da demonstração do Flutter",
+  "The purpose of this app is to show how to use the interactive_i18n package.": "O objetivo desta aplicação é demonstrar como utilizar o pacote interactive_i18n.",
+  "Select language": "Selecionar idioma",
+  "Text Description": "Descrição do texto",
+  "Use Device Locale": "Utilizar idioma do dispositivo",
+  "Default language:": "Idioma predefinido:",
+  "Current language": "Idioma atual",
+  "Language description": "Descrição do idioma",
+  "Current device language": "Idioma atual do dispositivo"
+}

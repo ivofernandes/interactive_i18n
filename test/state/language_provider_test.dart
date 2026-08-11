@@ -20,6 +20,8 @@ class TestAssetBundle extends CachingAssetBundle {
       return '{"hello": "Hello", "world": "World"}';
     } else if (key == 'assets/locales/es.json') {
       return '{"hello": "Hola", "world": "Mundo"}';
+    } else if (key == 'assets/locales/pt-br.json') {
+      return '{"hello": "Olá"}';
     }
     throw FlutterError('Unable to load asset: $key');
   }
@@ -110,6 +112,24 @@ void main() {
 
       // Assuming the device language is not 'en' or 'es', it should fallback to 'en'.
       expect(provider.getLanguage(), 'en');
+    });
+
+    test('loads a language-country translation for the device locale',
+        () async {
+      final LanguageProvider provider = LanguageProvider(
+        contextLocale: const Locale('pt', 'BR'),
+        defaultLanguage: 'en',
+        availableLanguages: ['en', 'pt-pt', 'pt-br'],
+        localesPath: 'assets/locales/',
+        useDeviceLocale: true,
+        assetBundle: TestAssetBundle(),
+        localeFromContext: true,
+      );
+
+      await provider.initLanguage(const Locale('pt', 'BR'));
+
+      expect(provider.getLanguage(), 'pt-br');
+      expect(provider.translate('hello'), 'Olá');
     });
   });
 }

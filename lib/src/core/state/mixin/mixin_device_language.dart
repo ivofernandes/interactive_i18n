@@ -28,12 +28,12 @@ mixin MixinDeviceLanguage {
           myLocale = ui.PlatformDispatcher.instance.locale;
         }
 
-        // If the sim card is not valid for some reason, we return the operative system language configuration
-        _deviceLanguage = myLocale.countryCode ?? myLocale.languageCode;
-        _deviceLanguage = _deviceLanguage.toLowerCase();
-        if (_deviceLanguage.length > 2) {
-          _deviceLanguage = _deviceLanguage.substring(0, 2);
-        }
+        // Keep both parts so regional translations can be distinguished.
+        final String languageCode = myLocale.languageCode.toLowerCase();
+        final String? countryCode = myLocale.countryCode?.toLowerCase();
+        _deviceLanguage = countryCode == null || countryCode.isEmpty
+            ? languageCode
+            : '$languageCode-$countryCode';
 
         return _deviceLanguage;
       } else {

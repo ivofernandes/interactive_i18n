@@ -4,6 +4,8 @@ import 'package:interactive_i18n/src/core/language_map/language_flag_map.dart';
 
 /// Widget that displays a flag for a given language
 class LanguageIcon extends StatelessWidget {
+  static const double _regionalLanguageFontScale = 0.75;
+
   /// The language to display
   final String language;
 
@@ -28,6 +30,9 @@ class LanguageIcon extends StatelessWidget {
   /// Margin top for the text
   final double marginTextTop;
 
+  /// Margin bottom for the text
+  final double marginTextBottom;
+
   /// Padding for the flag
   final EdgeInsets flagPadding;
 
@@ -46,6 +51,7 @@ class LanguageIcon extends StatelessWidget {
     this.textFontStyle,
     this.elevation = 0,
     this.marginTextTop = 10,
+    this.marginTextBottom = 10,
     this.flagPadding = const EdgeInsets.only(left: 5, top: 5, right: 5),
     this.borderRadius = 50,
     this.backgroundColor = Colors.transparent,
@@ -56,6 +62,18 @@ class LanguageIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final String newLanguage =
         LanguageFlagMap.getFlagCode(language, deviceLanguage);
+    final bool isRegionalLanguage =
+        language.contains('-') || language.contains('_');
+    final TextStyle baseTextFontStyle =
+        textFontStyle ?? DefaultTextStyle.of(context).style;
+    final double? baseFontSize = baseTextFontStyle.fontSize;
+    final TextStyle? effectiveTextFontStyle = isRegionalLanguage
+        ? baseTextFontStyle.copyWith(
+            fontSize: baseFontSize == null
+                ? null
+                : baseFontSize * _regionalLanguageFontScale,
+          )
+        : textFontStyle;
 
     return FittedBox(
       child: Material(
@@ -105,10 +123,22 @@ class LanguageIcon extends StatelessWidget {
                 ),
                 if (textDescription)
                   Container(
-                    margin: EdgeInsets.only(top: marginTextTop),
-                    child: Text(
-                      language.toUpperCase(),
-                      style: textFontStyle,
+                    margin: EdgeInsets.only(
+                      top: marginTextTop,
+                      bottom: marginTextBottom,
+                    ),
+                    // Keep longer regional codes inside the same width as the
+                    // flag instead of allowing them to widen the entire card.
+                    child: SizedBox(
+                      width: size,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          language.toUpperCase(),
+                          maxLines: 1,
+                          style: effectiveTextFontStyle,
+                        ),
+                      ),
                     ),
                   ),
               ],

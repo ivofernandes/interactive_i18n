@@ -24,6 +24,21 @@ First to use this package you need to create the jsons files, check this example
 
 https://github.com/ivofernandes/interactive_i18n/tree/main/example/assets/locales
 
+Regional languages use a lowercase `language-country` code. For example, add
+`pt-pt.json` and `pt-br.json` to the locales directory and configure both codes:
+
+```dart
+InteractiveLocalization(
+  availableLanguages: const ['en', 'pt-pt', 'pt-br'],
+  localesPath: 'assets/locales/',
+  child: const MyApp(),
+)
+```
+
+When device locale detection is enabled, `pt-PT` selects `pt-pt` and `pt-BR`
+selects `pt-br`. If only the generic `pt` translation is configured, either
+regional locale falls back to it.
+
 ### InteractiveLocalization
 
 InteractiveLocalization is a widget that applies internationalization settings to its child widget. It necessitates a list of available languages and a function that is triggered whenever the language is updated.

@@ -97,3 +97,8 @@ Better buttons
 # 2.0.4
 
 Refresh the language selection icon on startup
+
+## 2.0.5
+
+- Add support for regional `language-country` locale codes such as `pt-pt` and
+  `pt-br`.

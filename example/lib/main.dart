@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   double _toolbarHeight = 30;
   bool _useDeviceLocale = true;
-  String _defaultLanguage = 'pt';
+  String _defaultLanguage = 'pt-br';
   bool textDescription = true;
 
   void _incrementCounter() {
@@ -106,7 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
       'no',
       'nl',
       'pl',
-      'pt',
+      'pt-br',
+      'pt-pt',
       'ru',
       'sv',
       'th',

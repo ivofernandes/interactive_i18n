@@ -37,6 +37,9 @@ class SelectLanguageWidget extends StatelessWidget {
   /// Margin top for the text
   final double marginTextTop;
 
+  /// Margin bottom for the text
+  final double marginTextBottom;
+
   /// Because the normal flow is to have a screen to select the new language this will default to true,
   /// But if you want to use the widget in a different way, you can set this to false
   final bool popNavigatorOnSelect;
@@ -62,6 +65,7 @@ class SelectLanguageWidget extends StatelessWidget {
     this.shrinkWrap = false,
     this.physics,
     this.marginTextTop = 10,
+    this.marginTextBottom = 10,
     this.popNavigatorOnSelect = true,
     this.flagPadding = const EdgeInsets.only(left: 5, top: 5, right: 5),
     this.borderRadius = 10,
@@ -130,6 +134,7 @@ class SelectLanguageWidget extends StatelessWidget {
                 selectedLanguage ? selectedColor : Colors.transparent,
             textDescription: textDescription,
             marginTextTop: marginTextTop,
+            marginTextBottom: marginTextBottom,
             flagPadding: flagPadding,
             borderRadius: borderRadius,
           ),
