@@ -31,11 +31,9 @@ mixin MixinDeviceLanguage {
         // Keep both parts so regional translations can be distinguished.
         final String languageCode = myLocale.languageCode.toLowerCase();
         final String? countryCode = myLocale.countryCode?.toLowerCase();
-        _deviceLanguage = countryCode == null || countryCode.isEmpty
+        return _deviceLanguage = countryCode == null || countryCode.isEmpty
             ? languageCode
             : '$languageCode-$countryCode';
-
-        return _deviceLanguage;
       } else {
         return defaultLanguage;
       }

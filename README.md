@@ -15,7 +15,7 @@ Flutter package to take care of internationalization
 Add the dependency to your `pubspec.yaml`:
 
 ```
-interactive_i18n: ^1.0.2
+interactive_i18n: ^2.0.5
 ```
 
 ## Usage

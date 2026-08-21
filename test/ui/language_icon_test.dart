@@ -42,8 +42,7 @@ void main() {
     expect(
       tester.widgetList<Container>(labelContainer).any(
             (container) =>
-                container.margin ==
-                const EdgeInsets.only(top: 10, bottom: 10),
+                container.margin == const EdgeInsets.only(top: 10, bottom: 10),
           ),
       isTrue,
     );
@@ -63,5 +62,19 @@ void main() {
 
     final Text label = tester.widget<Text>(find.text('PT'));
     expect(label.style?.fontSize, 20);
+  });
+
+  testWidgets('supports an empty device language', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: LanguageIcon(
+          language: 'pt',
+          deviceLanguage: '',
+        ),
+      ),
+    );
+
+    expect(find.text('PT'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }

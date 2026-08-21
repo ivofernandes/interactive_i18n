@@ -113,8 +113,7 @@ abstract class LanguageFlagMap {
     final String baseLanguage = languageParts.first;
     final String? languageCountry =
         languageParts.length > 1 ? languageParts.last : null;
-    final String deviceCountry =
-        deviceParts.length > 1 ? deviceParts.last : deviceParts.first;
+    final String? deviceCountry = deviceParts.isEmpty ? null : deviceParts.last;
 
     if (languageCountry != null &&
         SupportedFlags.availableFlags.contains(languageCountry)) {
@@ -123,9 +122,9 @@ abstract class LanguageFlagMap {
 
     String flagLanguage = baseLanguage;
     if (_proximityMap.containsKey(baseLanguage)) {
-      final bool isDeviceLanguageSupported =
+      final bool isDeviceLanguageSupported = deviceCountry != null &&
           _proximityMap[baseLanguage]!.contains(deviceCountry);
-      final bool deviceLanguageHasFlag =
+      final bool deviceLanguageHasFlag = deviceCountry != null &&
           SupportedFlags.availableFlags.contains(deviceCountry);
 
       if (isDeviceLanguageSupported && deviceLanguageHasFlag) {
@@ -153,7 +152,9 @@ abstract class LanguageFlagMap {
         deviceParts.length > 1 ? deviceParts.last : deviceBase;
 
     for (final String availableLanguage in availableLanguages) {
-      if (_normalize(availableLanguage) == deviceBase) return availableLanguage;
+      if (_normalize(availableLanguage) == deviceBase) {
+        return availableLanguage;
+      }
     }
 
     for (final String language in _proximityMap.keys) {
@@ -181,7 +182,9 @@ abstract class LanguageFlagMap {
   static String getDeviceAwareCountryCode(
       String language, String deviceLanguage) {
     final List<String> languageParts = _parts(language);
-    if (languageParts.length > 1) return languageParts.last;
+    if (languageParts.length > 1) {
+      return languageParts.last;
+    }
 
     final List<String> deviceParts = _parts(deviceLanguage);
     final String deviceCountry =
