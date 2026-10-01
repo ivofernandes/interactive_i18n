@@ -1,7 +1,7 @@
 name: interactive_i18n
 description: Package for manage translations jsons and widget to let user choose the language
 version: 2.0.5
-homepage: https://incaview.com
+homepage: https://turingdeal.com
 repository: https://github.com/ivofernandes/interactive_i18n
 
 environment:

@@ -126,14 +126,14 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           toolbarHeight: _toolbarHeight,
           title: Text('Flutter Demo Home Page'.t),
-          leading: IconButton(
-            icon: Icon(
-              Icons.brightness_6,
-              color: Theme.of(context).appBarTheme.iconTheme?.color,
-            ),
-            onPressed: widget.toggleDarkMode,
-          ),
           actions: [
+            IconButton(
+              icon: Icon(
+                Icons.brightness_6,
+                color: Theme.of(context).appBarTheme.iconTheme?.color,
+              ),
+              onPressed: widget.toggleDarkMode,
+            ),
             Container(
               margin: const EdgeInsets.only(right: 5),
               child: InteractiveI18nSelector(
